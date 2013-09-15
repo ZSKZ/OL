@@ -1,0 +1,13 @@
+#{extends 'main.html' /}
+#{set title:'searchQues.html' /}
+
+
+#{list items:anq,as:'a'}
+	<p>
+		<a><a style="color:red">标题:</a>${a.title}</a><br/>
+		<a><a style="color:red">标签:</a>${a.label}</a><br/>
+		<a><a style="color:red">学校:</a>${a.school}</a><br/>
+		<a><a style="color:red">内容:</a>${a.content}</a><br/><br/><br/>
+	</p>
+#{/list}
+

@@ -1,0 +1,70 @@
+#{extends 'main.html' /}
+#{set title:'signup.html' /}
+
+<h1 id="title">CSSA注册</h1>
+
+
+<form id="signup" action="@{CSSAs.register}" method="POST" accept-charset="${_response_encoding}">
+	
+	<p>
+		<label>组织名称</label>
+		<input type="text" name="name" value="${flash.name}" id="name" />
+		<span class="error">#{error 'name' /}</span>
+	</p>
+	<p>
+		<label>联系邮箱</label>
+		<input type="text" name="email" value="${flash.email}" id="email" />
+		<span class="error">#{error 'email' /}</span>
+	</p>
+	<p>
+		<label>密码</label>
+		
+			<input type="password" name="password" value="${flash.password}" id="password" />不少于7个字符 <span class="error">#{error 'password' /}</span>
+		</p>
+		<p>
+			<label>密码重复</label>
+			<input type="password" name="password2" value="${flash.password2}" id="password2" /> <span class="error">#{error 'password2' /}</span>
+	</p>
+	<p>
+		<label>官方主页</label>
+		<input type="text" name="homepage" value="${flash.homepage}"  />
+		<span class="error">#{error 'homepage' /}</span>
+	</p>
+	<p>
+		<label>成员人数</label>
+		<select name="peopleNumber">
+		<option selected="selected"value="1-20">1-20</option>
+		<option value="20-50">20-50</option>
+		<option value="50-100">50-100</option>
+		<option value="100-200">100-200</option>
+		<option value="200及以上">200及以上</option>
+		</select>
+		
+		<span class="error">#{error 'people_number' /}</span>
+	</p>
+	<p>
+		<label>组织简介</label>
+		<input type="text" name="selfIntro" value="${flash.selfIntro}" />
+		<span class="error">#{error 'selfIntro' /}</span>
+	</p>
+	<p>
+		<label>申请人</label> 
+		<input type="text" name="applicant" value="${flash.applicant}" />
+		<span class="error">#{error 'applicant' /}</span>
+	</p>
+	<p>
+		<label>申请人职称</label>
+		<input type="text" name="applicantTitle" value="${flash.applicantTitle}"/>
+		<span class="error">#{error 'applicantTitle' /}</span>
+	</p>
+	<p>
+		<label>联系方式</label>
+		<input type="text" name="contract" value="${flash.contract}"  />
+		<span class="error">#{error 'contract' /}</span>
+	</p>
+	
+	<p class="buttons">
+		<input type="submit" value="注册" id="signupButton" />
+	</p>
+		
+</form>

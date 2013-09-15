@@ -1,0 +1,77 @@
+#{extends 'main.html' /}
+#{set title:'myActivity.html' /}
+
+<div class="opporcontent user-conH">
+	<div class="use-f-left" style="clear: both;">
+		<ul>
+			<li style="">
+				<div>
+					<img class="use-img img-polaroid" src="${user.profile}">
+				</div>
+			</li>
+			<li class="use-f-li"><span> <img
+					src="/public/images/Individual_center_activities.png">
+			</span> <a class="use-f-a16" href="@{SimpleUsers.myActivity}">我的活动:</a> <a class="user-f-c">6次</a></li>
+			<li class="use-f-li"><span> <img
+					src="/public/images/Individual_center_question.png">
+			</span> <a class="use-f-a16" href="">我的问答:</a> <a class="user-f-c">6次</a></li>
+			
+			
+		</ul>
+	</div>
+	<div style="padding-top: 20px; width: 774px; float: left;">
+		<ul>
+			<li><a class="use-f-a16">${user.name}</a> <span> <img
+					src="/public/images/edit.png">
+			</span> <a class="userinfo-font-w" href="@{SimpleUsers.updateProfile(user.id)}">编辑个人资料</a></li>
+			<li class="use-f-li">
+			<span>#{if user.peopleNumber}
+			<a class="userinfo-font-b">${user.peopleNumber}</a> 
+			<a class="userinfo-font-w">人,</a>
+			#{/if} 
+			#{if user.homepage} 
+			<a class="userinfo-font-w">主页：</a> 
+			<a class="userinfo-font-b">${user.homepage}，</a> 
+			#{/if} 
+		
+			#{if user.contract} 
+			<a class="userinfo-font-w">手机号</a> 
+			<a class="userinfo-font-b">${user.contract}，</a> 
+			#{/if}
+			</span>
+			</li>
+			<li class="use-f-li"><a class="use-f-a16" style="color: #000000">签名:${user.selfIntro?user.selfIntro:'无'}</a>
+			</li>
+			<li style="padding-top: 70px;"><a class="btn btn-info use-but"
+				href="@{Activities.create}"> <img src="/public/images/flag.png">发起活动
+			</a> <a class="btn btn-info use-but" href="@{QuestAnsw.QuesIndex}"> <img
+					src="/public/img/question.png">我要提问
+			</a></li>
+		</ul>
+
+	</div>
+	<div class="float-1">
+	发布的活动:
+	<div>
+	#{list items:postedActivity,as:'activity'}
+	<p><img src="${user.profile}" /> 我发布了活动 <a href="@{Activities.detail(activity.id)}">${activity.name}
+	<img alt="" src="${activity.poster}">
+	</a></p>
+	<p>活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
+	
+	#{/list}
+	
+	</div>
+	<hr />
+	
+	关注的活动：
+	<div>
+	#{list items:LikedActivity,as:'activity'}
+	<p><img src="${user.profile}" /> 我关注了活动 <a href="@{Activities.detail(activity.id)}">${activity.name}</a>
+	<img alt="" src="${activity.poster}">
+	</p>
+	<p>活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
+	#{/list}
+	</div>
+	</div>
+</div>

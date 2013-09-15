@@ -1,0 +1,31 @@
+#{extends 'main.html' /} #{set title:'login.html' /}
+ 
+<h1 id="title">Login</h1>
+<p class="light"></p>
+
+<form id="login" action="@{SimpleUsers.authenticate}" method="POST"
+	accept-charset="${_response_encoding}">
+	<p>
+		<label>Email</label> <input type="text" name="email"
+			value="${flash.email}" id="email" /><span class="error">#{error 'email' /}</span>
+	</p>
+	<p>
+		<label>Password</label> <input type="password" name="password"
+			value="" id="password" /><span class="error">#{error 'password' /}</span>
+	</p>
+
+	<p class="buttons">
+		<input type="submit" value="Login" id="loginButton" />
+	</p>
+</form>
+
+<p>
+	<a href="@{SimpleUsers.forgetPassword}">忘记密码?</a>
+</p>
+
+#{if flash.notconfirmed}
+<p>
+	邮箱未见证，重新<a class="action"
+		href="@{SimpleUsers.resendConfirmation(flash.notconfirmed)}">发送</a>邮件。
+</p>
+#{/if}

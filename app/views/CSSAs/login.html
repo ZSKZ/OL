@@ -1,0 +1,30 @@
+#{extends 'main.html' /}
+#{set title:'login.html' /}
+
+<h1 id="title">Login</h1>
+<p class="light">
+    
+</p>
+
+<form id="login" action="@{CSSAs.authenticate}" method="POST" accept-charset="${_response_encoding}">
+	<p>
+		<label>Email</label>
+		<input type="text" name="email" value="${flash.email}" id="email" />
+	</p>
+	<p>
+		<label>Password</label>
+		<input type="password" name="password" value="" id="password" />
+	</p>
+	
+	<p class="buttons">
+		<input type="submit" value="Login" id="loginButton" />
+	</p>
+</form>
+
+<p><a href="@{CSSAs.forgetPassword}">忘记密码?</a></p>
+
+#{if flash.notconfirmed}
+	<p>
+		邮箱未见证，重新<a class="action" href="@{Cssas.resendConfirmation(flash.notconfirmed)}">发送</a>邮件。
+	</p>
+#{/if}

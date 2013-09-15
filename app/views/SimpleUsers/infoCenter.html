@@ -1,0 +1,62 @@
+#{extends 'main.html' /} #{set title:'infoCenter.html' /}
+<div class="opporcontent user-conH">
+	<div class="use-f-left" style="clear: both;">
+		<ul>
+			<li style="">
+				<div>
+					<img class="use-img img-polaroid" src="${user.profile}">
+				</div>
+			</li>
+			<li class="use-f-li"><span> <img
+					src="/public/images/Individual_center_activities.png">
+			</span> <a class="use-f-a16" href="@{SimpleUsers.myActivity}">我的活动:</a></li>
+			<li class="use-f-li"><span> <img
+					src="/public/images/Individual_center_question.png">
+			</span> <a class="use-f-a16" href="">我的问答:</a></li>
+
+
+		</ul>
+	</div>
+	<div style="padding-top: 20px; width: 774px; float: left;">
+		<ul>
+			<li><a class="use-f-a16">${user.name}</a> <span> <img
+					src="/public/images/edit.png">
+			</span> <a class="userinfo-font-w"
+				href="@{SimpleUsers.updateProfile(user.id)}">编辑个人资料</a></li>
+			<li class="use-f-li">
+			<span>#{if user.age}
+			<a class="userinfo-font-b">${user.age}</a> 
+			<a class="userinfo-font-w">岁,</a>
+			#{/if} 
+			#{if user.hometown} 
+			<a class="userinfo-font-w">来自</a> 
+			<a class="userinfo-font-b">${user.hometown}，</a> 
+			#{/if} 
+			#{if user.school} 
+			<a class="userinfo-font-w">学校</a> 
+			<a class="userinfo-font-b">${user.school}，</a> 
+			#{/if} 
+			#{if user.ralationship} 
+			<a class="userinfo-font-b">${user.ralationship}，</a>
+			#{/if} 
+			#{if user.contract} 
+			<a class="userinfo-font-w">手机号</a> 
+			<a class="userinfo-font-b">${user.contract}，</a> 
+			#{/if}
+			</span>
+			</li>
+			<li class="use-f-li"><a class="use-f-a16" style="color: #000000">签名:${user.selfIntro?user.selfIntro:'无'}</a>
+			</li>
+			<li style="padding-top: 70px;"><a class="btn btn-info use-but"
+				href="@{Activities.create}"> <img src="/public/images/flag.png">发起活动
+			</a> <a class="btn btn-info use-but" href="@{QuestAnsw.QuesIndex}"> <img
+					src="/public/img/question.png">我要提问
+			</a></li>
+		</ul>
+
+	</div>
+	<div class="float-1"></div>
+</div>
+
+
+

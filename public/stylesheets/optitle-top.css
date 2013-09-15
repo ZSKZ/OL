@@ -1,0 +1,210 @@
+﻿	body{
+		background:#f3f3f3;
+		
+		
+		}
+		.titleSearch{
+			 float:left;
+			 padding-top:8px;
+		
+		}
+		.search-text{
+			float:left;
+			width:210px;
+		
+		}
+		.search-pic{
+			float:left;
+			padding-top:10px;		
+		}
+		.search-pic2{
+			width:29px; 
+			height:30px;
+			background-color:#4b7390;
+			background-image:url(../img/search.png);		
+		}
+		.title-username{
+			float:left; 
+			padding-left:20px; 
+			padding-top:25px;
+		
+		}
+		.title-username a{
+			color:#FFFFFF; 
+		
+		}
+		 
+		.title-exit{
+			float:left;
+			padding-left:30px;
+			padding-top:25px;
+		
+		}
+		.title-exit a{
+			 color:#CCCCCC; 
+		}
+	 
+	 
+ 
+		a:hover, a:focus {
+	 	text-decoration: none;
+	   
+		}
+		.top-pic{
+		 float:left;
+		 width:270px;
+	
+	}
+	
+		.maintitle{
+				height:62px;
+				width:auto;;
+				background:#4b7390;
+				border:1px solid #CCC;
+			}
+		 
+		 
+		.touConten{	
+			height:62px;
+			width:1024px;
+			margin:auto;
+			background-color:#4b7390;
+			text-align:left;
+		}
+		 
+		 
+		 
+		.opporlinklog{
+			height:43px;
+			float:left;
+			margin-top:13px;
+			width:235px;
+			
+			
+		}
+
+
+		.titleinput{
+		background-color:#000000;
+		margin-top:10px;
+		}
+		 
+		 
+		.biaoti{
+		height:50px;
+		width:350px;
+		text-align :center;
+		padding:11px;
+		padding-bottom:0px;
+		font-family:Arial;
+		font-size:14px;
+		float:left; 
+		 
+		 
+		}
+
+		 
+		.biaotifont{
+		font-weight:800;
+		color:#FFFFFF;
+		}
+		 
+		 
+		.titleinput{
+		background-color:#000000 !important;
+		color:#FFFFFF !important;
+		font-family:Arial;
+		font-size:6px !important;
+		height:30px !important;
+		width:230px !important;
+		}
+		 
+/*
+.error,.success{
+		
+		width:300px;
+		margin-left:auto;
+		margin-right:auto;
+		padding: 8px 20px 10px 34px;
+		border-style: solid;
+		border-width: 1px 1px 1px 5px;
+	
+	}
+
+	.error {
+		background: #FFF9F9 url(../img/3.png) no-repeat 16px 10px;
+		border-color:  red;
+		color:red;
+		display: block;
+		
+		
+	}
+	*/
+	 .success {
+		background: #FBFFF2 url(../img/4.png) no-repeat 16px 10px;
+		border-color: #51a351;
+		color: #51a351;
+	 }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	 
+		.bottom-list{
+	
+		color:white;
+	
+	
+	}
+		.bottom_pic{
+			margin-top:8px;
+			margin-left:10px;
+			
+		}
+		
+		#bottom-nav{
+		
+			margin-left:30%;
+		 
+		}
+		.container-fluid{
+			background-color:#5282a5;
+			 
+		}
+		
+		.list3{
+			color:white;
+		
+		}
+		.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+			color: #FFFFFF;
+		
+		
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		 
+ 
+ 

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href="/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8 " />
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+<title></title>
+<link rel="stylesheet" href="@{'/public/stylesheets/bootstrap.css'}" />
+<link rel="stylesheet" href="@{'/public/stylesheets/optitle-top.css'}" />
+<link rel="stylesheet" href="@{'/public/stylesheets/optitle.css'}" />
+<link rel="stylesheet" href="@{'/public/stylesheets/wel.css'}" />
+<link rel="stylesheet" href="@{'/public/stylesheets/style-activity.css'}" />
+#{get 'Styles'  /}
+</head>
+<body>
+	<!-- 标题 -->
+	<div class="maintitle">
+		<div class="touConten">
+			<div>
+				<img class="opporlinklog" src="/public/img/logo_.png">
+			</div>
+			<div class="biaoti">
+				<ul class="nav nav-pills">
+					<li><a
+						class="${request?.controller == 'Application' ? 'selected' : ''} biaotifont"
+						href="@{Application.index}">首页</a></li>
+					<li><a class="biaotifont"
+						class="${request?.controller == 'Airports' ? 'selected' : ''} biaotifont"
+						href="@{Airports.index}">接机</a></li>
+					<li><a
+						class="${request?.controller == 'Activities' ? 'selected' : ''} biaotifont"
+						href="@{Activities.index}">活动</a></li>
+					<li><a
+						class="${request?.controller == 'QAs' ? 'selected' : ''} biaotifont"
+						href="@{QAs.index}">问答</a></li>
+					<li><a
+						class="${request?.controller == 'Charities' ? 'selected' : ''} biaotifont"
+						href="@{Charities.index}">公益</a></li>
+				</ul>
+			</div>
+
+			<div class="titleSearch ">
+				<form>
+					<div class="search-text">
+						<input class="span2 titleinput" type="text"
+							placeholder="搜索感兴趣的活动、话题或人...">
+					</div>
+					<div class="search-pic">
+						<button type="button" class="search-pic2"></button>
+					</div>
+				</form>
+			</div>
+
+			#{if connectedSimpleUser}
+
+			<div class="title-username">
+				<a> 你好， <a class="connectedUser"
+					href="@{SimpleUsers.infoCenter(connectedSimpleUser.id)}">${connectedSimpleUser.name}</a>
+					！
+				</a>
+			</div>
+
+			<div class="title-exit">
+				 <a href="@{SimpleUsers.logout}">退出</a>
+			</div>
+
+			#{/if} #{elseif connectedCSSA}
+			<div class="title-username">
+				 你好，<a class="connectedUser"
+					href="@{CSSAs.infoCenter(connectedCSSA.id)}">${connectedCSSA.name}</a> ！
+				
+			</div>
+
+			<div class="title-exit">
+				<a> <a href="@{CSSAs.logout}">退出</a></a>
+			</div>
+
+			#{/elseif} #{else}
+			<div>
+				<a href="@{SimpleUsers.signup}">注册</a>. <a
+					href="@{SimpleUsers.login}">登陆</a>. <a href="@{CSSAs.signup}">CSSA注册</a>.
+				<a href="@{CSSAs.login}">CSSA登陆</a>.
+			</div>
+			#{/else}
+
+
+
+		</div>
+	</div>
+<div style="clear:both"></div>
+	<div>
+
+		#{if flash?.error}
+		<div style="color:red;background-color:#000">${flash.error}</div>
+		#{/if} #{if flash?.success}
+		<div style="color:green;background-color:#000">${flash.success}</div>
+		#{/if}
+
+	</div>
+	#{doLayout /}
+	<div style="clear: both"></div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="navbar navbar-inverse navbar-static-bottom">
+				<div class="navbar">
+					<div class="container-fluid">
+
+						<div class="nav-collapse collapse navbar-responsive-collapse">
+
+							<ul class="nav" id="bottom-nav">
+								<li><a href="#" class="list3">&copy; opporlink&nbsp; 奥噗</a></li>
+								<li><a href="#" class="list3">关于我们</a></li>
+								<li><a href="#" class="list3">加入奥噗</a></li>
+
+								<li><img src="/public/img/share_facebook.png"
+									class="bottom_pic" /></li>
+								<li><img src="/public/img/share_google+.png"
+									class="bottom_pic" alt="" /></li>
+								<li><img src="/public/img/share_twitter.png"
+									class="bottom_pic" alt="" /></li>
+								<li><img src="/public/img/share_weibo.png"
+									class="bottom_pic" alt="" /></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/public/javascripts/jquery.js"></script>
+	<script src="/public/javascripts/bootstrap-modal.js"></script>
+	<script src="/public/javascripts/bootstrap.min.js"></script>
+	#{get 'Scripts'  /}
+</body>
+</html>
+
+

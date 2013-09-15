@@ -1,0 +1,264 @@
+/************************************************************************************
+smaller than 1380
+*************************************************************************************/
+@media screen and (max-width: 1380px) {
+
+	
+	
+		#login{
+			margin-left:60%;
+		
+		
+		}
+
+}
+/************************************************************************************
+smaller than 1200
+*************************************************************************************/
+@media screen and (max-width: 1200px) {
+
+	 
+	#login{
+		margin-left:50%;
+		 
+		float:none;
+	
+	}
+	.small-title3{
+		display:none;
+	
+	}
+	.opp-1{
+		left:5%;
+	}
+}
+/************************************************************************************
+smaller than 960
+*************************************************************************************/
+@media screen and (max-width: 960px) {
+	.title-pic:{
+		width:auto;
+		float: none;
+	
+	}
+	 
+	#login{
+		margin-left:50%;
+	 
+		float:none;
+	
+	}
+	.small-title3{
+		display:none;
+	
+	}
+	
+}
+/************************************************************************************
+smaller than 800
+*************************************************************************************/
+@media screen and (max-width: 700px) {
+	.title-pic:{
+		width:auto;
+		float: none;
+	
+	}
+	 
+	#login{
+		margin-left:50%;
+		float:none;
+		 
+	}
+	.pic-5{
+			
+			width:100%;
+		}
+	.pic-6{
+			
+			width:100%;
+		}
+	.left1{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	.left2{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	
+	
+	.right1{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	
+	.right2{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	.small-title3{
+		display:none;
+	
+	}
+	#bottom-nav{
+		margin-left:20%;
+	}
+	.bottom_pic{
+			
+			margin-left:3px;
+			
+	}
+
+	
+}
+	
+	
+/************************************************************************************
+smaller than 650
+*************************************************************************************/
+@media screen and (max-width: 650px) {
+
+
+	.title-pic:{
+		width:auto;
+		float: none;
+	
+	}
+	 
+	#login{
+		margin-left:50%;
+		float:none;
+	
+	}
+	.pic-5{
+			
+			width:100%;
+		}
+	.pic-6{
+			
+			width:100%;
+		}
+	.left1{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	.left2{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	
+	.right1{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	
+	.right2{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	.small-title3{
+		display:none;
+	
+	}
+	#bottom-nav{
+		margin-left:1%;
+	}
+	.bottom_pic{
+			
+			margin-left:3px;
+			
+	}
+
+	
+}
+
+/************************************************************************************
+smaller than 560
+*************************************************************************************/
+@media screen and (max-width: 480px) {
+
+	/* disable webkit text size adjust (for iPhone) */
+	#bottom-pic{
+		margin-left:0;
+	}
+	.title-pic:{
+		width:auto;
+		float: none;
+		display:none;
+	
+	}
+	.opp-1,.opp-2{
+	display:none;}
+	#login{
+		margin-left:20%;
+		float:none;
+		display:none;
+	
+	}
+	.pic-5{
+			
+			width:100%;
+		}
+	.pic-6{
+			
+			width:100%;
+		}
+	.left1{
+		width: 100%;
+		margin: 0 auto;
+		float: none;
+	
+	}
+	.left2{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	
+	.right1{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	
+	.right2{
+		width: 100%;
+		margin: 0;
+		float: none;
+	
+	}
+	.small-title2{
+		display:none;
+	
+	}
+	#bottom-nav{
+		margin-left:1%;
+	}
+	.bottom_pic{
+		display:none;
+	}
+
+	
+
+
+	
+}
+

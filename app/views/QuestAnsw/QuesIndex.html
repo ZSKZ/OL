@@ -1,0 +1,87 @@
+#{extends 'main.html' /}
+#{set title:'QuesIndex.html'/}
+ 	<script language="javascript" type="text/javascript">
+	$(document).ready(function(){
+	 
+	 $(".op-51").click(function(){
+	  $(this).toggleClass("current");
+	 });
+	});
+	</script>
+
+
+<div class="oppcontent-2" >
+	 	<div class="op-left1">
+			
+			<div class="op-left2">
+		 
+			<h3 style=" ">提问</h3>
+ 		<form  id="QuesIndex" action="@{QuestAnsw.dispAddQues}"  method="post"    accept-charset="${_response_encoding}">
+		<div class="qu-1">
+		 <div class="op-title">标题</div>
+		 
+			<input type="text" id="title" name="title" value="${flash.title}" placeholder="请输入文章标题......" class="qaTiInpu">
+			</div>
+			
+			<div class="float-1"></div>
+		
+		  <div class="op-c">问题说明</div>
+			<label class="wr-1">	 
+				<!--  <textarea id="elm1" name="area" value="${flash.content}"> </textarea>  -->
+					  <textarea id="content" name="content" value="${flash.content}" style="width: 376px;" rows="7"></textarea>
+			     </label>
+		  <div class="op-c1">选择学校
+		  			<select name="Country" class="sel-1 sel">
+						  #{list items:c,as:'country'}
+				   			  <option value="${country.id}">${country.name}</option>
+				   		  #{/list}
+					</select>
+					<select name="Province" class="sel-1 sel">
+							#{list items:p,as:'province'}
+						     <option value="${province.id}">${province.name}</option>
+						     #{/list}
+					</select>
+		  			 <select class="sel-1 sel" name="City">
+						#{list items:ci,as:'city'}
+					     <option value="${city.id}">${city.name}</option>
+					     #{/list}
+					</select>
+		  			<select class="sel-1 sel" name="QuesSchool">
+						#{list items:q,as:'quesSchool'}
+				    	 <option value="${quesSchool.name}">${quesSchool.name}</option>
+				    	 #{/list}
+					</select>
+		  </div>
+			 
+				
+				 <div class="op-c1">选择标签
+					 <span class="op-13-1">标签越精细，越容易让专业人士看到你的问题</span>
+				 </div>
+				 
+				 
+				 
+		 <div style="clear:both"></div>
+				 
+			<ul class="bq-1" style="width:630px;clear:both; margin-left:70px; ">
+				#{list items:t,as:'tag'}
+				<li class="op-51">
+						<input type="checkbox" class="" name="Tag" id="Tag"  value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""} />
+						<a class="op-6"> ${tag.tagName}</a>
+						</li>
+				#{/list}	
+			 </ul>	 
+			 <span class="op-13" style="float:right">至少选择一个标签</span>
+			 	 <div class="float-1"></div>
+					 <label class="op-52" style="width:190px;">
+						  <input class="btn btn-large btn-primary" type="submit" />
+						  <input class="btn btn-large" type="reset" style="margin-left:30px;" />
+					</label>	 
+		 	 </form>
+		 </div>
+			 
+		</div>
+	
+	  <div class="float-1"></div>
+	 
+	 </div>
+

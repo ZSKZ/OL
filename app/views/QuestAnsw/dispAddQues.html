@@ -1,0 +1,170 @@
+#{extends 'main.html' /}
+#{set title:'dispAddQues.html'/}
+
+<script type="text/javascript"> 
+$(document).ready(function(){
+	var comments=#{jsAction @QuestAnsw.comments(':comment',':author',':answerNum',':praiseNum',':focu',':question_id',':quesid',':neQuesid')  /}
+		$('#submitbutton').click(
+		  function(){
+			 // alert($("#quesid").val()+"qid");
+			  var c=$("#comment").val();
+			  var qid=$("#quesid").val();
+			  $.get(comments({ comment:c, author: "1s", answerNum: 1,praiseNum:1,focu:1,question_id:1,quesid:qid,neQuesid:1}),
+				  function(data) {
+	           		$('#showCom').html("我的回答："+data);
+		       })
+		  })
+	});
+</script>
+
+<!-- 
+
+	<p>
+		<a href="@{QuestAnsw.QuesIndex}">返回</a>
+	</p>
+	<div>
+		<p>
+			<a style="color: #0033FF;">标题</a><br /> <a style="color: red;">${newQues.title}</a>
+		</p>
+		<p>
+			<a style="color: #0033FF;">标签</a><br /> <a style="color: red;">${newQues.label}</a>
+		</p>
+		<p>
+			<a style="color: #0033FF;">学校</a><br /> <a style="color: red;">${newQues.school}</a>
+		</p>
+		<p>
+			<a style="color: #0033FF;">内容</a><br /> <a style="color: red;">${newQues.content}</a>
+		</p>
+		
+
+		<form id="comments" action="@{QuestAnsw.comments}" method="post">
+			<div>
+				<p>
+					<a>网友回答 </a>
+					<p>
+						#{list items:addCom,as:'ac'}
+				    		<a>yuqianyi：</a><a>${ac.comment}</a><br />
+				    		<!-- 
+				    		<div class="hidden">
+				    		<a onClick="" style="font-size:14px">我来回答</a><br />
+				    		<textarea rows="2" cols="15"></textarea><br />
+				    		<input type="button" value="submit" /> 
+				    		</div>
+				    		 -->
+				    		 <!-- 
+				    		<br /><br />	
+				    		
+				  	   	#{/list}
+					</p>
+					<br/>
+					<div id="showCom" ></div>
+				</p>
+				<p>
+					<a>${newQues.id}</a><br />
+					<input type="hidden"  id="quesid" name="quesid" value="${newQues.id}" /> 
+					<a>
+						<textarea rows="5" id="comment" name="comment" value="${flash.comment}"></textarea>
+					</a>
+				</p>
+				<p>
+					 <input type="button" id="submitbutton" value="提交" />
+				</p>
+			</div>
+		</form>
+
+
+	</div>
+ -->
+ 
+ 
+ <div class="oppcontent-2">
+	 	<!--左边部分-->
+		<div class="op-left">
+			<div class="op-1">	
+				<h4>${newQues.title}</h4>
+			</div>
+				<div>
+					<span >${newQues.label}</span>
+				</div>
+			 <div class="float-1"></div>
+			 
+			<div class="op-7">张少康，准留学生一枚</div>
+			
+			<p class="op-8">${newQues.content}</p>
+			
+		 <div class="op-9">4个回答</div>
+		 <!--内容-->	 
+ 				#{list items:addCom,as:'ac'}
+ 				<p class="op-14">
+	    			<a>yuqianyi：</a><a>${ac.comment}</a><br />
+	    			<br /><br />
+	    			</p>	
+	  	   		#{/list}
+	  	   		
+	  	   		<br />
+	  	   		
+	  	   			<a id="showCom"> </a>
+	  	   		
+		  
+		  
+		 <label class="op-15">yuqianyi,回答问题</label>
+			 <form id="comments" action="@{QuestAnsw.comments}" method="post">
+			 	<input type="hidden"  id="quesid" name="quesid" value="${newQues.id}" /> 
+		 		<textarea rows="5" id="comment" name="comment" value="${flash.comment}"></textarea>
+		 		<br/>
+			 	<input type="button" id="submitbutton" value="提交" class="btn btn-primary" />
+			 </form>
+		 
+	</div>
+ </div>
+		<div class="op-right">
+		
+				<div class="op-right1">
+					<button class="btn btn-primary" type="button">关注问题</button>
+				</div>
+				<label class="op-17">
+				<span class="op-18">34<span>
+				<span class="op-13">人已关注</span>
+				 
+				</span></span></label>
+			
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a> 
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+		     <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+			 <a href="#"><img src="img/w1.png" class="op2-right2"></a>
+		 
+	 	<div style="clear:both"></div>
+		
+			<h5 class="op-10">相关问题</h5>
+		
+	 		<label class="op-17"><a href="" class="asa">v加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+			
+			<label class="op-17"><a href="">加州大学怎么样，留学生多不多?加州大学怎么样，留学生多不多?加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+			
+			<label class="op-17"><a href="">加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+			
+			<label class="op-17"><a href="">加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+
+			<label class="op-17"><a href="">加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+		
+		</div>
+		
+	 	  <div class="float-1"></div>
+	 
+	 
+	 </div>

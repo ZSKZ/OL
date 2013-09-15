@@ -1,0 +1,28 @@
+#{extends 'main.html' /}
+#{set title:'signup.html' /}
+
+<h1 id="title">注册</h1>
+
+<form id="signup" action="@{SimpleUsers.register}" method="POST" accept-charset="${_response_encoding}">
+	<p>
+		<label>邮箱</label>
+		<input type="text" name="email" value="${flash.email}" id="email" />
+		<span class="error">#{error 'email' /}</span>
+	</p>
+	<p>
+		<label>昵称</label>
+		<input type="text" name="name" value="${flash.name}" id="name" />
+		<span class="error">#{error 'name' /}</span>
+	</p>
+	<p>
+		<label>密码</label>
+			<input type="password" name="password" value="${flash.password}" id="password" /> <span class="error">#{error 'password' /}</span>
+			</p><p>
+			<label>重复密码</label>
+			<input type="password" name="password2" value="${flash.password2}" id="password2" /> <span class="error">#{error 'password2' /}</span>
+	</p>
+	<p class="buttons">
+		<input type="submit" value="注册" id="signupButton" />
+	</p>
+		
+</form>

@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+#{set title:'changeEmail.html' /}
+<div class="opporcontent">
+<form method="post" action="@{CSSAs.doChangeEmail}"  accept-charset="${_response_encoding}">
+<label>新邮箱</label>
+<input type="text" name="email" value="${flash.email}" /><span>#{error 'email' /}</span>
+<input type="hidden" name="id" value="${id}"  />
+<input type="submit" value="更改"> 
+</form>
+</div>

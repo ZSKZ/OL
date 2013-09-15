@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+#{set title:'changeProfile.html' /}
+<div class="opporcontent">
+当前形象：<img src="${user.profile}" style="width:48px;height:48px;" />更换：
+<form action="@{SimpleUsers.doChangeProfile}" enctype = "multipart/form-data" method="post"	 > 
+<input type="file" name="profile" />
+<input type="hidden" name="id" value="${user.id}" />
+<input type="submit" value="上传" />
+</form>
+</div>
