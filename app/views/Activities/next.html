@@ -1,6 +1,6 @@
 #{extends 'main.html'  /}
 #{set title:'next.html' /}
-<div class="opporcontent">
+<div>
 上传海报：
 <form action="@{Activities.post}" enctype = "multipart/form-data" method="post">
 <input type="file" name="poster"  /><span>#{error 'poster' /}</span>

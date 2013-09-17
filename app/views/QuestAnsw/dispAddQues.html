@@ -3,120 +3,91 @@
 
 <script type="text/javascript"> 
 $(document).ready(function(){
-	var comments=#{jsAction @QuestAnsw.comments(':comment',':author',':answerNum',':praiseNum',':focu',':question_id',':quesid',':neQuesid')  /}
+	var comments=#{jsAction @QuestAnsw.comments(':quesid',':comment',':praiseNum',':userid',':usertype',':username',':userprofile',':selfIntro')  /}
 		$('#submitbutton').click(
 		  function(){
-			 // alert($("#quesid").val()+"qid");
 			  var c=$("#comment").val();
 			  var qid=$("#quesid").val();
-			  $.get(comments({ comment:c, author: "1s", answerNum: 1,praiseNum:1,focu:1,question_id:1,quesid:qid,neQuesid:1}),
+
+			  $.get(comments({ comment:c,quesid:qid,praiseNum:100,userid:100,usertype:100,username:100,userprofile:100,selfIntro:100}),
 				  function(data) {
 	           		$('#showCom').html("我的回答："+data);
 		       })
 		  })
 	});
 </script>
-
-<!-- 
-
-	<p>
-		<a href="@{QuestAnsw.QuesIndex}">返回</a>
-	</p>
-	<div>
-		<p>
-			<a style="color: #0033FF;">标题</a><br /> <a style="color: red;">${newQues.title}</a>
-		</p>
-		<p>
-			<a style="color: #0033FF;">标签</a><br /> <a style="color: red;">${newQues.label}</a>
-		</p>
-		<p>
-			<a style="color: #0033FF;">学校</a><br /> <a style="color: red;">${newQues.school}</a>
-		</p>
-		<p>
-			<a style="color: #0033FF;">内容</a><br /> <a style="color: red;">${newQues.content}</a>
-		</p>
-		
-
-		<form id="comments" action="@{QuestAnsw.comments}" method="post">
-			<div>
-				<p>
-					<a>网友回答 </a>
-					<p>
-						#{list items:addCom,as:'ac'}
-				    		<a>yuqianyi：</a><a>${ac.comment}</a><br />
-				    		<!-- 
-				    		<div class="hidden">
-				    		<a onClick="" style="font-size:14px">我来回答</a><br />
-				    		<textarea rows="2" cols="15"></textarea><br />
-				    		<input type="button" value="submit" /> 
-				    		</div>
-				    		 -->
-				    		 <!-- 
-				    		<br /><br />	
-				    		
-				  	   	#{/list}
-					</p>
-					<br/>
-					<div id="showCom" ></div>
-				</p>
-				<p>
-					<a>${newQues.id}</a><br />
-					<input type="hidden"  id="quesid" name="quesid" value="${newQues.id}" /> 
-					<a>
-						<textarea rows="5" id="comment" name="comment" value="${flash.comment}"></textarea>
-					</a>
-				</p>
-				<p>
-					 <input type="button" id="submitbutton" value="提交" />
-				</p>
-			</div>
-		</form>
-
-
-	</div>
- -->
- 
- 
- <div class="oppcontent-2">
+ <div class="opporcontent">
 	 	<!--左边部分-->
 		<div class="op-left">
-			<div class="op-1">	
-				<h4>${newQues.title}</h4>
-			</div>
-				<div>
-					<span >${newQues.label}</span>
-				</div>
-			 <div class="float-1"></div>
-			 
-			<div class="op-7">张少康，准留学生一枚</div>
-			
-			<p class="op-8">${newQues.content}</p>
-			
-		 <div class="op-9">4个回答</div>
-		 <!--内容-->	 
- 				#{list items:addCom,as:'ac'}
- 				<p class="op-14">
-	    			<a>yuqianyi：</a><a>${ac.comment}</a><br />
-	    			<br /><br />
-	    			</p>	
-	  	   		#{/list}
-	  	   		
-	  	   		<br />
-	  	   		
-	  	   			<a id="showCom"> </a>
-	  	   		
-		  
-		  
-		 <label class="op-15">yuqianyi,回答问题</label>
+		 <div >
+				<ul style="border-bottom:1px solid #dddddd; padding-top:20px; padding-bottom:5px;"  >
+					<li  class="qatitle">	
+						<a  style="font-size:24px; color:#000000; font-family:'宋体'; font-weight:bold;">${newQues.title}</a>
+					</li>
+				
+					<li class="qatitle">
+						<a class="qatitlea" >${newQues.label}</a>
+					</li>
+					<li class="qatitle">
+						<a class="qatitlea" style="font-size:10px ; color:#CCCCCC;">张少康，准留学生一枚</a>
+					</li>
+				
+					<li class="qatitle" style="padding-bottom:25px;">
+						<a class="qatitlea"  style="text-indent:2em; font-weight:bold;">${newQues.content.raw()}</a>
+					</li>
+					<li class="qatitle"   style="border-top:1px solid #dddddd;">
+						<a>4个回答</a>
+					</li>
+			 	</ul>
+		 </div>
+		  <div>
+		 	#{list items:listCom,as:'ac'}
+			 	<ul style="border-bottom:1px solid #dddddd; padding-bottom:5px;">
+			 		<li class="qatitle">
+		    			<span><a style="color:#000000;">yuqianyi：</a><a style="color:#000000;font-weight:bold;">大地母亲在忽悠你</a></span>
+		    		</li>
+		    		<li class="qatitle">
+			 			<a > <img src=" /public/images/1-2.PNG"></a><a style="font-size:10px ; color:#CCCCCC;">16票,</a> <a style="font-size:10px ; color:#CCCCCC;">2013-03-14</a>
+			 		</li>
+		    		<li class="qatitle">
+		    			<a >${ac.comment.raw()}</a>
+		    		</li>
+		    		<li class="qatitle">
+		    			<a ><img src=" /public/images/answer.png"></a><a style="font-size:10px ; color:#CCCCCC;">评论</a>
+		    		</li>
+		  	   	</ul>
+	  	   #{/list}	
+	  	  </div> 
+	  		<div >
+		   		<ul style="border-bottom:1px solid #dddddd; padding-bottom:5px;">
+			 		<li class="qatitle">
+			   			<span><a style="color:#000000;">yuqianyi：</a><a style="color:#000000;font-weight:bold;">大地母亲在忽悠你</a></span>
+			   		</li>
+			   		<li class="qatitle">
+			 			<a > <img src=" /public/images/1-2.PNG"></a><a style="font-size:10px ; color:#CCCCCC;">16票,</a> <a style="font-size:10px ; color:#CCCCCC;">2013-03-14</a>
+			 		</li>
+			   		<li class="qatitle">
+			   			<a id="showCom" ></a>
+			   		</li>
+			   		<li class="qatitle">
+			   			<a ><img src=" /public/images/answer.png"></a><a style="font-size:10px ; color:#CCCCCC;">评论</a>
+			   		</li>
+	 	       </ul>
+  			</div>
+	  	
+	  	 <div style="margin-left:20px;padding-bottom:50px;">
+				 <li class="qatitle" style="padding-bottom:40px;">
+				 	<a>yuqianyi</a><a>,回答问题</a>
+				 </li>
 			 <form id="comments" action="@{QuestAnsw.comments}" method="post">
-			 	<input type="hidden"  id="quesid" name="quesid" value="${newQues.id}" /> 
-		 		<textarea rows="5" id="comment" name="comment" value="${flash.comment}"></textarea>
-		 		<br/>
-			 	<input type="button" id="submitbutton" value="提交" class="btn btn-primary" />
+			 	 <input type="hidden"  id="quesid" name="quesid" value="${newQues.id}" /> 
+		 		 <textarea  style="width:540px;" rows="10" cols="20" rows="5" id="comment" name="comment" value="${flash.comment}"></textarea>
+				 <input type="button" id="submitbutton" value="提交" class="btn btn-primary" onClick="toTransformData()" 
+			     style="float:right; width:80px;"/>
 			 </form>
-		 
+		 </div>
 	</div>
- </div>
+
 		<div class="op-right">
 		
 				<div class="op-right1">
@@ -166,5 +137,4 @@ $(document).ready(function(){
 		
 	 	  <div class="float-1"></div>
 	 
-	 
-	 </div>
+</div>

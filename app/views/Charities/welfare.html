@@ -1,0 +1,159 @@
+#{extends 'main.html' /}
+#{set title:'welfare.html'/}
+
+
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	
+	<link rel="stylesheet" href="../../../public/stylesheets/wel.css" />
+	<link rel="stylesheet" href="../../../public/stylesheets/optitle-top.css" type="text/css" >
+	<link rel="stylesheet" href="../../../public/stylesheets/bootstrap.css" />	
+		
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css"></style>
+</head>
+
+<body>
+	 
+	
+		<!-- 这里是标题-->
+		<div class="maintitle" style="text-align:center;">
+			<div class="touConten">
+					<div>
+						<img class="opporlinklog" src="../../../public/images/logo_.png">
+					</div>		
+					<div class="biaoti">
+						<ul class="nav nav-pills">
+							<li >
+							<a href="#" class="biaotifont"    class="current"  onclick="change_bg(this)"  >首页</a></li>
+							<li >
+							<a href="#" class="biaotifont"     onclick="change_bg(this)" >新生接机</a></li>
+							<li >
+							<a href="#" class="biaotifont"    onclick="change_bg(this)"   >活动</a></li>
+							<li >
+							<a href="#" class="biaotifont"      onclick="change_bg(this)"   >问答</a></li>
+							<li >
+							<a href="#" class="biaotifont"   onclick="change_bg(this)"  >公益</a></li>
+						</ul>
+					</div>
+					
+					<div class="titleSearch ">
+						<form >
+						  <div class="search-text">
+								<input class="span2 titleinput"  type="text" placeholder="搜索感兴趣的活动、话题或人...">
+						  </div>
+						  <div class="search-pic"> 
+							<button type="button" class="search-pic2">
+							  </button>
+						  </div>
+						</form>
+					</div>
+					<div class="title-username">
+					   你好，刘纯阳 
+					</div>
+					<div  class="title-user" >
+					  <a href="#"><img src="../../../public/images/header_center.png"  title="个人中心"></a>
+					</div>
+					
+					
+					<div  class="title-user1" >
+					  <a href="#"><img src="../../../public/images/header_message.png" title="站内通知"></a>
+					</div>
+					<div  class="title-user">
+					  <a href="#"><img src="../../../public/images/header_exit.png" title="安全退出"></a>
+					</div>
+					
+			</div>
+		</div>
+		
+		<!--这里是内容-->
+ <div class="oppcontent-2"  >
+	 	<!--左边部分-->
+		<div class="op-left"  >
+			<div class="op-1"  >	
+			<h2>${w.title} </h2>
+				<input type="hidden" name="w.id" value="${w.id}" />
+			</div>
+			<div class="op-4"  >
+		<p class="p-1">${w.content.raw()}</p>
+
+	 
+		
+	</div>
+ 
+		
+		</div>
+		<div class="op-right"  >
+		
+				<span class="op-right1">公益推荐</span>
+				
+				 
+					<img src="../../../public/images/gy.png" class="op-right2"  />
+				 <div class="op-right4">
+						<span class="op-right3"  >【我的公益故事】我和我的导盲犬，你是我的眼</span> 
+				 </div>
+					<div class="float-1"> </div>
+			 
+				
+					
+			 
+					<img src="../../../public/images/gy.png" class="op-right2"  />
+					 <div class="op-right4">
+						<span class="op-right3"  >【我的公益故事】我和我的导盲犬</span> 
+				 </div>
+					<div class="float-1"> </div>
+				 
+				 
+				
+				
+					
+				 
+					<img src="../../../public/images/gy.png" class="op-right2"  />
+						 
+					 <div class="op-right4">
+						<span class="op-right3"  >【我的公益故事】我和我的导盲犬</span> 
+				 </div>
+					<div class="float-1"> </div>
+				 
+		 
+		
+		</div>
+		
+	 	  <div class="float-1"></div>
+	 
+	 
+	 </div>
+	
+	
+	
+	  
+ 	
+		<!--这里是底部-->
+	 <div class="opporlinkbottom">
+			<div class="diConten">
+				<div  class="bo-1">
+					<span ><a  class="list3" >@2013 opporlink 奥噗</a></span>
+				</div>
+				<div class="bo-2"  >
+					<span ><a class="list3">关于我们 </a></span>
+						<span ><a class="list3"> 加入奥噗</a></span>
+				</div>
+				<div class="bo-3"  >
+					<span >
+							<a href="#"><img class="b-pic1"  src="../../../public/images/share_facebook.png"></a>
+							<a href="#"><img class="b-pic1" src="../../../public/images/share_google+.png"></a>
+							<a href="#"><img class="b-pic1" src="../../../public/images/share_twitter.png"></a>
+							<a href="#"><img class="b-pic1" src="../../../public/images/share_weibo.png"></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+ 
+</body>
+</html>

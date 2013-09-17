@@ -1,87 +1,114 @@
 #{extends 'main.html' /}
 #{set title:'QuesIndex.html'/}
+<script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
+<script type="text/javascript" src="../../../public/javascripts/jquery-1.7.2.min.js"></script>
  	<script language="javascript" type="text/javascript">
-	$(document).ready(function(){
-	 
-	 $(".op-51").click(function(){
-	  $(this).toggleClass("current");
-	 });
-	});
+ 	
+ 	    var school = "";
+		$(function (){
+			$.each(allUnivList,function (j,m){		
+				$("#gj").append("<a href='javascript:void(0);' style='margin: 8px;'  onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
+			});
+		});
+		//获得每个国家的省份
+		function getSheng(aid,name){
+		school = name;
+			$("#sheng").show();
+			$("#list").html('');
+			$("#sheng").html('');
+			if (allUnivList[aid].provs.length == 0){
+				$("#sheng").append("很抱歉！暂时没有数据（只提供了中国和美国的学校信息)");
+			}
+			else
+			{
+				$.each(allUnivList[aid].provs,function (j,m){				
+					$("#sheng").append("<a href='javascript:void(0);' style='margin: 10px;' onclick='getSchool("+aid+","+j+",\""+m.name+"\")'>"+m.name+"</a>");
+				});
+			}
+		}
+
+		//获得每个省份的学校
+		function  getSchool(gid,pid,name){
+		school = school.substring(0,2);
+		school += " - "+name;
+		$("#list").show();
+			$("#list").html('');
+			$.each(allUnivList[gid].provs[pid].univs,function (k,l){
+				$("#list").append("<a href='#'  style='width:270px;display:block;float:left; margin:10px;'>"+l.name+"</a>");
+			});
+			$("#list").append("<br style='clear:both;' />");
+				
+		}
+		$("#list a").live("click",function (){
+			$("#gj").hide();
+			$("#list").hide();
+			$("#sheng").hide();
+			school += " - "+$(this).text();
+			$("#txtSc").val(school);
+		});
+		$("#txtSc").live("click",function (){
+			$("#gj").show();
+			$("#list").hide();
+			$("#sheng").hide();
+		});
 	</script>
 
-
-<div class="oppcontent-2" >
-	 	<div class="op-left1">
-			
-			<div class="op-left2">
-		 
-			<h3 style=" ">提问</h3>
- 		<form  id="QuesIndex" action="@{QuestAnsw.dispAddQues}"  method="post"    accept-charset="${_response_encoding}">
-		<div class="qu-1">
-		 <div class="op-title">标题</div>
-		 
-			<input type="text" id="title" name="title" value="${flash.title}" placeholder="请输入文章标题......" class="qaTiInpu">
-			</div>
-			
-			<div class="float-1"></div>
-		
-		  <div class="op-c">问题说明</div>
-			<label class="wr-1">	 
-				<!--  <textarea id="elm1" name="area" value="${flash.content}"> </textarea>  -->
-					  <textarea id="content" name="content" value="${flash.content}" style="width: 376px;" rows="7"></textarea>
-			     </label>
-		  <div class="op-c1">选择学校
-		  			<select name="Country" class="sel-1 sel">
-						  #{list items:c,as:'country'}
-				   			  <option value="${country.id}">${country.name}</option>
-				   		  #{/list}
-					</select>
-					<select name="Province" class="sel-1 sel">
-							#{list items:p,as:'province'}
-						     <option value="${province.id}">${province.name}</option>
-						     #{/list}
-					</select>
-		  			 <select class="sel-1 sel" name="City">
-						#{list items:ci,as:'city'}
-					     <option value="${city.id}">${city.name}</option>
-					     #{/list}
-					</select>
-		  			<select class="sel-1 sel" name="QuesSchool">
-						#{list items:q,as:'quesSchool'}
-				    	 <option value="${quesSchool.name}">${quesSchool.name}</option>
-				    	 #{/list}
-					</select>
-		  </div>
-			 
-				
-				 <div class="op-c1">选择标签
-					 <span class="op-13-1">标签越精细，越容易让专业人士看到你的问题</span>
-				 </div>
-				 
-				 
-				 
-		 <div style="clear:both"></div>
-				 
-			<ul class="bq-1" style="width:630px;clear:both; margin-left:70px; ">
-				#{list items:t,as:'tag'}
-				<li class="op-51">
-						<input type="checkbox" class="" name="Tag" id="Tag"  value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""} />
-						<a class="op-6"> ${tag.tagName}</a>
-						</li>
-				#{/list}	
-			 </ul>	 
-			 <span class="op-13" style="float:right">至少选择一个标签</span>
-			 	 <div class="float-1"></div>
-					 <label class="op-52" style="width:190px;">
-						  <input class="btn btn-large btn-primary" type="submit" />
-						  <input class="btn btn-large" type="reset" style="margin-left:30px;" />
-					</label>	 
-		 	 </form>
-		 </div>
-			 
-		</div>
+<div class="opporcontent user-conH" >
+<div style="width:800px; border-right:1px solid #f4f4f4;" class="user-conH">
+	<div style="width:735px;">
+		<p class="lead" style="padding-left:30px; padding-top:20px;">提问</p>
+	</div>
 	
-	  <div class="float-1"></div>
-	 
-	 </div>
-
+	<form class="form-horizontal"  id="QuesIndex" action="@{QuestAnsw.dispAddQues}"  method="post"  accept-charset="${_response_encoding}">
+	 	<div class="control-group input-right-w">
+			<label class="control-label">标题</label>
+			<div class="controls ">
+				<input type="text" id="title" name="title" value="${flash.title}"
+				 placeholder="请输入文章标题......" style="height:30px; width:540px;">
+			</div>
+		</div>
+		<div class=" control-group input-right-w" >
+			<label class="control-label">问题说明</label>
+				<div class=" controls" style="width:546px;">
+				<textarea id="content" name="content" value="${flash.content}"  style="width:540px;" rows="10" cols="20" ></textarea>
+	 		 </div>
+		 </div>
+		  
+		  <div class="control-group input-right-w">
+		  		<label class="control-label">选择学校</label>
+		  		<div class="controls ">
+			   		<div style="width:560px; overflow:hidden;">
+						<input type="text" id="txtSc" style="width:528px; border:3px #006600 solid; padding:10px; overflow:hidden; " 
+						name="school" value="${flash.school}" placeholder="请选择学校" />
+						<div id="gj" style="width:528px; border:3px #006600 solid; padding:10px; overflow:hidden; line-height:25px; display:none;"></div>
+						<div id="sheng" style="width:528px; word-break:break-all; border:3px #006600 solid; padding:10px; overflow:hidden; line-height:25px;display:none;"></div>
+						<div id="list" style="width:528px; border:3px #006600 solid; padding:10px; overflow:hidden; line-height:25px;display:none; height:300px; overflow-y:auto;"></div>
+					</div>
+				 </div>
+		  </div>
+		   
+		 
+		 <div class="control-group input-right-w">
+			 <label class="control-label">选择标签</label>
+		 	<div class="controls " style="width:594px;" id="ulname">
+		 	 <span class="op-13-1">标签越精细，越容易让专业人士看到你的问题</span>
+				#{list items:t,as:'tag'}
+					<li class="op-51">
+						<input type="checkbox"  class="" name="Tag" id="Tag"  value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""} />
+							<a class="op-6"> ${tag.tagName}</a>
+				    </li>
+				#{/list}
+			 </div>
+		  </div>
+		  
+		  <div class="control-group input-right-w">
+		 	<div class="controls" id="ulname">
+					<input class="btn btn-large btn-primary" type="submit"/>
+					<input class="btn btn-large" type="reset" style="margin-left:30px;" />
+				 
+			 </div>
+		  </div>
+	</form>
+</div>	
+</div>
+ 

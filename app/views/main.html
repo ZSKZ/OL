@@ -6,11 +6,8 @@
 <meta name="viewport" content="width=device-width initial-scale=1.0">
 <title></title>
 <link rel="stylesheet" href="@{'/public/stylesheets/bootstrap.css'}" />
-<link rel="stylesheet" href="@{'/public/stylesheets/optitle-top.css'}" />
-<link rel="stylesheet" href="@{'/public/stylesheets/optitle.css'}" />
-<link rel="stylesheet" href="@{'/public/stylesheets/wel.css'}" />
-<link rel="stylesheet" href="@{'/public/stylesheets/style-activity.css'}" />
-#{get 'Styles'  /}
+<link rel="stylesheet" href="@{'/public/stylesheets/style.css'}" />
+ #{get 'Styles'  /}
 </head>
 <body>
 	<!-- 标题 -->
@@ -32,10 +29,10 @@
 						href="@{Activities.index}">活动</a></li>
 					<li><a
 						class="${request?.controller == 'QAs' ? 'selected' : ''} biaotifont"
-						href="@{QAs.index}">问答</a></li>
+						href="@{QuestAnsw.dispAddQues}">问答</a></li>
 					<li><a
 						class="${request?.controller == 'Charities' ? 'selected' : ''} biaotifont"
-						href="@{Charities.index}">公益</a></li>
+						href="@{Charities.wel}">公益</a></li>
 				</ul>
 			</div>
 
@@ -55,15 +52,21 @@
 
 			<div class="title-username">
 				<a> 你好， <a class="connectedUser"
-					href="@{SimpleUsers.infoCenter(connectedSimpleUser.id)}">${connectedSimpleUser.name}</a>
-					！
+					href="@{SimpleUsers.infoCenter(connectedSimpleUser.id)}">${connectedSimpleUser.name}！</a>
+					
 				</a>
+			 	
 			</div>
-
-			<div class="title-exit">
-				 <a href="@{SimpleUsers.logout}">退出</a>
-			</div>
-
+				<div  class="title-user" >
+					  <a href="#"><img src="/public/img/header_center.png"  title="个人中心"></a>
+					</div>
+					 <div  class="title-user" >
+					  <a href="#"><img src="/public/img/header_message.png" title="站内通知"></a>
+					</div>
+					<div  class="title-user">
+					  <a href="@{CSSAs.logout}"><img src="/public/img/header_exit.png" title="安全退出"></a>
+					</div>
+ 
 			#{/if} #{elseif connectedCSSA}
 			<div class="title-username">
 				 你好，<a class="connectedUser"
@@ -71,10 +74,18 @@
 				
 			</div>
 
-			<div class="title-exit">
-				<a> <a href="@{CSSAs.logout}">退出</a></a>
-			</div>
+		<div  class="title-user" >
+					  <a href="#"><img src="/public/img/header_center.png"  title="个人中心"></a>
+					</div>
+					 <div  class="title-user1" >
+					  <a href="#"><img src="/public/img/header_message.png" title="站内通知"></a>
+					</div>
+					<div  class="title-user">
+					  <a href="@{CSSAs.logout}"><img src="/public/img/header_exit.png" title="安全退出"></a>
+					</div>
 
+
+			 
 			#{/elseif} #{else}
 			<div>
 				<a href="@{SimpleUsers.signup}">注册</a>. <a
@@ -87,18 +98,29 @@
 
 		</div>
 	</div>
-<div style="clear:both"></div>
-	<div>
+ 
+ 	 
+	
+	 
+ 
 
-		#{if flash?.error}
-		<div style="color:red;background-color:#000">${flash.error}</div>
-		#{/if} #{if flash?.success}
-		<div style="color:green;background-color:#000">${flash.success}</div>
-		#{/if}
-
+	
+	<div class="opporcontent">
+	#{if flash?.error}
+	 <div class="alert alert-error">
+		${flash.error}
 	</div>
+	#{/if} #{if flash?.success}
+	<div class="alert alert-success">
+  		${flash.success}
+	</div>
+	#{/if}
+	
+	
 	#{doLayout /}
-	<div style="clear: both"></div>
+	 </div>
+	
+	 
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="navbar navbar-inverse navbar-static-bottom">

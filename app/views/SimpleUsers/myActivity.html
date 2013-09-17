@@ -1,81 +1,130 @@
-#{extends 'main.html' /}
-#{set title:'myActivity.html' /}
+#{extends 'main.html' /} #{set title:'myActivity.html' /} #{set
+'Styles'} #{/set}
+<div class="user-conH">
+	<div class="row">
+		<div class="use-f-left span2">
+			<img class="use-img img-polaroid" style="width: 125px;"
+				src="${user.profile}">
+		</div>
+		<div class="span10">
+			<ul>
+				<li><span class="use-f-a16"><strong
+						style="font-size: 26px;">${user.name}</strong></span> <span> <img
+						src="/public/images/edit.png">
+				</span> <a class="userinfo-font-w"
+					href="@{SimpleUsers.updateProfile(user.id)}">编辑个人资料</a></li>
+				<li class="use-f-li" style="margin: 10px 0px;"><span>#{if
+						user.age} <a class="userinfo-font-b">${user.age}</a> <span
+						class="userinfo-font-w">岁，</span> #{/if} #{if user.hometown} <span
+						class="userinfo-font-w">来自</span> <a class="userinfo-font-b">${user.hometown},</a>
+						#{/if} #{if user.school} <span class="userinfo-font-w">学校</span> <a
+						class="userinfo-font-b">${user.school},</a> #{/if} #{if
+						user.ralationship} <a class="userinfo-font-b">${user.ralationship},</a>
+						#{/if} #{if user.contract} <span class="userinfo-font-w">手机号</span>
+						<a class="userinfo-font-b">${user.contract}，</a> #{/if}
+				</span></li>
+				<li class="use-f-li"><span class="use-f-a16"
+					style="font-size: 16px; color: #000000">签名:${user.selfIntro?user.selfIntro:'无'}</span>
+				</li>
+				<li style="padding-top: 20px;"><a class="btn btn-info use-but"
+					href="@{Activities.create}"> <img src="/public/images/flag.png">发起活动
+				</a> <a class="btn btn-info use-but" href="@{QuestAnsw.QuesIndex}">
+						<img src="/public/img/question.png">我要提问
+				</a></li>
 
-<div class="opporcontent user-conH">
-	<div class="use-f-left" style="clear: both;">
-		<ul>
-			<li style="">
-				<div>
-					<img class="use-img img-polaroid" src="${user.profile}">
+			</ul>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="span2"
+			style="margin-top: 155px; font-size: 15px; border-bottom: 1px solid #e2e2e2;">
+			<ul>
+				<li class="use-f-li" style="margin-bottom: 10px;"><span>
+						<img src="/public/images/Individual_center_answer.png">
+				</span> <a class="use-f-a16" href="@{SimpleUsers.myActivity}">我的活动:</a> <a
+					class="user-f-c"><!-- 6次 --></a></li>
+				<li class="use-f-li"><span> <img
+						src="/public/images/Individual_center_answer.png">
+				</span> <a class="use-f-a16" href="">我的问答:</a> <a class="user-f-c"></a></li>
+
+
+
+			</ul>
+		</div>
+		<div class="span8"
+			style="margin-top: 55px; border: 1px solid #e2e2e2; padding: 10px;">
+
+
+			<div class="bs-docs-example">
+				<ul id="myTab" class="nav nav-tabs">
+					<li class="active"><a href="#home" data-toggle="tab">发布的活动:</a></li>
+					<li><a href="#profile" data-toggle="tab">参加的活动:</a></li>
+					<li><a href="#profile1" data-toggle="tab">关注的活动:</a></li>
+
+				</ul>
+				<div id="myTabContent" class="tab-content">
+					<div class="tab-pane fade in active" id="home">
+
+						#{list items:postedActivity,as:'activity'} <img
+							src="${user.profile}" class="f_l img-polaroid" /> <span class="f_l">
+							我发布了活动 </span> <br /> <a href="@{Activities.detail(activity.id)}">${activity.name}sdadasdasdadsadadasdadasdad
+
+							<br /> <img alt="" style="width: 240px; margin-top: 20px;"
+							src="${activity.poster}" class="img-polaroid">
+						</a>
+						<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo}
+							时间： ${activity.timeFrom}- ${activity.timeTo}
+							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
+							${activity.views}人</p>
+
+						#{/list}
+
+					</div>
+					<div class="tab-pane fade" id="profile">
+
+						#{list items:JoinedActivity,as:'activity'}
+						<p>
+							<img src="${user.profile}" class="f_l img-polaroid" /> <span class="f_l">我参加了活动</span><br />
+							<a href="@{Activities.detail(activity.id)}">${activity.name}</a><br />
+							<img alt="" style="width: 240px; margin-top: 20px;"
+								src="${activity.poster}"  class="img-polaroid">
+						</p>
+						<p class="ac_p" style="">活动日期：${activity.dateFrom}至
+							${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo}
+							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
+							${activity.views}人</p>
+						#{/list}
+
+					</div>
+					<div class="tab-pane fade" id="profile1">
+						#{list items:LikedActivity,as:'activity'}
+						<p>
+							<img src="${user.profile}" class="img-polaroid" /> 我关注了活动 <a
+								href="@{Activities.detail(activity.id)}">${activity.name}</a><br />
+							<img alt="" style="width: 240px; margin-top: 20px;"
+								src="${activity.poster}"  class="img-polaroid">
+						</p>
+						<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo}
+							时间： ${activity.timeFrom}- ${activity.timeTo}
+							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
+							${activity.views}人</p>
+						#{/list}
+					</div>
 				</div>
-			</li>
-			<li class="use-f-li"><span> <img
-					src="/public/images/Individual_center_activities.png">
-			</span> <a class="use-f-a16" href="@{SimpleUsers.myActivity}">我的活动:</a> <a class="user-f-c">6次</a></li>
-			<li class="use-f-li"><span> <img
-					src="/public/images/Individual_center_question.png">
-			</span> <a class="use-f-a16" href="">我的问答:</a> <a class="user-f-c">6次</a></li>
-			
-			
-		</ul>
-	</div>
-	<div style="padding-top: 20px; width: 774px; float: left;">
-		<ul>
-			<li><a class="use-f-a16">${user.name}</a> <span> <img
-					src="/public/images/edit.png">
-			</span> <a class="userinfo-font-w" href="@{SimpleUsers.updateProfile(user.id)}">编辑个人资料</a></li>
-			<li class="use-f-li"><span>#{if user.age} <a
-					class="userinfo-font-b">${user.age}</a> <a class="userinfo-font-w">岁,</a>
-					#{/if} #{if user.hometown} <a class="userinfo-font-w">来自</a> <a
-					class="userinfo-font-b">${user.hometown}，</a> #{/if} #{if
-					user.school} <a class="userinfo-font-w">学校</a> <a
-					class="userinfo-font-b">${user.school}，</a> #{/if} #{if
-					user.ralationship} <a class="userinfo-font-b">${user.ralationship}，</a>
-					#{/if} #{if user.contract} <a class="userinfo-font-w">手机号</a> <a
-					class="userinfo-font-b">${user.contract}，</a> #{/if}
-
-			</span></li>
-			<li class="use-f-li"><a class="use-f-a16" style="color: #000000">签名:${user.selfIntro?user.selfIntro:'无'}</a>
-			</li>
-			<li style="padding-top: 70px;"><a class="btn btn-info use-but"
-				href="@{Activities.create}"> <img src="/public/images/flag.png">发起活动
-			</a> <a class="btn btn-info use-but" href="@{QuestAnsw.QuesIndex}"> <img
-					src="/public/img/question.png">我要提问
-			</a></li>
-		</ul>
-
-	</div>
-	<div class="float-1">
-	发布的活动:
-	<div>
-	#{list items:postedActivity,as:'activity'}
-	<p><img src="${user.profile}" /> 我发布了活动 <a href="@{Activities.detail(activity.id)}">${activity.name}
-	<img alt="" src="${activity.poster}">
-	</a></p>
-	<p>活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
-	
-	#{/list}
-	
-	</div>
-	<hr />
-	参加的活动：
-		<div>
-	#{list items:JoinedActivity,as:'activity'}
-	<p><img src="${user.profile}" /> 我参加了活动 <a href="@{Activities.detail(activity.id)}">${activity.name}</a>
-	<img alt="" src="${activity.poster}">
-	</p>
-	<p>活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
-	#{/list}
-	</div>
-	<hr />
-	关注的活动：
-	<div>
-	#{list items:LikedActivity,as:'activity'}
-	<p><img src="${user.profile}" /> 我关注了活动 <a href="@{Activities.detail(activity.id)}">${activity.name}</a>
-	<img alt="" src="${activity.poster}">
-	</p>
-	<p>活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
-	#{/list}
-	</div>
+			</div>
+		</div>
 	</div>
 </div>
+#{set 'Scripts'}
+<script type="text/javascript"
+	src="@{'public/javascripts/bootstrap-tab.js'}">
+	
+</script>
+<script type="text/javascript">
+	$('#myTab a').click(function(e) {
+		e.preventDefault();
+		$(this).tab('show');
+	})
+</script>
+#{/set}

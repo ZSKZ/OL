@@ -101,19 +101,31 @@ GET		/qa										QAs.index
 
 
 #Charity
-GET		/charity								Charities.index
+GET     /wel		 			                         	Charities.wel
+POST    /charity/{pageNo}									Charities.wel
+GET     /charity/fabu										Charities.fabu
+POST	/charity/add                                 		Charities.wel
+GET		/charity/add										Charities.wel
+GET    	/charity/welfare/{id}								Charities.welfare
+GET 	/charity/edit/{id}/{pageNo}						Charities.edit
+GET		/charity/del/{id}/{pageNo}							Charities.wel
+GET		/charity/{pageNo}									Charities.pigination
+ 
 
 #Question and answer
 
-GET /QuestAnsw/QuesIndex                             QuestAnsw.QuesIndex
-POST /QuestAnsw/QuesIndex                            QuestAnsw.dispAddQues
+POST /QuestAnsw/QuesIndex                             QuestAnsw.dispAddQues
+GET	 /QuestAnsw/dispAddQues               		      QuestAnsw.comments
+POST /QuestAnsw/searchPage                            QuestAnsw.searchPage
+POST /QuestAnsw/searchQues                            QuestAnsw.searchQues
+GET  /QuestAnsw/showQuesInfo/{id}                      QuestAnsw.showQuesInfo
+GET	 /QuestAnsw/popupUserInfo               		  QuestAnsw.popupUserInfo
+GET	 /QuestAnsw/userInfoIndexhtml               	  QuestAnsw.userInfoIndexhtml
+POST /QuestAnsw/searchpage               		      QuestAnsw.answerRapidly
+GET	 /QuestAnsw/{pageNum}							  QuestAnsw.Quespaging
 
-POST /QuestAnsw/dispAddQues                         QuestAnsw.comments
-GET	 /QuestAnsw/dispAddQues               		    	QuestAnsw.comments
-
-POST /QuestAnsw/searchPage                           QuestAnsw.searchPage
-POST /QuestAnsw/searchQues                           QuestAnsw.searchQues
-
+GET  /QuestAnsw/deleteQues/{id}                        QuestAnsw.deleteQues
+GET  /QuestAnsw/fcousOnQuestion/{id}                   QuestAnsw.fcousOnQuestion
 
 
 # Ignore favicon requests
