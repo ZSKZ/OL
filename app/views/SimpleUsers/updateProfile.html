@@ -1,52 +1,79 @@
 #{extends 'main.html' /} #{set title:'updateProfile.html' /}
-<div class="opporcontent">
-<form action="@{SimpleUsers.doUpdateProfile}" method="POST"
+<div>
+<form action="@{SimpleUsers.doUpdateProfile}" method="POST" class="form-horizontal"
 	accept-charset="${_response_encoding}">
-	<p>
-		<label>昵称</label> <input type="text" name="user.name" value="${user.name}" />
-		<span class="error">#{error 'name' /}</span>
-	</p>
-	<p>
-		<label>性别</label> <input type="radio" name="user.gender" value="女"
+ 
+		<div class="control-group">
+					<label class="control-label"  >昵称</label>
+					<div class="controls">
+						<input  type="text" name="user.name" value="${user.name}"
+						  placeholder="请输入真实姓名"><span class="error">#{error 'name' /}</span>
+					</div>
+				</div>
+			 
+	 
+	<div class="control-group">
+		<label  class="control-label">性别</label>
+			<div class="controls">
+		 <input type="radio" name="user.gender" value="女"
 			${user.gender== "女"?"checked":""}  />女 <input type="radio"
 			name="gender" value="男" ${user.gender== "男"?"checked":""} />男 <span
 			class="error">#{error 'gender' /}</span>
-	</p>
-	<p>
-		<label>年龄</label> <select name="user.age">
+			</div>
+	</div>
+	<div class="control-group">
+		<label  class="control-label">年龄</label>
+		<div class="controls">
+		 <select name="user.age">
+		
 			<option value="0" ${user.age==0?"selected":""}>--</option> 
 			#{list items:18..60,as:'a'}
 			<option value="${a}" ${user.age==a?"selected":""}  >${a}</option>
 			#{/list}
 		</select> <span class="error">#{error 'age' /}</span>
-	</p>
-	<p>
-		<label>感情状况</label> <input type="text" name="user.ralationship"
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label">感情状况</label>
+		<div class="controls">
+		 <input type="text" name="user.ralationship"
 			value="${user.ralationship}" /> <span class="error">#{error
 			'ralationship' /}</span>
-	</p>
+			</div>
+	</div>
 
-	<p>
-		<label>家乡</label> <input type="text" name="user.hometown"
+	<div class="control-group">
+		<label class="control-label">家乡</label>
+		<div class="controls"> <input type="text" name="user.hometown"
 			value="${user.hometown}" /> <span class="error">#{error
 			'hometown' /}</span>
-	</p>
-	<p>
-		<label>学校</label> <input type="text" name="user.school"
+			</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label">学校</label> 
+		<div class="controls">
+		<input type="text" name="user.school"
 			value="${user.school}" /> <span class="error">#{error
 			'school' /}</span>
-	</p>
-	<p>
-		<label>联系方式</label> <input type="text" name="user.contract"
+			</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label">联系方式</label>
+		<div class="controls">
+		 <input type="text" name="user.contract"
 			value="${user.contract}" /> <span class="error">#{error
 			'contract' /}</span>
-	</p>
-	<p>
-		<label>一句话介绍</label> <input type="text" name="user.selfIntro"
+			</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label">一句话介绍</label>
+		<div class="controls">
+		 <input type="text" name="user.selfIntro"
 			value="${user.selfIntro}" /> <span class="error">#{error
 			'selfIntro' /}</span>
-	</p>
-	<input type="hidden" name="user.id" value="${user.id}" /> <input
-		type="submit" value="更新" />
+			</div>
+	</div>
+	<input type="hidden" name="user.id" value="${user.id}" /> 
+	<input	type="submit" class="btn btn-info" style="margin-left: 178px;margin-top: 12px;" value="更新" />
 </form>
 </div>

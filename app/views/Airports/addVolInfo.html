@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'addVolInfo.html' /}
-
-<div class="opporcontent">
+ <link rel="stylesheet" href="/public/stylesheets/Activity-index.css"/>
+<div>
 	<form id="puUser" action="@{Airports.doAddVolInfo}" method="POST">
 		<div style="margin-top: 30px; margin-left: 50px;">
 			<div style="padding-top: 10px;">
@@ -152,31 +152,20 @@
 
 		<div class="pick-inpu">
 			<div class="pick-inpu-border" style="padding-bottom: 20px;">
-				<div style="margin-left: 50px; width: 500px;">
+				<div style="margin-left: 150px; width: 500px;">
 					<label><a class="pfc">再次感谢您的热心帮忙！
 							<p>任何关于接机方面的问题， 请发送邮件至cssauclanewstudentarrive@gmail.com</p>
 					</a> </label>
 				</div>
-
-
-				<div class="fl malfinput"
-					style="width: 280px; margin-left: 150px; padding-top: 15px;">
-					<div class="sexdiv"
-						style="float: left; width: 120px; height: 40px;">
-						<input type="submit" class="" style="width: 120px; height: 40px;"
-							value="提交" id="userSub" onClick="checkInfor()">
-					</div>
-
-					<div class="sexdiv"
-						style="float: right; width: 120px; height: 40px;">
-						<input type="reset" style="width: 120px; height: 40px;" value="重置"
-							onClick="pickUpReset()">
+ 			<div style="margin-left:150px;">
+					<input type="submit" class="btn btn-info btn-large" value="提交" id="userSub" onClick="checkInfor()">
+					  <input type="reset"class="btn btn-large" value="重置">
+					  </div>
 					</div>
 				</div>
 			</div>
-		</div>
-
+		 
 	</form>
 
-</div>
+ 
 		

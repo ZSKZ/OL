@@ -20,37 +20,16 @@
 		
 		
 			<div  id="login" class="login">
-				
-				
-				<div id="fir">
-					<form id="denglu_page" class="fm" method="post" style= "margin-left:15px;">
-						<label id="login-font" style="font-family:微软雅黑">登录奥噗</label>
-							<label><a href="#" id="login-font1"onClick="change()" ><span id="font"  style="font-family:微软雅黑" >注册</span><img src="img/flag.png" style="margin-right:20px;" alt="" /></a></label>
-						 
-							<input type="text" id="email" name="email" class="inputBox"  value="邮箱" onclick="this.value=''" onblur="this.value='邮箱'">
-							
-						
-							<input type="text" id="password" name="password"  value="密码" onclick="this.value=''" onblur="this.value='密码'">
-						
-							<button class="btn btn-large btn-block btn-info" id="button-denglu" type="button" id="btn">登录</button>
-		 
-							<label class="checkbox">
-							<input type="checkbox" id="remember"><span style="color:white;font-family:微软雅黑">记住我
-							<a href="#" id="forget"><span id="font" style="font-family:微软雅黑">忘记密码？</span></a>
-							
-						</label>
-					</form>
-				</div>
-					
+			 
 				<div id="send">
 					<form id="zuce_page" class="hide" method="post" style="margin-left:3%;">
 						<label id="login-font2">注册奥噗</label>
-							<label><a href="#" id="login-font3" onClick="change_page()"><span id="font">登陆</span><img src="img/flag.png" style="margin-right:20px;" alt="" /></a></label>
+							<label><a href="#" id="login-font3" onClick="change_page()"><span id="font">登录</span><img src="img/flag.png" style="margin-right:20px;" alt="" /></a></label>
 							<input type="text" id="email" name="email" class="inputBox" value="邮箱" onclick="this.value=''"  onblur="this.value='邮箱'">
 							<input type="text" id="username"  name="username" value="请输入昵称" onclick="this.value=''"  onblur="this.value='请输入昵称'">
 							<input type="text" id="password2" name="password2" value="请输入密码" onclick="this.value=''"   onblur="this.value='请输入密码'">
-							<input type="text" id="password" name="password" value="请再次输入密码" onclick="this.value=''"   onblur="this.value='请再次输入密码'">
-							<button class="btn btn-large btn-block btn-info"   type="button" id="btn" style="width:230px;"><span id="font">注册</span></button>
+							<input type="text" id="password" name="password" value=" " onclick="this.value=''"   onblur="this.value='请再次输入密码'">
+							<button class="btn btn-large btn-block btn-info"   type="button" id="btn"><span id="font">注册</span></button>
 						
 					</form>
 				</div>
@@ -337,8 +316,7 @@
 				</div>
 		
 		<script type="text/javascript" src="@{/public/javascripts/jquery.js}"></script>
-	
-		<script src="js/validate.js"></script>
+	 <script src="js/validate.js"></script>
 		<script type="text/javascript" src="@{/public/javascripts/style.js}"></script>
 		<script type="text/javascript"></script>	
 </body>

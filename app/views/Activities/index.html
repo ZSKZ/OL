@@ -1,6 +1,8 @@
 #{extends 'main.html' /} #{set title:'index.html' /}
 #{set 'Styles'}
 <link rel="stylesheet" href="/public/stylesheets/scrollpagination.css" />
+<link rel="stylesheet" href="/public/stylesheets/Activity-index.css"/>
+
 #{/}
 <div class="classify NO1">
 	<dl class="classify-dl clearfix">
@@ -73,77 +75,7 @@
 	</dl>
 	<a href="@{Activities.Create}" class="btn btn-success">创建活动</a>
 </div>
-<!--  
-<div class="nice-activity">
-	
-	<div class="activity-div">
-
-		<div class="position-pic" style="z-index: 99;">
-			<img src="/public/img/active_detailed_tag.png">
-		</div>
-		<div class="activity-pic">
-			<a href=""><img src="/public/img/11.png"></a>
-		</div>
-		<div>
-			<a href="#" class="activity-title">【学生会】学生会活动标题</a>
-		</div>
-		<div>
-			<a href="#" class="detailed">
-				活动详情，活动详情活动详情活动详情活动详情活动详情活动详情活动详情活动详情活动详情活动详情活动详情</a>
-		</div>
-		<div class="look-btn" style="z-index: 99; left: 160px;">
-			<a class="btn btn-danger" type="button"> <span class="btn-font">去看看</span>
-			</a>
-		</div>
-		<div class="look-btn">
-			<div class="activity-pic1">
-				<a href="#myModal" data-toggle="modal"><img
-					src="/public/img/2-1.png" alt=""></a>
-			</div>
-
-			<div class="activityer">
-				<a href="#myModal" data-toggle="modal"><span
-					class="activity-organizers">学生会</span></a><br> <span
-					class="activity-organizers">2013-07-13</span> <span class="canjia1">已经有<span
-					class="canjiaNO">28</span>人报名参加
-				</span>
-			</div>
-		</div>
-	</div>
-	
-	<div class="activity-div">
-		<div class="activity-pic">
-			<a href="detail.html"><img src="/public/img/11.png"></a>
-		</div>
-		<div>
-			<a class="activity-title">【学生会】学生会活动标题</a>
-		</div>
-		<div>
-			<a class="detailed">
-
-				活动详情，活动详情活动详情活动详情活动详情活动详情活动详情活动详情活动详情活动详情活动详情活动详情</a>
-		</div>
-		<div class="look-btn" style="z-index: 99; left: 160px;">
-			<button class="btn btn-danger" type="button">
-				<span class="btn-font">去看看</span>
-			</button>
-		</div>
-		<div class="look-btn">
-			<div class="activity-pic1">
-				<a href="#myModal" data-toggle="modal"><img
-					src="/public/img/2-1.png" alt=""></a>
-			</div>
-			<div class="activityer">
-				<a href="#myModal" data-toggle="modal"><span
-					class="activity-organizers">学生会</span></a><br> <span
-					class="activity-organizers">2013-07-13</span> <span class="canjia1">已经有<span
-					class="canjiaNO">28</span>人报名参加
-				</span>
-			</div>
-		</div>
-	</div>
-</div>
--->
+ 
 <div class="second" id="content">
 
 	<!--下面部分-->
@@ -162,17 +94,14 @@
 			<div>
 				<a class="activity-title2">${a.name}</a>
 			</div>
-			<div style="width:50px;" class="pull-right"><a href="@{Activities.userThumb(a.publisher_id)}"  data-target="#modal" data-toggle="modal"><img src="${a.publisher_profile}"> ${a.publisher_name}</a></div>
+			<div style="width:50px;" class="pull-right"><a href="@{Activities.userThumb(a.publisher_id)}"  data-target="#modal" data-toggle="modal"><img src="${a.publisher_profile}" class="img-polaroid"> ${a.publisher_name}</a></div>
 			<div class="">
 				<span>${a.distances==""?"":"距离："+a.distances}</span> <span>${a.duration==""?"":"驾车："+a.duration}</span>
 				<span>${a.dateFrom}</span> <span class="canjiaNO"> </span>
 			</div>
 			<a class="detailed"> ${a.summary} </a>
 
-			<div class="look-btn" style="z-index: 99; top: 350px; right:10px;">
-				<a href="@{Activities.detail(a.id)}" class="btn btn-info"
-					type="button"><span class="btn-font">看看</span></a>
-			</div>
+			
 		</div>
 	</div>
 	#{/list} #{/else}

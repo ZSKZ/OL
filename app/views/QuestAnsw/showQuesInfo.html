@@ -1,0 +1,141 @@
+#{extends 'main.html' /}
+#{set title:'showQuesInfo.html' /}
+
+<script type="text/javascript"> 
+$(document).ready(function(){
+		$('#submitbutton').click(
+		  function(){
+			  var c=$("#comment").val();
+			  var qid=$("#quesid").val();
+
+			  function(data) {
+	           		$('#showCom').html("我的回答："+data);
+		       })
+		  })
+	});
+ function cleanData(){
+	 $("#comment").val("");
+ }
+
+</script>
+
+<div class="opporcontent">
+	 	<!--左边部分-->
+		
+		<div class="op-left">
+		 <div >
+				#{list items:fQ,as:'findListQues'}
+				<ul style="border-bottom:1px solid #dddddd; padding-top:20px; padding-bottom:5px;"  >
+					<li  class="qatitle">	
+						<a  style="font-size:24px; color:#000000; font-family:'宋体'; font-weight:bold;">${findListQues.title}</a>
+						<a href="@{QuestAnsw.deleteQues(findListQues.id)}">删除${findListQues.id}</a>
+					</li>
+				
+					<li class="qatitle">
+						<a class="qatitlea" >${findListQues.label}</a>
+					</li>
+					<li class="qatitle">
+						<a class="qatitlea" style="font-size:10px ; color:#CCCCCC; TEXT-DECORATION:none">${findListQues.username}，${findListQues.selfIntro}</a>
+					</li>
+				
+					<li class="qatitle" style="padding-bottom:25px;">
+						<a class="qatitlea"  style="text-indent:2em; font-weight:bold; TEXT-DECORATION:none">${findListQues.content.raw()}</a>
+					</li>
+					<li class="qatitle"   style="border-top:1px solid #dddddd;">
+						<a>${findListQues.answerNum}个回答</a>
+					</li>
+			 	</ul>
+			 	#{/list}
+		 </div>
+		 
+		 	 
+		 <div>
+		 	#{list items:listCom,as:'ac'}
+			 	<ul style="border-bottom:1px solid #dddddd; padding-bottom:5px;">
+			 		<li class="qatitle">
+		    			<span><a style="color:#000000;">${ac.username}：</a><a style="color:#000000;font-weight:bold;">${ac.userSelfIntro}</a></span>
+		    		</li>
+		    		<li class="qatitle">
+			 			<a > <img src=" /public/images/1-2.PNG"></a><a style="font-size:10px ; color:#CCCCCC;">${ac.praiseNum}票,</a> <a style="font-size:10px ; color:#CCCCCC;">${ac.date}</a>
+			 		</li>
+		    		<li class="qatitle">
+		    			<a style="TEXT-DECORATION:none" >${ac.comment.raw()}</a>
+		    		</li>
+		  	   	</ul>
+	  	   #{/list}	
+	  	  </div> 		
+	  	   		
+  			<div >
+		   		<ul style="border-bottom:1px solid #dddddd; padding-bottom:5px;">
+			 		<li class="qatitle">
+			   			<span><a style="color:#000000;">yuqianyi：</a><a style="color:#000000;font-weight:bold;">大地母亲在忽悠你</a></span>
+			   		</li>
+			   		<li class="qatitle">
+			 			<a > <img src=" /public/images/1-2.PNG"></a><a style="font-size:10px ; color:#CCCCCC;">16票,</a> <a style="font-size:10px ; color:#CCCCCC;">2013-03-14</a>
+			 		</li>
+			   		<li class="qatitle">
+			   			<a id="showCom" ></a>
+			   		</li>
+			   		<li class="qatitle">
+			   			<a ><img src=" /public/images/answer.png"></a><a style="font-size:10px ; color:#CCCCCC;">评论</a>
+			   		</li>
+	 	       </ul>
+  			</div>
+  			
+	  	   	 <div style="margin-left:20px;padding-bottom:50px;">
+				 <li class="qatitle" style="padding-bottom:40px;">
+				 	<a>yuqianyi</a><a>,回答问题</a>
+				 </li>
+			 <form id="comments" action="@{QuestAnsw.comments}" method="post">
+			 	#{list items:fQ,as:'findListQues'}
+			 		<input type="hidden"  id="quesid" name="quesid" value="${findListQues.id}" />
+				#{/list}
+		 		<textarea rows="5" style="width:540px;" id="comment" name="comment" value="${flash.comment}"></textarea>
+		 		
+			 	<input type="button" id="submitbutton" value="发布回答" class="btn btn-primary" onClick="toTransformData()" 
+			 	style="float:right; width:80px;" />
+			 </form>
+			 </div>
+	</div>
+		<div class="op-right">
+			#{list items:fQ,as:'fidid'}
+				<div class="op-right1">
+					<a class="btn btn-primary" href="@{QuestAnsw.fcousOnQuestion(fidid.id)}" >关注问题</a>
+				</div>
+				<label class="op-17">
+				<span class="op-18">${fidid.focusNum}<span>
+				<span class="op-13">人已关注</span>
+				</span></span></label>
+				
+				 <a href="#"><img src=${fidid.userprofile} class="op2-right2"></a> 
+				 <a href="#"><img src="/public/images/head-sculpture_small_1.png" class="op2-right2"></a> 
+				 <a href="#"><img src="/public/images/head-sculpture_small_1.png" class="op2-right2"></a> 
+				 <a href="#"><img src="/public/images/head-sculpture_small_1.png" class="op2-right2"></a> 
+				 <a href="#"><img src="/public/images/head-sculpture_small_1.png" class="op2-right2"></a> 
+				 <a href="#"><img src="/public/images/head-sculpture_small_1.png" class="op2-right2"></a> 
+				 #{/list}
+	 	<div style="clear:both"></div>
+			<h5 class="op-10">相关问题</h5>
+	 		<label class="op-17"><a href="" class="asa">v加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+			
+			<label class="op-17"><a href="">加州大学怎么样，留学生多不多?加州大学怎么样，留学生多不多?加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+			
+			<label class="op-17"><a href="">加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+			
+			<label class="op-17"><a href="">加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+
+			<label class="op-17"><a href="">加州大学怎么样，留学生多不多?</a></label>
+			<span class="op-13">22个回答</span>
+		
+		</div>
+		
+	 	  <div class="float-1"></div>
+	 
+	 
+	 </div>
+
+
