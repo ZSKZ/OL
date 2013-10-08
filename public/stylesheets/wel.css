@@ -39,7 +39,7 @@
 	}
 	.b-1{
 	margin-left: 28px;
-		height: 220px;
+		height: 250px;
 		width: 479px;
 		position: relative; 
 		border-bottom: 1px solid #e2e2e2;
@@ -99,6 +99,7 @@
  	
  	.goy-a{
  		color:#666666 !important;
+ 		font-size: 12px;
  	 }
  	 
  
@@ -107,7 +108,7 @@
 	.goy-4{
 		 
 	position: absolute;
-	top:184px;
+	top:203px;
 	left: 220px;
 	font-size:12px;
 	}

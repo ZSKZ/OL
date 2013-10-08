@@ -1,157 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'edit.html'/}
-<!DOCTYPE>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title></title>
-	
-	<link rel="stylesheet" href="../../../public/stylesheets/bootstrap.css" />
-	<link rel="stylesheet" href="../../../public/stylesheets/wel.css" />
-	<link rel="stylesheet" href="../../../public/stylesheets/optitle-top.css" type="text/css" >
-	<link href="../../../public/stylesheets/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../../../public/stylesheets/font-awesome/css/font-awesome.css" rel="stylesheet">
-	<link href="../../../public/stylesheets/index.css" rel="stylesheet">
-	<script src="../../../public/javascripts/jquery.js"></script>
-	<script src="../../../public/javascripts/bootstrap.js"></script>
-	<script src="../../../public/javascripts/bootstrap-wysiwyg.js"></script>
-	<script src="../../../public/javascripts/key.js"></script>
-	<script src="../../../public/javascripts/pic.js"></script>
-   
- <script>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
- 
-  $(function(){
-	  $("#tijiao").click(function(){
-			$("#content").val($("#editor").html());
-	 	 
-	  });
-	    
-	  
-	  
-
-	  
-	  
- 
-	  
-	  
-	  
-	  
-	  
-	  
-    function initToolbarBootstrapBindings() {
-      var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
-            'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
-            'Times New Roman', 'Verdana'],
-            fontTarget = $('[title=Font]').siblings('.dropdown-menu');
-      $.each(fonts, function (idx, fontName) {
-          fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
-      });
-      $('a[title]').tooltip({container:'body'});
-    	$('.dropdown-menu input').click(function() {return false;})
-		    .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
-        .keydown('esc', function () {this.value='';$(this).change();});
-
-      $('[data-role=magic-overlay]').each(function () { 
-        var overlay = $(this), target = $(overlay.data('target')); 
-        overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
-      });
-      if ("onwebkitspeechchange"  in document.createElement("input")) {
-        var editorOffset = $('#editor').offset();
-        $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
-      } else {
-        $('#voiceBtn').hide();
-      }
-	};
-	function showErrorAlert (reason, detail) {
-		var msg='';
-		if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
-		else {
-			console.log("error uploading file", reason, detail);
-		}
-		$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
-		 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
-	};
-    initToolbarBootstrapBindings();  
-	$('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
-    window.prettyPrint && prettyPrint();
-  });
-</script>
- 
- 
- 
- 
- 
- 
- 
- 
-</head>
-
-<body class="ww">
-	 
+  #{set 'Styles'}
+	<link rel="stylesheet" href="@{'public/stylesheets/wel.css'}" />
+    <link href="@{'public/stylesheets/font-awesome/css/font-awesome.css'}" rel="stylesheet">
+	<link href="@{'public/stylesheets/index.css'}" rel="stylesheet">
+	#{/set}
 	
 		<!-- 这里是标题-->
-		<div class="maintitle">
-			<div class="touConten">
-					<div>
-						<img class="opporlinklog" src="../../../public/images/logo_.png">
-					</div>		
-					<div class="biaoti">
-						<ul class="nav nav-pills">
-							<li >
-							<a href="#" class="biaotifont"      >首页</a></li>
-							<li >
-							<a href="#" class="biaotifont"  >新生接机</a></li>
-							<li >
-							<a href="#" class="biaotifont"   >活动</a></li>
-							<li >
-							<a href="#" class="biaotifont"    >问答</a></li>
-							<li >
-							<a href="#" class="biaotifont"    >公益</a></li>
-						</ul>
-					</div>
-					
-					<div class="titleSearch ">
-						<form >
-						  <div class="search-text">
-								<input class="span2 titleinput"  type="text" placeholder="搜索感兴趣的活动、话题或人...">
-						  </div>
-						  <div class="search-pic"> 
-							<button type="button" class="search-pic2">
-							  </button>
-						  </div>
-						</form>
-					</div>
-					<div class="title-username">
-					   你好，刘纯阳 
-					</div>
-					<div  class="title-user" >
-					  <a href="#"><img src="../../../public/images/header_center.png"  title="个人中心"></a>
-					</div>
-					
-					
-					<div  class="title-user1" >
-					  <a href="#"><img src="../../../public/images/header_message.png" title="站内通知"></a>
-					</div>
-					<div  class="title-user">
-					  <a href="#"><img src="../../../public/images/header_exit.png" title="安全退出"></a>
-					</div>
-					
-			</div>
-	  <div style="clear:both;"></div>
-	  
-		</div>
-
+	 
 	<!--正文部分-->
 	 <div class="oppcontent-2" >
 	 	<div class="op-left1"  >
@@ -253,9 +109,9 @@
       </div>
       
     </div>
-
-    <div id="editor">${w.content.raw()}</div>
-    <textarea class="hide" rows="5" cols="5" id="content" name="w.content"></textarea>
+	<div id="editor" contenteditable="true">${w.content.raw()}</div>
+  
+    <textarea class="hide" rows="5" cols="5" id="content" name="w.content">${w.content.raw()}</textarea>
   </div>
  
 </div>
@@ -270,27 +126,57 @@
 	 
 	 </div>	 
 		<!--这里是底部-->
-	
-	 <div class="opporlinkbottom">
-			<div class="diConten">
-				<div  class="bo-1">
-					 <a href="#" class="list3" >@2013 opporlink 奥噗</a> 
-				</div>
-				<div class="bo-2"  >
-					 <a href="#" class="list3">关于我们 </a> 
-					 <a  href="#" class="list3"> 加入奥噗</a> 
-				</div>
-				<div class="bo-3"  >
-					<span >
-							<a href="#"><img class="b-pic1"  src="../../../public/images/share_facebook.png"></a>
-							<a href="#"><img class="b-pic1" src="../../../public/images/share_google+.png"></a>
-							<a href="#"><img class="b-pic1" src="../../../public/images/share_twitter.png"></a>
-							<a href="#"><img class="b-pic1" src="../../../public/images/share_weibo.png"></a>
-					</span>
-				</div>
-			</div>
-		</div>
-	 
+#{set 'Scripts'}
+	<script type="text/javascript" src="@{'/public/javascripts/bootstrap-wysiwyg.js'}"></script>
+	<script type="text/javascript" src="@{'/public/javascripts/key.js'}"></script>
+	 <script src="@{'public/javascripts/pic.js'}"></script>
+   
+ <script>
  
-</body>
-</html>
+ 
+  $(function(){
+	  $("#tijiao").click(function(){
+			$("#content").val($("#editor").html());
+	 	 
+	  });
+	 
+	  
+    function initToolbarBootstrapBindings() {
+      var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
+            'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+            'Times New Roman', 'Verdana'],
+            fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+      $.each(fonts, function (idx, fontName) {
+          fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
+      });
+      $('a[title]').tooltip({container:'body'});
+    	$('.dropdown-menu input').click(function() {return false;})
+		    .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
+        .keydown('esc', function () {this.value='';$(this).change();});
+
+      $('[data-role=magic-overlay]').each(function () { 
+        var overlay = $(this), target = $(overlay.data('target')); 
+        overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+      });
+      if ("onwebkitspeechchange"  in document.createElement("input")) {
+        var editorOffset = $('#editor').offset();
+        $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
+      } else {
+        $('#voiceBtn').hide();
+      }
+	};
+	function showErrorAlert (reason, detail) {
+		var msg='';
+		if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
+		else {
+			console.log("error uploading file", reason, detail);
+		}
+		$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
+		 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
+	};
+    initToolbarBootstrapBindings();  
+	$('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
+    window.prettyPrint && prettyPrint();
+  });
+</script>
+ #{/set}	 

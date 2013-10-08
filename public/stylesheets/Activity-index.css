@@ -99,8 +99,7 @@ checkboxnan {
 
 .list-fy1 {
 	white-space: nowrap;
-	float: left;
-	position: relative
+	 margin-left:50px;
 }
 
 .quanbu {
@@ -169,7 +168,7 @@ a:hover {
 	padding: 0 0 10px 45px;
 	font-size: 12px;
 	line-height: 20px;
-	font-family: ΢���ź�;
+ 
 }
 
 .classify .list-tit,.classify-channel .list-tit {
@@ -342,7 +341,7 @@ a:hover {
 }
 
 .nav {
-	padding: 5px;
+	padding: 1px;
 }
 
 .content1 {
@@ -464,11 +463,19 @@ a:hover {
 	border-bottom-right-radius: 5em;
 	background-color: #f8f8f8;
 }
-
-.btn-info {
-	background-image: linear-gradient(to bottom, #4b7390, #2f96b4);
-}
-
+ .btn_a{
+ 	position:relative;
+ 	margin-top:-10px;
+ 
+ 
+ }
+ .btn_b{
+ 
+ 	margin-left:92px;
+ }
+ 
+ 
+ 
 .wenzi {
 	font-size: 8px;
 	color: white;

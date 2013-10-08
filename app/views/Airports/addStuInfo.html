@@ -1,18 +1,20 @@
 #{extends 'main.html' /} #{set title:'addStuInfo.html' /}
-
+<link href="../../public/stylesheets/datetimepicker.css" rel="stylesheet" media="screen">
 <div >
 	<h1>接机服务</h1>
 	<div>
 		<fieldset>
 			<legend> 请认真填写你的信息 </legend>
 
-			<form id="pickupStudentsUserinfor" action="@{Airports.doAddStuInfo}" class="form-horizontal"
+			<form id="pickupStudentsUserinfor" action="@{Airports.doAddStuInfo(schoolId)}" class="form-horizontal"
 				method="POST">
 				<p>
 					<label class="control-label" ><a style="color: #FF0000;"> * </a> 姓名：</label> 
 				<div class="controls">
 					<input	style="height: 20px" ; id="siUsername" type="text" name="s.name"
-						value="${flash.name}" placeholder="请输入真实姓名"> (请输入你的真实姓名)
+						value="${flash.name}" placeholder="请输入真实姓名"> <span class="error">#{error 'a.name' /}</span>
+						<input type="hidden" name="s.school" value="${schoolName}">
+						<input type="hidden" name="schoolId" value="${schoolId}">
 				</div>		
 				</p>
 				<p>
@@ -28,7 +30,7 @@
 					<div class="controls">
 					 <input	style="height: 20px" ; type="text" id="siTelphone" name="s.phone"
 						value="${flash.siTelphone}" placeholder="请输入有效的电话号码">
-					(请输入你的电话号码)
+					<span class="error">#{error 'a.phone' /}</span>
 					</div>
 				</p>
 				<p>
@@ -36,20 +38,8 @@
 					</label> 
 					<div class="controls">
 					<input id="email" type="text" name="s.email"
-						value="${flash.email}" placeholder="请输入邮箱" style="height: 20px";>（必须真实有效方便联系）
+						value="${flash.email}" placeholder="请输入邮箱" style="height: 20px";><span class="error">#{error 'a.email' /}</span>
 				</div>
-				</p>
-				<p>
-					<label class="control-label" > <a style="color: #FF0000;"> * </a>学校:
-					</label>
-					<div class="controls">
-					<select name="s.school">
-					<option value="">请选择</option>
-					#{list items:ls,as:'ls'}
-					<option value="${ls.id}">${ls.name}</option>
-					#{/list}
-					</select>
-					</div>
 				</p>
 				<p>
 					<label class="control-label" > <a style="color: #FF0000;"> * </a>专业:
@@ -57,7 +47,7 @@
 					<div class="controls">
 					 <input id="simajor" type="text" name="s.major"
 						value="${flash.major}" placeholder="请输入你的专业" style="height: 20px";>
-					(请输入你的专业课程)
+					<span class="error">#{error 'a.major' /}</span>
 					</div>
 				</p>
 				<p>
@@ -65,47 +55,36 @@
 					<div class="controls"> 
 					<input id="siAirport" type="text" name="s.airport"
 						value="${flash.airport}" placeholder="将要到达的机场"
-						style="height: 20px";>（请填写到达的机场）
+						style="height: 20px";><span class="error">#{error 'a.airport' /}</span>
 						</div>
 				</p>
 				<p>
 					<label class="control-label" ><a style="color: #FF0000;"> * </a> 航班:</label>
 					<div class="controls">
 					 <input id="siAirport" type="text" name="s.flight" value="${flash.flight}"
-						placeholder="将要到达的机场" style="height: 20px" ; />（请填写到达的机场）
+						placeholder="将要到达的机场" style="height: 20px" ; /><span class="error">#{error 'a.flight' /}</span>
 				</div>
 				</p>
-				<p>
-					<label class="control-label" ><a style="color: #FF0000;"> * </a> 到达日期:</label>
+				 
+				
+				
+					<div class="control-group">
+					<label class="control-label" ><a style="color: #FF0000;"> * </a>到达时间</label>
 					<div class="controls">
-					 <input	id="siDate" type="text" name="s.date" value="${flash.date}"
-						placeholder="例如：20130901" style="height: 20px";> (请填写到达日期)
+						 <div class="input-append date form_datetime" >
+						<input size="16" type="text"  name="s.date" value="${flash.date}" readonly style="width: 181px;">
+					 
+						<span class="add-on"><i class="icon-th"></i></span>
+						<span class="error">#{error 'a.time_from' /}</span>
+					</div>
+ 	 
+					</div>
 				</div>
-				</p>
 				<p>
-					<label class="control-label" ><a style="color: #FF0000;"> * </a> 到达时间:</label>
+					
 					<div class="controls">
-					 <input	id="siTime" type="text" name="s.time" value="${flash.time}"
-						placeholder="输入到达的时间" style="height: 20px";> (请填写到达时间)
-					</div>	
-				</p>
-				<p>
-					<label class="control-label" > <a style="color: #FF0000;"> * </a>是否接机:
-					</label>
-					<div class="controls">
-					 <input type="radio" id="sipickup" name="s.isPickUp" value="true"
-						${flash.isPickUp== "true"?"checked":""} />是 <input type="radio"
-						id="isPickUp" name="s.sipickup" value="false" ${flash.isPickUp== "flase"?"checked":""} />否
-				</div>
-				</p>
-				<p>
-					<label class="control-label" ><a style="color: #FF0000;"> * </a> 是否住宿:</label>
-					<div class="controls">
-					 <input	type="radio" id="isAccommodation" name="s.isAccommodation"
-						value="true" ${flash.isAccommodation== "是"?"checked":""}" />是 <input
-						type="radio" id="siStay" name="s.isAccommodation" value="否"
-						${flash.isAccommodation== "false"?"checked":""}" />否
-			</div>
+						<a>${explain}</a>
+					</div> 
 				</p>
 				<p>
 					<label class="control-label" ><a style="color: #FF0000;"> * </a> 行李:</label>
@@ -122,10 +101,28 @@
 				</div>
 				</p>
 				<p>
-					<input type="submit" class="btn btn-large btn-info" style="margin-left:178px;" value="提交">
+					 <input type="submit" class="btn btn-large btn-info" style="margin-left:178px;" value="提交">
 					 <input type="reset"   class="btn btn-large" value="重置">
 				</p>
 			</form>
 		</fieldset>
 	</div>
 </div>
+
+<script type="text/javascript" src=" ../../public/javascripts/jquery-1.8.3.min.js" charset="UTF-8"></script>
+ 
+<script type="text/javascript" src=" ../../public/javascripts/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../../public/javascripts/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript">
+ 
+ 
+   $(".form_datetime").datetimepicker({
+   
+        format: "yyyy-mm-dd  hh:ii",
+		autoclose: true, 
+		todayBtn: true,
+		startDate: "2013-9-11  10:00 ",
+        pickerPosition: "bottom-left",
+    });
+</script>            
+ 

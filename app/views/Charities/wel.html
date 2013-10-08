@@ -10,23 +10,21 @@
 <div class="">
 	<div class="form-horizontal">
 			<div class="control-group ">
-					  <h2 class="gy-title">公益活动</h2>
+					  <h4 class="gy-title">公益活动</h4>
 					
 			 </div> 
-			 <h2><a class="gy-fb" href="@{Charities.fabu()}">发布</a></h2>
-			 
-		
+			 	#{if isAdmin }
+			 		<h4><a  class="gy-fb" href="@{Charities.fabu()}">发布</a></h4>
+				 
+				 #{/if}
 			 
 			 	#{list items :we,as:'ac'}
 			 
 			   <div class="b-1">
 			 
 			   	
-					<h2 class="h3"><a class="goy-h3" href="@{Charities.welfare(ac.id)}">${ac.title}</a></h2>
-				 	<div>
-				 	  	<a href="@{Charities.edit(ac.id,pageNo)}">edit</a>
-					 	<a href="@{Charities.del(ac.id,pageNo)}">del</a>
-				 	</div>
+					<h3 class="h3"><a class="goy-h3" href="@{Charities.welfare(ac.id)}">${ac.title}</a></h3>
+				 	
 				 	
 					<a href="@{Charities.welfare(ac.id)}"> <img src="${ac.f}" class="b-pic"/></a>
 					
@@ -42,9 +40,13 @@
 							 	<span class="link">${ac.time}更新 </span>
 							 
 							 <span class="goy-6">
-								 	<a class="link"> +关注活动 </a>
+								 	<a class="link hide"> +关注活动 </a>
 							 	</span>
-													
+												
+				 
+				 	  	<a href="@{Charities.edit(ac.id,pageNo)}">编辑</a>
+					 	<a href="@{Charities.del(ac.id,pageNo)}">删除</a>
+				  							
 						 	</div>
 						 
 					 
@@ -89,7 +91,7 @@
  			
  	
 	<!--右边部分-->
- 		<div class="wr">
+ 		<!-- <div class="wr">
 		 
 				 
 					<h3>公益人物</h3>
@@ -157,17 +159,11 @@
 							</label>
 						<div class="float-1"></div>
 			</div>
-			
-			
-			
-			
-			 
-			
-			 
+	 
 			
 			 
 	</div>
- 
+  -->
  
  
  

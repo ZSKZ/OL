@@ -65,12 +65,12 @@ public class Activities extends Application {
 		if (days == -1) {
 			date = f.format(cal.getTime());
 			a = Activity
-					.find("type like ? and scope like ? and (dateFrom >= ? or dateTo >= ?)",
+					.find("type like ? and scope like ? and (timeFrom >= ? or timeTo >= ?) order by id desc",
 							"%" + type + "%", scope + "%", date, date)
 					.from(start).fetch(pageSize);
 		} else if (days == -2) {
 			a = Activity
-					.find("type like ? and scope like ? and isWeekend=?",
+					.find("type like ? and scope like ? and isWeekend=? order by id desc",
 							"%" + type + "%", scope + "%", true).from(start)
 					.fetch(pageSize);
 		} else {
@@ -78,7 +78,7 @@ public class Activities extends Application {
 			date = f.format(cal.getTime());
 			String nowDate = f.format(new Date());
 			a = Activity
-					.find("type like ? and scope like ? and  dateTo>=?  and  dateFrom<=?",
+					.find("type like ? and scope like ? and  timeTo>=?  and  timeFrom<=? order by id desc",
 							"%" + type + "%", scope + "%", nowDate, date)
 					.from(start).fetch(pageSize);
 		}
@@ -149,26 +149,20 @@ public class Activities extends Application {
 		render(at, s);
 	}
 
-	public static void next(Activity a, int date_from_y, int date_from_m,
-			int date_from_d, int date_to_y, int date_to_m, int date_to_d) {
+	public static void next(Activity a) {
 		final Validation.ValidationResult validationResult = validation
 				.valid(a);
 		if (!validationResult.ok) {
-			validation.keep();
+			
 			params.flash();
+			validation.keep();
 			flash.error("请更正错误。");
 			create();
 		}
-
-		a.dateFrom = date_from_y + "-" + (date_from_m < 10 ? "0" : "")
-				+ date_from_m + "-" + (date_from_d < 10 ? "0" : "")
-				+ date_from_d;
-		a.dateTo = date_to_y + "-" + (date_to_m < 10 ? "0" : "") + date_to_m
-				+ "-" + (date_to_d < 10 ? "0" : "") + date_to_d;
 		Calendar date_from = Calendar.getInstance();
 		Calendar date_to = Calendar.getInstance();
-		date_from.set(date_from_y, date_from_m - 1, date_from_d);
-		date_to.set(date_to_y, date_to_m - 1, date_to_d);
+		date_from.set(Integer.parseInt(a.timeFrom.substring(0, 3)), Integer.parseInt(a.timeFrom.substring(5,6 )),Integer.parseInt(a.timeFrom.substring(8, 9)));
+		date_to.set(Integer.parseInt(a.timeTo.substring(0, 3)), Integer.parseInt(a.timeTo.substring(5,6 )),Integer.parseInt(a.timeTo.substring(8, 9)));
 		if (date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
 				|| date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
 				|| date_to.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
@@ -179,12 +173,18 @@ public class Activities extends Application {
 		String publisher_type = session.get("usertype");
 		a.publisher_id = publisher_id;
 		a.publisher_type = publisher_type;
-		if (publisher_type.equals("simpleuser")) {
+		
+		System.out.println("user type:"+publisher_type);
+		
+		
+		
+		if (publisher_type.equals("simple")) {
 			SimpleUser user = SimpleUser.findById(publisher_id);
 			a.publisher_name = user.name;
 			a.publisher_profile = user.profile;
 
-		} else {
+		} 
+		else {
 			CSSA user = CSSA.findById(publisher_id);
 			a.publisher_name = user.name;
 			a.publisher_profile = user.profile;
@@ -208,7 +208,7 @@ public class Activities extends Application {
 		a.save();
 		String publisher_name;
 		String publisher_profile;
-		if (a.publisher_type.equals("simpleuser")) {
+		if (a.publisher_type.equals("simple")) {
 			SimpleUser u = SimpleUser.findById(a.publisher_id);
 			publisher_name = u.name;
 			publisher_profile = u.profile;
@@ -217,7 +217,7 @@ public class Activities extends Application {
 			publisher_name = c.name;
 			publisher_profile = c.profile;
 		}
-		if (a.publisher_type.equals("simpleuser")) {
+		if (a.publisher_type.equals("simple")) {
 			renderArgs.put("publisher", SimpleUser.findById(a.publisher_id));
 		} else if (a.publisher_type.equals("cssa")) {
 			renderArgs.put("publisher", CSSA.findById(a.publisher_id));
@@ -274,12 +274,12 @@ public class Activities extends Application {
 		if (days == -1) {
 			date = f.format(cal.getTime());
 			a = Activity
-					.find("type like ? and scope like ? and (dateFrom >= ? or dateTo >= ?)",
+					.find("type like ? and scope like ? and (timeFrom >= ? or timeTo >= ?) order by id desc",
 							"%" + type + "%", scope + "%", date, date)
 					.from(start).fetch(pageSize);
 		} else if (days == -2) {
 			a = Activity
-					.find("type like ? and scope like ? and isWeekend=?",
+					.find("type like ? and scope like ? and isWeekend=? order by id desc",
 							"%" + type + "%", scope + "%", true).from(start)
 					.fetch(pageSize);
 		} else {
@@ -287,7 +287,7 @@ public class Activities extends Application {
 			date = f.format(cal.getTime());
 			String nowDate = f.format(new Date());
 			a = Activity
-					.find("type like ? and scope like ? and  dateTo>=?  and  dateFrom<=?",
+					.find("type like ? and scope like ? and  timeTo>=?  and  timeFrom<=? order by id desc",
 							"%" + type + "%", scope + "%", nowDate, date)
 					.from(start).fetch(pageSize);
 		}
@@ -362,7 +362,7 @@ public class Activities extends Application {
 					+ "</a></div><div>"
 					+ "<span></span> <span></span>"
 					+ "<span>"
-					+ aa.dateFrom
+					+ aa.timeFrom +" 至    "+aa.timeTo
 					+ "</span> <span class=\"canjiaNO\"> </span>"
 					+ "</div>"
 					+ "<a class=\"detailed\">"

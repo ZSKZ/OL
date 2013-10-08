@@ -1,9 +1,25 @@
 package controllers;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.CropImageFilter;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import jj.play.ns.nl.captcha.util.ImageUtil;
+
 import com.mysql.jdbc.log.Log;
+import com.sun.mail.handlers.image_jpeg;
+import com.sun.media.sound.Toolkit;
 
 import notifiers.Notifier;
 import play.Logger;
@@ -16,6 +32,8 @@ import play.data.validation.Required;
 import play.libs.Codec;
 import play.libs.Crypto;
 import play.libs.Files;
+import play.libs.Images;
+import play.libs.Images.Captcha;
 import play.mvc.*;
 import models.activity.Activity;
 import models.users.CSSA;
@@ -271,10 +289,14 @@ public class SimpleUsers extends Application {
 		render(user);
 	}
 
-	public static void doChangeProfile(Long id, File profile) {
-		String path = "public/images/profile/" + Codec.UUID() + ".jpg";
-		Files.copy(profile, Play.getFile(path));
-		((SimpleUser) SimpleUser.findById(id)).changeProfile(path);
+	public static void doChangeProfile(Long id, File f, int left, int top,
+			int height, int width) {
+
+		String path1 = "public/images/profile/" + Codec.UUID() + ".jpg";
+		Images.crop(f, f, left, top, height, width);
+		Files.copy(f, Play.getFile(path1));
+
+		((SimpleUser) SimpleUser.findById(id)).changeProfile(path1);
 		flash.success("头像更改成功");
 		infoCenter(id);
 	}
@@ -300,9 +322,9 @@ public class SimpleUsers extends Application {
 						userId).fetch();
 		List<Activity> LikedActivity = Activity
 				.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ",
-						userId,"simpleuser").fetch();
+						userId, "simpleuser").fetch();
 		notFoundIfNull(user);
-		render(user, postedActivity, JoinedActivity,LikedActivity);
+		render(user, postedActivity, JoinedActivity, LikedActivity);
 	}
 
 }

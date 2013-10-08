@@ -61,19 +61,26 @@
 		</dd>
 
 	</dl>
-	<dl class="classify-dl clearfix">
+	<dl class="classify-dl clearfix" style="height: 20px;">
 		<dt class="list-tit">
 			<img src="/public/img/location.png" />地点：
 		</dt>
-		<dd class="list-fy ">
+		<dd class="list-fy1">
 			<form method="post" action="@{Activities.filterLocation}">
-				<input type="text" name="location" value="${location}" id="" /><input
-					type="submit" class="btn btn-info" value="查询"> <input
-					type="button" class="btn" value="清空" id="reset" />
+				<input type="text" name="location" value="${location}" id="" />
+				<input type="submit" class="btn btn-info btn_a" value="查询"> 
+				<input type="button" class="btn btn_a" value="清空" id="reset" />
 			</form>
 		</dd>
+		
 	</dl>
-	<a href="@{Activities.Create}" class="btn btn-success">创建活动</a>
+	   <dl class="classify-dl ">
+			<dd class="list-fy1">
+				<a href="@{Activities.Create}" class="btn btn-success btn_b" >创建活动</a>
+			</dd>
+		</dl>
+		
+	
 </div>
  
 <div class="second" id="content">
@@ -97,7 +104,7 @@
 			<div style="width:50px;" class="pull-right"><a href="@{Activities.userThumb(a.publisher_id)}"  data-target="#modal" data-toggle="modal"><img src="${a.publisher_profile}" class="img-polaroid"> ${a.publisher_name}</a></div>
 			<div class="">
 				<span>${a.distances==""?"":"距离："+a.distances}</span> <span>${a.duration==""?"":"驾车："+a.duration}</span>
-				<span>${a.dateFrom}</span> <span class="canjiaNO"> </span>
+				<span>${a.timeFrom}</span> 至 <span>${a.timeTo}</span><span class="canjiaNO"> </span>
 			</div>
 			<a class="detailed"> ${a.summary} </a>
 

@@ -3,13 +3,13 @@
 <script type="text/javascript" src="../../../public/javascripts/allunivlist.js"></script>
 <script type="text/javascript" src="../../../public/javascripts/jquery-1.7.2.min.js"></script>
  	<script language="javascript" type="text/javascript">
- 	
  	    var school = "";
 		$(function (){
 			$.each(allUnivList,function (j,m){		
 				$("#gj").append("<a href='javascript:void(0);' style='margin: 8px;'  onclick='getSheng("+j+",\""+m.name+"\")'>"+m.name+"</a>");			
 			});
 		});
+		
 		//获得每个国家的省份
 		function getSheng(aid,name){
 		school = name;
@@ -34,7 +34,7 @@
 		$("#list").show();
 			$("#list").html('');
 			$.each(allUnivList[gid].provs[pid].univs,function (k,l){
-				$("#list").append("<a href='#'  style='width:270px;display:block;float:left; margin:10px;'>"+l.name+"</a>");
+				$("#list").append("<a style='width:270px;display:block;float:left; margin:10px;'>"+l.name+"</a>");
 			});
 			$("#list").append("<br style='clear:both;' />");
 				
@@ -53,11 +53,11 @@
 		});
 	</script>
 
-<div class="opporcontent user-conH" >
-<div style="width:800px; border-right:1px solid #f4f4f4;" class="user-conH">
-	<div style="width:735px;">
-		<p class="lead" style="padding-left:30px; padding-top:20px;">提问</p>
-	</div>
+
+<div style="width:800px; border-right:1px solid #f4f4f4;">
+		<div style="width:735px;">
+			<p class="lead" style="padding-left:30px; padding-top:20px;">提问</p>
+		</div>
 	
 	<form class="form-horizontal"  id="QuesIndex" action="@{QuestAnsw.dispAddQues}"  method="post"  accept-charset="${_response_encoding}">
 	 	<div class="control-group input-right-w">
@@ -90,17 +90,24 @@
 		 
 		 <div class="control-group input-right-w">
 			 <label class="control-label">选择标签</label>
-		 	<div class="controls " style="width:594px;" id="ulname">
-		 	 <span class="op-13-1">标签越精细，越容易让专业人士看到你的问题</span>
-				#{list items:t,as:'tag'}
-					<li class="op-51">
-						<input type="checkbox"  class="" name="Tag" id="Tag"  value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""} />
-							<a class="op-6"> ${tag.tagName}</a>
-				    </li>
-				#{/list}
-			 </div>
+		 	<div class="controls ">
+		  			标签越精细，越容易让专业人士看到你的问题
+		  		</div>
 		  </div>
 		  
+		   <div class="control-group input-right-w">
+		  		
+		  		
+		  		 <div class="controls " style="width:594px;" id="ulname">
+				#{list items:t,as:'tag'}
+					<dd class="list-fy on" style="margin-left:-4px;">
+						<input type="checkbox"  class="" name="Tag" id="Tag"  value="${tag.tagName}" ${flash.Tag=="tag.id"?"checked":""} />
+						<a class="op-6">${tag.tagName} </a>
+				    </dd>
+				#{/list}
+			 </div>
+		  		
+		   </div>
 		  <div class="control-group input-right-w">
 		 	<div class="controls" id="ulname">
 					<input class="btn btn-large btn-primary" type="submit"/>
@@ -109,6 +116,7 @@
 			 </div>
 		  </div>
 	</form>
+	<div style=" clear:both;"></div>
 </div>	
-</div>
+
  
