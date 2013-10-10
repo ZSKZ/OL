@@ -9,5 +9,5 @@ import play.libs.Codec;
 public class School extends Model{
 	@Required
 	public String name;
-	
+	public String synopsis;
 }

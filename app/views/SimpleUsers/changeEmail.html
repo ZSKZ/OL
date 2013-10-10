@@ -1,10 +1,21 @@
 #{extends 'main.html' /}
 #{set title:'changeEmail.html' /}
-<div class="opporcontent">
-<form method="post" action="@{SimpleUsers.doChangeEmail}"  accept-charset="${_response_encoding}">
-<label>新邮箱</label>
+
+
+ <h4 id="title" >修改邮箱</h4>
+ 
+<form method="post" action="@{SimpleUsers.doChangeEmail}" class="form-horizontal "  accept-charset="${_response_encoding}">
+<div class="control-group">
+ <label class="control-label">新邮箱</label>
+ 	<div class="controls">
 <input type="text" name="email" value="${flash.email}" /><span>#{error 'email' /}</span>
-<input type="hidden" name="id" value="${id}"  />
-<input type="submit" value="更改"> 
-</form>
 </div>
+</div>
+<input type="hidden" name="id" value="${id}"  />
+<div class="control-group">
+	<div class="controls">
+<input type="submit" class="btn btn-info" value="更改"> 
+</div>
+</div>
+</form>
+ <div style="clear:both;"></div>

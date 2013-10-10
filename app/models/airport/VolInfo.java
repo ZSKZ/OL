@@ -23,8 +23,9 @@ public class VolInfo extends Model {
 	public String email;
 	public long phone;
 	public String car;
-	public int date;
+	public String date;
 	public String remarks;
+	public String school;
 	public String needConfirmation;
 	
 }

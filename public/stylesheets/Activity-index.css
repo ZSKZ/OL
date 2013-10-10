@@ -99,8 +99,7 @@ checkboxnan {
 
 .list-fy1 {
 	white-space: nowrap;
-	float: left;
-	position: relative
+	 margin-left:50px;
 }
 
 .quanbu {
@@ -169,7 +168,7 @@ a:hover {
 	padding: 0 0 10px 45px;
 	font-size: 12px;
 	line-height: 20px;
-	font-family: ΢���ź�;
+ 
 }
 
 .classify .list-tit,.classify-channel .list-tit {
@@ -268,12 +267,12 @@ a:hover {
 
 .activity-organizers {
 	margin-top: 30px;
-	font-size: 8px;
+	font-size:12px;
 	color: #7b7b7b;
 }
 
 .detailed {
-	font-size: 8px;
+	font-size:12px;
 	color: #7b7b7b;
 }
 
@@ -342,7 +341,7 @@ a:hover {
 }
 
 .nav {
-	padding: 5px;
+	padding: 1px;
 }
 
 .content1 {
@@ -388,7 +387,7 @@ a:hover {
 
 .position-pic1 {
 	position: absolute;
-	margin-top: -10;
+	top: -1px;
 }
 
 .position-pic img {
@@ -438,13 +437,13 @@ a:hover {
 }
 
 .canjia1 {
-	font-size: 8px;
+	font-size:12px;
 	color: #d4d4d4;
 	margin-left: 27px;
 }
 
 .canjia {
-	font-size: 8px;
+	font-size:12px;
 	color: #d4d4d4;
 	margin-left: 10px;
 }
@@ -464,13 +463,16 @@ a:hover {
 	border-bottom-right-radius: 5em;
 	background-color: #f8f8f8;
 }
-
-.btn-info {
-	background-image: linear-gradient(to bottom, #4b7390, #2f96b4);
-}
-
+ .btn_a{
+ 	position:relative;
+ 	margin-top:-10px;
+ 
+ 
+ }
+ 
+ 
 .wenzi {
-	font-size: 8px;
+	font-size:12px;
 	color: white;
 	background-color: #4b7390;
 	margin-left: 25px;
@@ -478,7 +480,7 @@ a:hover {
 }
 
 .info {
-	font-size: 8px;
+	font-size:12px;
 	color: #677f8b;
 }
 

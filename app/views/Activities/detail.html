@@ -13,10 +13,11 @@
 					<a class="pic-leftTitle">时间：</a><a>${a.dateFrom==a.dateTo?a.dateFrom:a.dateFrom+"至"+a.dateTo}
 						${a.timeFrom}-${a.timeTo}</a>
 				</div>
-
+				
 				<div class="detail">
 					<a class="pic-leftTitle">地点：</a><a>${a.location}</a>
 				</div>
+				
 				<div class="detail">
 					<a class="pic-leftTitle">费用：</a><a>${a.money}$</a>
 				</div>
@@ -30,13 +31,20 @@
 					<a class="pic-leftTitle">发起人：</a><a>${publisher_name}</a>
 				</div>
 				<div class="detail">
+					<a class="pic-leftTitle">联系方式：</a><a>${a.contract}</a>
+				</div>
+				<div class="detail">
 					<a class="pic-leftTitle">是否通过审核：</a><a>${a.is_checked?"是":"否"}</a>
 				</div>
-
+#{if  a.publisher_type=='simple' && connectedSimpleUser.name==publisher_name }
+<div><a class="btn btn-info" href="@{Activities.allJoinner(a.id)}">查看参加者</a></div>
+#{/if}
+#{else }
 				<div>
 					<a href="@{Activities.join(a.id)}" class="btn btn-danger" >报名参加</a>
 					<a href="@{Activities.like(a.id)}" class="btn btn-info" >关注</a>
 				</div>
+				#{/else}
 			</div>
 			
 		</div>
@@ -61,18 +69,18 @@
 		<div class="person">
 			<h4 class="activity-title3">活动组织者</h4>
 			<div class="activity-userpic">
-				<img src=${publisher_profile} alt="">
+				<img src=${publisher_profile} alt="" style="height:60px;width:60px;">
 			</div>
 			<div>
 				<small class="name">${publisher_name}</small> 
 			</div>
-		</div>
+		</div><br/>
 		<div class="numbers">
 			<h4 class="activity-title4">活动成员</h4>
 			<span class="canyuNO">${a.joinerCount}</span><span class="canyu1">人参与</span> <span
 				class="guanzhuNO">${a.likerCount}</span><span class="canyu1">人已关注</span><br>
 				#{list items:activityJoiner,as:'aj'}
-			<img src="${aj.profile}" class="bottom_pic" alt="${aj.name}">
+			<img src="${aj.profile}" style="width:50px;" alt="${aj.name}">
 			#{/list}
 		</div>
 	</div>

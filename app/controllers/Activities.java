@@ -10,9 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-/**
-i am tony 
-**/
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -61,26 +59,25 @@ public class Activities extends Application {
 		Calendar cal = Calendar.getInstance();
 
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		String date;
+		String date = f.format(cal.getTime());
 		List<Activity> a;
 
 		if (days == -1) {
-			date = f.format(cal.getTime());
 			a = Activity
-					.find("type like ? and scope like ? and (dateFrom >= ? or dateTo >= ?)",
-							"%" + type + "%", scope + "%", date, date)
+					.find("type like ? and scope like ? and  timeTo >= ?",
+							"%" + type + "%", scope + "%",  date)
 					.from(start).fetch(pageSize);
 		} else if (days == -2) {
 			a = Activity
-					.find("type like ? and scope like ? and isWeekend=?",
-							"%" + type + "%", scope + "%", true).from(start)
+					.find("type like ? and scope like ? and isWeekend=? and  timeTo >= ?",
+							"%" + type + "%", scope + "%", true,date).from(start)
 					.fetch(pageSize);
 		} else {
 			cal.add(Calendar.DAY_OF_MONTH, +days);
 			date = f.format(cal.getTime());
 			String nowDate = f.format(new Date());
 			a = Activity
-					.find("type like ? and scope like ? and  dateTo>=?  and  dateFrom<=?",
+					.find("type like ? and scope like ? and  timeTo>=?  and  timeFrom<=?",
 							"%" + type + "%", scope + "%", nowDate, date)
 					.from(start).fetch(pageSize);
 		}
@@ -151,26 +148,20 @@ public class Activities extends Application {
 		render(at, s);
 	}
 
-	public static void next(Activity a, int date_from_y, int date_from_m,
-			int date_from_d, int date_to_y, int date_to_m, int date_to_d) {
+	public static void next(Activity a) {
 		final Validation.ValidationResult validationResult = validation
 				.valid(a);
 		if (!validationResult.ok) {
-			validation.keep();
+			
 			params.flash();
+			validation.keep();
 			flash.error("请更正错误。");
 			create();
 		}
-
-		a.dateFrom = date_from_y + "-" + (date_from_m < 10 ? "0" : "")
-				+ date_from_m + "-" + (date_from_d < 10 ? "0" : "")
-				+ date_from_d;
-		a.dateTo = date_to_y + "-" + (date_to_m < 10 ? "0" : "") + date_to_m
-				+ "-" + (date_to_d < 10 ? "0" : "") + date_to_d;
 		Calendar date_from = Calendar.getInstance();
 		Calendar date_to = Calendar.getInstance();
-		date_from.set(date_from_y, date_from_m - 1, date_from_d);
-		date_to.set(date_to_y, date_to_m - 1, date_to_d);
+		date_from.set(Integer.parseInt(a.timeFrom.substring(0, 3)), Integer.parseInt(a.timeFrom.substring(5,6 )),Integer.parseInt(a.timeFrom.substring(8, 9)));
+		date_to.set(Integer.parseInt(a.timeTo.substring(0, 3)), Integer.parseInt(a.timeTo.substring(5,6 )),Integer.parseInt(a.timeTo.substring(8, 9)));
 		if (date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
 				|| date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
 				|| date_to.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
@@ -181,7 +172,7 @@ public class Activities extends Application {
 		String publisher_type = session.get("usertype");
 		a.publisher_id = publisher_id;
 		a.publisher_type = publisher_type;
-		if (publisher_type.equals("simpleuser")) {
+		if (publisher_type.equals("simple")) {
 			SimpleUser user = SimpleUser.findById(publisher_id);
 			a.publisher_name = user.name;
 			a.publisher_profile = user.profile;
@@ -191,6 +182,7 @@ public class Activities extends Application {
 			a.publisher_name = user.name;
 			a.publisher_profile = user.profile;
 		}
+		a.is_checked = false;
 		a.save();
 		Long id = a.id;
 		render(id);
@@ -210,7 +202,7 @@ public class Activities extends Application {
 		a.save();
 		String publisher_name;
 		String publisher_profile;
-		if (a.publisher_type.equals("simpleuser")) {
+		if (a.publisher_type.equals("simple")) {
 			SimpleUser u = SimpleUser.findById(a.publisher_id);
 			publisher_name = u.name;
 			publisher_profile = u.profile;
@@ -219,14 +211,14 @@ public class Activities extends Application {
 			publisher_name = c.name;
 			publisher_profile = c.profile;
 		}
-		if (a.publisher_type.equals("simpleuser")) {
+		if (a.publisher_type.equals("simple")) {
 			renderArgs.put("publisher", SimpleUser.findById(a.publisher_id));
 		} else if (a.publisher_type.equals("cssa")) {
 			renderArgs.put("publisher", CSSA.findById(a.publisher_id));
 		}
 		List<SimpleUser> activityJoiner = SimpleUser
-				.find("select user from SimpleUser user,ActivityJoiner aj where aj.jid = user.id and aid=?",
-						id).fetch();
+				.find("select user from SimpleUser user,ActivityJoiner aj where aj.jid = user.id and aid=? and isAllown = ?",
+						id,true).fetch();
 		render(a, publisher_name, publisher_profile, activityJoiner);
 	}
 
@@ -276,7 +268,7 @@ public class Activities extends Application {
 		if (days == -1) {
 			date = f.format(cal.getTime());
 			a = Activity
-					.find("type like ? and scope like ? and (dateFrom >= ? or dateTo >= ?)",
+					.find("type like ? and scope like ? and (timeFrom >= ? or timeTo >= ?)",
 							"%" + type + "%", scope + "%", date, date)
 					.from(start).fetch(pageSize);
 		} else if (days == -2) {
@@ -289,7 +281,7 @@ public class Activities extends Application {
 			date = f.format(cal.getTime());
 			String nowDate = f.format(new Date());
 			a = Activity
-					.find("type like ? and scope like ? and  dateTo>=?  and  dateFrom<=?",
+					.find("type like ? and scope like ? and  timeTo>=?  and  timeFrom<=?",
 							"%" + type + "%", scope + "%", nowDate, date)
 					.from(start).fetch(pageSize);
 		}
@@ -364,14 +356,13 @@ public class Activities extends Application {
 					+ "</a></div><div>"
 					+ "<span></span> <span></span>"
 					+ "<span>"
-					+ aa.dateFrom
+					+ aa.timeFrom + " 至 " +aa.timeTo
 					+ "</span> <span class=\"canjiaNO\"> </span>"
 					+ "</div>"
 					+ "<a class=\"detailed\">"
 					+ aa.intro
 					+ "</a>"
 					+
-
 					"<div class=\"look-btn\" style=\"z-index: 99; top: 350px; right:10px;\">"
 					+ "<a href=\"/activity/detail/"
 					+ aa.id
@@ -382,7 +373,7 @@ public class Activities extends Application {
 		renderHtml(html);
 	}
 
-	public static void join(long aid) {
+	public static void join(long aid,String selfIntro) {
 		long userId = Long.parseLong(session.get("logged"));
 		List aj_exist = ActivityJoiner.find("aid = ? and jid = ?", aid, userId)
 				.fetch();
@@ -397,11 +388,16 @@ public class Activities extends Application {
 		ActivityJoiner aj = new ActivityJoiner();
 		aj.aid = aid;
 		aj.jid = userId;
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		String nowDate = f.format(cal.getTime());
+		aj.date = nowDate;
+		aj.selfIntro  = selfIntro;
 		aj.save();
 		Activity a = Activity.findById(aid);
 		a.joinerCount = a.joinerCount + 1;
 		a.save();
-		flash.success("参加成功");
+		flash.success("申请参加成功，请静候回复。");
 		detail(aid);
 	}
 
@@ -435,6 +431,13 @@ public class Activities extends Application {
 	public static void userThumb(long id) {
 		String user = "Jessie";
 		renderHtml(user);
+	}
+
+	public static void allJoinner(long aid) {
+		List<SimpleUser> activityJoiner = SimpleUser
+				.find("select user from SimpleUser user,ActivityJoiner aj where aj.jid = user.id and aid=? and isAllown = ?",
+						aid,true).fetch();
+		render(activityJoiner);
 	}
 
 }

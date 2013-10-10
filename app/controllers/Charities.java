@@ -15,18 +15,27 @@ import javax.servlet.http.HttpSession;
   
 
 
+
+
 import models.*;
 import models.charity.Wel;
+import models.users.SimpleUser;
 
-public class Charities extends Controller{
+public class Charities extends Application{
  
+	@Before
+	public static void isAdmin(){
+		if (session.get("logged") != null && session.get("usertype").equals("simple")) {
+			SimpleUser su = SimpleUser.findById(Long.parseLong(session.get("logged")));
+			if(su.isAdmin == true)
+			renderArgs.put("isAdmin",true);			
+		}
+	}
+	
 	public static void fabu() {
 		render();
 	 }	
-	
-	
  
-
 	@SuppressWarnings("unused")
 	public static void WelSave(String title,String content,String time,File f,String  generalize ) {
 		 
@@ -68,9 +77,7 @@ public class Charities extends Controller{
 	public static void edit(long id,int pageNo){
 		 
 		Wel w = Wel.findById(id);
-		
-		 
-		render(w,pageNo);
+		 render(w,pageNo);
  	 }
 	
 	public static void update(Wel w,File f,int pageNo){
@@ -115,16 +122,13 @@ public class Charities extends Controller{
 		long pageCount = Wel.count()%5==0? Wel.count()/5:(Wel.count()/5+1);
 		
 		
-		if(pageNo < 1) {
+		if(pageNo <= 1) {
 			pageNo =  1;
 		} else if(pageNo >= pageCount) {
 			pageNo =  (int) pageCount;
 		}
 		List<Wel> we= Wel.find("order by time desc").from((pageNo-1)*5).fetch(5);
-	
-		
-		 
-	  	renderTemplate("Application/wel.html",we,pageCount,pageNo);
+	 renderTemplate("Charities/wel.html",we,pageCount,pageNo);
 	 }
 
 	 

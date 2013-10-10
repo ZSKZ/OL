@@ -1,15 +1,21 @@
 #{extends 'main.html' /} #{set title:'updateProfile.html' /}
 
-<div class="opporcontent">
-<form action="@{CSSAs.doUpdateProfile}" method="POST" accept-charset="${_response_encoding}">
+<div>
+<form action="@{CSSAs.doUpdateProfile}" method="POST" class="form-horizontal " accept-charset="${_response_encoding}">
 	
 	<p>
-		<label>官方主页</label>
+	<div class="control-group">
+		<label class="control-label">官方主页</label>
+		<div class="controls">
 		<input type="text" name="user.homepage" value="${user.homepage}"  />
-		<span class="error">#{error 'homepage' /}</span>
+		 <span class="error">#{error 'homepage' /}</span>
+		</div>
+	</div>
 	</p>
 	<p>
-		<label>成员人数</label>
+	<div class="control-group">
+		<label class="control-label">成员人数</label>
+		<div class="controls">
 		<select name="user.peopleNumber">
 		<option ${user.peopleNumber=="1-20"?"selected":""} value="1-20">1-20</option>
 		
@@ -20,22 +26,36 @@
 		</select>
 		
 		<span class="error">#{error 'people_number' /}</span>
+		</div>
+	</div>
 	</p>
 	<p>
-		<label>组织简介</label>
+	<div class="control-group">
+		<label class="control-label">组织简介</label>
+		<div class="controls">
 		<input type="text" name="user.selfIntro" value="${user.selfIntro}" />
 		<span class="error">#{error 'selfIntro' /}</span>
+		</div>
+	</div>
 	</p>
 
 
 	<p>
-		<label>联系方式</label>
+	<div class="control-group">
+		<label class="control-label">联系方式</label>
+		<div class="controls">
 		<input type="text" name="user.contract" value="${user.contract}"  />
 		<span class="error">#{error 'contract' /}</span>
+		</div>
+	</div>
 	</p>
 	<input type="hidden" name="user.id" value="${user.id}" />
 	<p class="buttons">
-		<input type="submit" value="更新" />
+	<div class="control-group">
+	<div class="controls">
+		<input type="submit" class="btn btn-info" value="更新" />
+		 </div>
+		 </div>
 	</p>
 		
 </form>

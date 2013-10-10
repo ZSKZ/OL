@@ -8,11 +8,9 @@ import java.util.*;
 
 @Entity
 public class ActivityLiker extends Model {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public long aid;
     public long lid;
     public String ltype;
+    public String date;
+    public boolean isNoticed;
 }

@@ -1,27 +1,40 @@
 #{extends 'main.html' /} #{set title:'login.html' /}
  
-<h1 id="title">Login</h1>
+<h4 id="title" >欢迎登录奥噗</h4>
+ 
 <p class="light"></p>
 
-<form id="login" action="@{SimpleUsers.authenticate}" method="POST"
+<form id="login" action="@{SimpleUsers.authenticate}" method="POST"  class="form-horizontal" 
 	accept-charset="${_response_encoding}">
-	<p>
-		<label>Email</label> <input type="text" name="email"
+	 
+	<div class="control-group">
+		<label  class="control-label">Email</label> 
+		<div class="controls">
+		<input type="text" name="email"
 			value="${flash.email}" id="email" /><span class="error">#{error 'email' /}</span>
-	</p>
-	<p>
-		<label>Password</label> <input type="password" name="password"
+	</div>
+	</div>
+	 <div class="control-group">
+		<label  class="control-label">Password</label>
+		<div class="controls">
+		<input type="password" name="password"
 			value="" id="password" /><span class="error">#{error 'password' /}</span>
-	</p>
+			</div>
+			</div>
+	 
 
-	<p class="buttons">
-		<input type="submit" value="Login" id="loginButton" />
-	</p>
+	<div class="buttons">
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" class="btn btn-info" value="Login" id="loginButton" />
+			<a href="@{SimpleUsers.forgetPassword}" style="margin-left:80px;">忘记密码?</a> 
+			</div>
+		</div>
+	</div>
+	 
 </form>
-
-<p>
-	<a href="@{SimpleUsers.forgetPassword}">忘记密码?</a>
-</p>
+ 
+ 
 
 #{if flash.notconfirmed}
 <p>

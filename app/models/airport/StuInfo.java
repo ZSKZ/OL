@@ -23,19 +23,11 @@ public class StuInfo extends Model {
 	@Required
 	public String flight;
 	@Required
-	public int date;
+	public String date;
 	@Required
-	public String time;
-	@Required
-	public long school;
-	@Required
-	public boolean isPickup;
-	@Required
-	public boolean isAccommodation;
+	public String school;
 	@Required
 	public String luggage;
 	public String remarks;
-	public boolean needConfirmation;
 
-	
 }

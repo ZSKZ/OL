@@ -1,27 +1,38 @@
 #{extends 'main.html' /}
 #{set title:'login.html' /}
 
-<h1 id="title">Login</h1>
-<p class="light">
-    
-</p>
-
-<form id="login" action="@{CSSAs.authenticate}" method="POST" accept-charset="${_response_encoding}">
-	<p>
-		<label>Email</label>
+<h4 id="title">Login</h4>
+ 
+<form id="login" action="@{CSSAs.authenticate}" method="POST"  class="form-horizontal" accept-charset="${_response_encoding}">
+ 
+	<div class="control-group">
+		<label  class="control-label">Email</label>
+		<div class="controls">
 		<input type="text" name="email" value="${flash.email}" id="email" />
-	</p>
-	<p>
-		<label>Password</label>
+		</div>
+		</div>
+	 
+	 
+	<div class="control-group">
+		<label  class="control-label">Password</label>
+		<div class="controls">
 		<input type="password" name="password" value="" id="password" />
-	</p>
+		</div>
+		</div>
+ 
 	
-	<p class="buttons">
-		<input type="submit" value="Login" id="loginButton" />
-	</p>
+	<div class="buttons">
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" class="btn btn-info" value="Login" id="loginButton" />
+			<a href="@{CSSAs.forgetPassword}" style="margin-left:80px;">忘记密码?</a> 
+			</div>
+		</div>
+	</div>
+	 
 </form>
+ 
 
-<p><a href="@{CSSAs.forgetPassword}">忘记密码?</a></p>
 
 #{if flash.notconfirmed}
 	<p>

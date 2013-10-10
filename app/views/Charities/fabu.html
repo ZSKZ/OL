@@ -1,13 +1,14 @@
-#{extends 'main.html' /} #{set title:'index.html'/} #{set 'Styles'}
-<link rel="stylesheet" href="@{'/public/stylesheets/wel.css'}" />
-<link
-	href="@{'/public/stylesheets/bootstrap-combined.no-icons.min.css'}"
-	rel="stylesheet">
+#{extends 'main.html' /} #{set title:'index.html'/}
 
-<link href="@{'/public/stylesheets/font-awesome/css/font-awesome.css'}"
+ #{set 'Styles'}
+<link rel="stylesheet" href="@{'/public/stylesheets/wel.css'}" />
+
+	<link href="@{'/public/stylesheets/font-awesome/css/font-awesome.css'}"
 	rel="stylesheet">
 <link href="@{'/public/stylesheets/index.css'}" rel="stylesheet">
-<link href="@{'/public/stylesheets/ie6.min.css'}" rel="stylesheet">
+ 
+ 
+
 
 #{/set}
 
@@ -54,12 +55,7 @@
 					<div class="container">
 						<div class="hero-unit" style="width: 800px;">
 							<div class="pull-right"></div>
-
-
-
-
-
-
+ 
 							<div id="alerts"></div>
 							<div class="btn-toolbar" data-role="editor-toolbar"
 								data-target="#editor">
@@ -136,14 +132,17 @@
 
 							</div>
 
-							<div id="editor"></div>
+							<div id="editor" contenteditable="true"> </div>
 							<textarea class="hide" rows="5" cols="5" id="content"
 								name="content" value="${flash.content}"></textarea>
 						</div>
 
 					</div>
-
-
+#{set 'Scripts'}
+<script type="text/javascript" src="@{'/public/javascripts/bootstrap-wysiwyg.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/pic.js'}"></script>
+<script type="text/javascript" src="@{'/public/javascripts/key.js'}"></script>
+ 
 					<script>
 						$(function() {
 							$(".we-btn").click(function() {
@@ -246,6 +245,7 @@
 							window.prettyPrint && prettyPrint();
 						});
 					</script>
+					#{/set}
 				</div>
 
 

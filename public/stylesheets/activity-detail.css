@@ -55,7 +55,7 @@ html {
 }
 
 .detail {
-	font-size: 8px;
+	font-size: 12px;
 }
 
 .num {
@@ -69,7 +69,7 @@ html {
 .activity-introduction {
 	width: 400px;
 	margin-left: 35px;
-	font-size: 8px;
+	font-size: 12px;
 }
 
 .activity-picture {
@@ -103,7 +103,7 @@ html {
 
 .discuss span {
 	float: right;
-	font-size: 8px;
+	font-size: 12px;
 	color: b5b5b5;
 }
 
@@ -185,10 +185,7 @@ html {
 	padding-left: 24px;
 	padding-right: 24px;
 }
-
-.btn-info:hover {
-	background-color: #2f96b4;
-}
+ 
 
 .activity-title1,.activity-title3,.activity-title4 {
 	color: #73ADC0;
@@ -206,7 +203,7 @@ html {
 }
 
 .discuss-NO {
-	font-size: 8px;
+	font-size: 12px;
 	color: b5b5b5;
 }
 
@@ -234,13 +231,13 @@ html {
 }
 
 .organizer-sex {
-	font-size: 8px;
+	font-size: 12px;
 	margin-left: 10px;
 }
 
 .inline {
 	color: #ccc;
-	font-size: 8px;
+	font-size:12px;
 }
 
 .activity-guanzhu {
@@ -249,7 +246,7 @@ html {
 
 .canyuNO,.guanzhuNO {
 	color: #73ADC0;
-	font-size: 8px;
+	font-size: 12px;
 }
 
 .canyuNO {
@@ -258,7 +255,7 @@ html {
 
 .canyu1 {
 	color: #ccc;
-	font-size: 8px;
+	font-size: 12px;
 }
 
 .numbers {
@@ -304,12 +301,12 @@ a:hover,a:focus {
 	border: 0px;
 	margin-top: 10px;
 	background-color: #5681A1;
-	font-size: 10px;
+	font-size: 12px;
 	color: #fff;
 }
 
 .map a {
-	font-size: 8px;
+	font-size: 12px;
 	color: #ccc;
 	float: right;
 	margin-top: 20px;
@@ -345,7 +342,7 @@ a:hover,a:focus {
 
 .f1 {
 	color: #ccc;
-	font-size: 8px;
+	font-size: 12px;
 }
 
 .name {
@@ -355,7 +352,7 @@ a:hover,a:focus {
 
 .person .icon {
 	color: #ccc;
-	font-size: 8px;
+	font-size: 12px;
 	margin-top: 10px;
 }
 
@@ -378,7 +375,7 @@ a:hover,a:focus {
 
 .container-fluid {
 	background-color: #5282a5;
-	margin-top: 20px;
+	 
 }
 
 .list3 {

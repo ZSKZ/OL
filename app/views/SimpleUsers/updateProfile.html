@@ -36,10 +36,27 @@
 	<div class="control-group">
 		<label class="control-label">感情状况</label>
 		<div class="controls">
+		 <select name="user.ralationship" value="${user.ralationship}">
+		  <option >保密</option> 
+		  <option >单身</option> 
+		  <option >恋爱中</option> 
+		<option >已订婚</option> 
+		<option >已婚</option> 
+		<option  >分居</option> 
+		
+		<option >离异</option> 
+			
+			
+			</select>
+		</div>	
+			<span class="error">#{error 'ralationship' /}</span>
+			
+			
+		<!-- <div class="controls">
 		 <input type="text" name="user.ralationship"
 			value="${user.ralationship}" /> <span class="error">#{error
 			'ralationship' /}</span>
-			</div>
+			</div> -->
 	</div>
 
 	<div class="control-group">
