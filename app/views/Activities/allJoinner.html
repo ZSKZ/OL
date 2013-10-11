@@ -1,4 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'allJoinner.html' /}
-
-#{list items:}
+#{list items:joiners,as:'joiner'}
+<img src="${joiner.jprofile}"> 昵称： ${joiner.jname} 性别： ${joiner.jgender==null?"未知":joiner.jgender} 
+#{if isOwner}
+#{if joiner.isAllown}
+<a href="@{Activities.disAllownJoiner(joiner.id)}">不允许参加</a>
+#{/if}
+#{else}
+<a href="@{Activities.allownJoiner(joiner.id)}">允许参加</a>
+#{/else}
+#{/if}
+<br />
+#{/list}

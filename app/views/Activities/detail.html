@@ -14,10 +14,11 @@
 						${a.timeFrom}-${a.timeTo}</a>
 				</div>
 				
+				#{if isAllown}
 				<div class="detail">
 					<a class="pic-leftTitle">地点：</a><a>${a.location}</a>
 				</div>
-				
+				#{/if}
 				<div class="detail">
 					<a class="pic-leftTitle">费用：</a><a>${a.money}$</a>
 				</div>
@@ -30,20 +31,48 @@
 				<div class="detail">
 					<a class="pic-leftTitle">发起人：</a><a>${publisher_name}</a>
 				</div>
+				#{if isAllown}
 				<div class="detail">
 					<a class="pic-leftTitle">联系方式：</a><a>${a.contract}</a>
 				</div>
+				#{/if}
 				<div class="detail">
 					<a class="pic-leftTitle">是否通过审核：</a><a>${a.is_checked?"是":"否"}</a>
 				</div>
-#{if  a.publisher_type=='simple' && connectedSimpleUser.name==publisher_name }
-<div><a class="btn btn-info" href="@{Activities.allJoinner(a.id)}">查看参加者</a></div>
+#{if  a.publisher_type=='simple' && connectedSimpleUser?.name==publisher_name  }
+#{if a.isOpen!=true}
+<div><a class="btn btn-success" href="@{Activities.allJoinner(a.id)}">查看参加者</a></div>
+#{/if}
 #{/if}
 #{else }
 				<div>
-					<a href="@{Activities.join(a.id)}" class="btn btn-danger" >报名参加</a>
+				#{if a.isOpen!=true}
+					<a href="#myModal" role="button" data-toggle="modal" class="btn btn-success" >报名参加</a>
+					#{/if}
 					<a href="@{Activities.like(a.id)}" class="btn btn-info" >关注</a>
-				</div>
+					#{if a.isOpen!=true}
+					<a class="btn " href="@{Activities.allJoinner(a.id)}">查看参加者</a>
+					#{/if}
+				<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+							<h3 id="myModalLabel">自我介绍：</h3>
+						</div>
+
+						<div class="modal-body">
+							<form action="@{Activities.join}" method="POST" >
+								<textarea rows="5" class="span6" name="selfIntro"></textarea><br/>
+									<input type="hidden" name="aid" value="${a.id}">
+									<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+									<input type="submit" value="提交" class="btn btn-success" />
+							</form>
+						</div>
+
+
+
+					</div>
+					</div>
 				#{/else}
 			</div>
 			
@@ -79,8 +108,8 @@
 			<h4 class="activity-title4">活动成员</h4>
 			<span class="canyuNO">${a.joinerCount}</span><span class="canyu1">人参与</span> <span
 				class="guanzhuNO">${a.likerCount}</span><span class="canyu1">人已关注</span><br>
-				#{list items:activityJoiner,as:'aj'}
-			<img src="${aj.profile}" style="width:50px;" alt="${aj.name}">
+				#{list items:joiners,as:'joiner'}
+			<img src="${joiner.jprofile}" style="width:50px;" alt="${joiner.jname}">
 			#{/list}
 		</div>
 	</div>

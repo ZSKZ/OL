@@ -65,13 +65,13 @@ public class Activities extends Application {
 		if (days == -1) {
 			a = Activity
 					.find("type like ? and scope like ? and  timeTo >= ?",
-							"%" + type + "%", scope + "%",  date)
-					.from(start).fetch(pageSize);
+							"%" + type + "%", scope + "%", date).from(start)
+					.fetch(pageSize);
 		} else if (days == -2) {
 			a = Activity
 					.find("type like ? and scope like ? and isWeekend=? and  timeTo >= ?",
-							"%" + type + "%", scope + "%", true,date).from(start)
-					.fetch(pageSize);
+							"%" + type + "%", scope + "%", true, date)
+					.from(start).fetch(pageSize);
 		} else {
 			cal.add(Calendar.DAY_OF_MONTH, +days);
 			date = f.format(cal.getTime());
@@ -149,10 +149,11 @@ public class Activities extends Application {
 	}
 
 	public static void next(Activity a) {
+		System.out.println(a.isOpen);
 		final Validation.ValidationResult validationResult = validation
 				.valid(a);
 		if (!validationResult.ok) {
-			
+
 			params.flash();
 			validation.keep();
 			flash.error("请更正错误。");
@@ -160,8 +161,12 @@ public class Activities extends Application {
 		}
 		Calendar date_from = Calendar.getInstance();
 		Calendar date_to = Calendar.getInstance();
-		date_from.set(Integer.parseInt(a.timeFrom.substring(0, 3)), Integer.parseInt(a.timeFrom.substring(5,6 )),Integer.parseInt(a.timeFrom.substring(8, 9)));
-		date_to.set(Integer.parseInt(a.timeTo.substring(0, 3)), Integer.parseInt(a.timeTo.substring(5,6 )),Integer.parseInt(a.timeTo.substring(8, 9)));
+		date_from.set(Integer.parseInt(a.timeFrom.substring(0, 3)),
+				Integer.parseInt(a.timeFrom.substring(5, 6)),
+				Integer.parseInt(a.timeFrom.substring(8, 9)));
+		date_to.set(Integer.parseInt(a.timeTo.substring(0, 3)),
+				Integer.parseInt(a.timeTo.substring(5, 6)),
+				Integer.parseInt(a.timeTo.substring(8, 9)));
 		if (date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
 				|| date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
 				|| date_to.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
@@ -200,6 +205,7 @@ public class Activities extends Application {
 		Activity a = Activity.findById(id);
 		a.views = a.views + 1;
 		a.save();
+		// get pulisher name and profile;
 		String publisher_name;
 		String publisher_profile;
 		if (a.publisher_type.equals("simple")) {
@@ -216,10 +222,39 @@ public class Activities extends Application {
 		} else if (a.publisher_type.equals("cssa")) {
 			renderArgs.put("publisher", CSSA.findById(a.publisher_id));
 		}
-		List<SimpleUser> activityJoiner = SimpleUser
-				.find("select user from SimpleUser user,ActivityJoiner aj where aj.jid = user.id and aid=? and isAllown = ?",
-						id,true).fetch();
-		render(a, publisher_name, publisher_profile, activityJoiner);
+		// get pulisher name and profile; end
+
+		// get Joiners;
+		List<ActivityJoiner> joiners = ActivityJoiner.find(
+				" aid=? and isAllown = ?", id, true).fetch();
+		// get Joiners; end
+
+		// isDisply contract and address;
+		// -- Activity owner and joiner allows can display --
+		boolean isAllown = false;
+		String usertype = session.get("usertype");
+		String s_uid = session.get("logged");
+		if (usertype == null) {
+			isAllown = false;
+		} else if (usertype.equals("cssa")) {
+			if (a.publisher_type.equals("cssa")
+					&& Long.parseLong(s_uid) == a.publisher_id) {
+				isAllown = true;
+			} else {
+				isAllown = false;
+			}
+			isAllown = false;
+		} else if (a.publisher_type.equals("simple")
+				&& Long.parseLong(s_uid) == a.publisher_id) {
+			isAllown = true;
+		} else {
+			long jid = Long.parseLong(s_uid);
+			ActivityJoiner aj = (ActivityJoiner) ActivityJoiner.find(
+					"aid=? and jid=? and isAllown=?", id, jid, true).first();
+			isAllown = Boolean.parseBoolean(aj == null ? "false" : "true");
+		}
+
+		render(a, publisher_name, publisher_profile, joiners, isAllown);
 	}
 
 	public static void filterType(String type) {
@@ -356,14 +391,15 @@ public class Activities extends Application {
 					+ "</a></div><div>"
 					+ "<span></span> <span></span>"
 					+ "<span>"
-					+ aa.timeFrom + " 至 " +aa.timeTo
+					+ aa.timeFrom
+					+ " 至 "
+					+ aa.timeTo
 					+ "</span> <span class=\"canjiaNO\"> </span>"
 					+ "</div>"
 					+ "<a class=\"detailed\">"
 					+ aa.intro
 					+ "</a>"
-					+
-					"<div class=\"look-btn\" style=\"z-index: 99; top: 350px; right:10px;\">"
+					+ "<div class=\"look-btn\" style=\"z-index: 99; top: 350px; right:10px;\">"
 					+ "<a href=\"/activity/detail/"
 					+ aa.id
 					+ "\" class=\"btn btn-info\" type=\"button\"><span class=\"btn-font\">看看</span></a>"
@@ -373,7 +409,7 @@ public class Activities extends Application {
 		renderHtml(html);
 	}
 
-	public static void join(long aid,String selfIntro) {
+	public static void join(long aid, String selfIntro) {
 		long userId = Long.parseLong(session.get("logged"));
 		List aj_exist = ActivityJoiner.find("aid = ? and jid = ?", aid, userId)
 				.fetch();
@@ -388,11 +424,17 @@ public class Activities extends Application {
 		ActivityJoiner aj = new ActivityJoiner();
 		aj.aid = aid;
 		aj.jid = userId;
+
+		SimpleUser su = SimpleUser.findById(userId);
+		aj.jgender = su.gender;
+		aj.jname = su.name;
+		aj.jprofile = su.profile;
+
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 		String nowDate = f.format(cal.getTime());
 		aj.date = nowDate;
-		aj.selfIntro  = selfIntro;
+		aj.selfIntro = selfIntro;
 		aj.save();
 		Activity a = Activity.findById(aid);
 		a.joinerCount = a.joinerCount + 1;
@@ -416,10 +458,22 @@ public class Activities extends Application {
 		al.aid = aid;
 		al.lid = userId;
 		al.ltype = usertype;
+		if (usertype.equals("cssa")) {
+			CSSA c = CSSA.findById(userId);
+			al.lname = c.name;
+			al.lprofile = c.profile;
+
+		} else {
+			SimpleUser su = SimpleUser.findById(userId);
+			al.lgender = su.gender;
+			al.lname = su.name;
+			al.lprofile = su.profile;
+		}
 		al.save();
 		Activity a = Activity.findById(aid);
 		a.likerCount = a.likerCount + 1;
 		a.save();
+
 		flash.success("关注成功");
 		detail(aid);
 	}
@@ -434,10 +488,28 @@ public class Activities extends Application {
 	}
 
 	public static void allJoinner(long aid) {
-		List<SimpleUser> activityJoiner = SimpleUser
-				.find("select user from SimpleUser user,ActivityJoiner aj where aj.jid = user.id and aid=? and isAllown = ?",
-						aid,true).fetch();
-		render(activityJoiner);
+		List<ActivityJoiner> joiners = ActivityJoiner.find(
+				"aid=? order by isAllown desc", aid).fetch();
+		long uid = Long.parseLong(session.get("logged"));
+		String usertype = session.get("usertype");
+		Activity a = Activity.findById(aid);
+		boolean isOwner = false;
+		if ((uid == a.publisher_id) && usertype.equals(a.publisher_type)){
+			isOwner = true;
+		}
+			render(joiners,isOwner);
+	}
+	public static void allownJoiner(long ajid){
+		ActivityJoiner aj = ActivityJoiner.findById(ajid);
+		aj.isAllown = true;
+		aj.save();
+		allJoinner(aj.aid);
+	}
+	public static void disAllownJoiner(long ajid){
+		ActivityJoiner aj = ActivityJoiner.findById(ajid);
+		aj.isAllown = false;
+		aj.save();
+		allJoinner(aj.aid);
 	}
 
 }

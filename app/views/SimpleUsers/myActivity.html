@@ -79,8 +79,8 @@
 							src="${activity.poster}" class="img-polaroid">
 						</a>
 						<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo}
-							时间： ${activity.timeFrom}- ${activity.timeTo}
-							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
+							时间： ${activity.timeFrom}- ${activity.timeTo} ;
+							<a href="@{Activities.allJoinner(activity.id)}" >参加：${activity.joinerCount}人 </a>;关注：${activity.likerCount}人 ;浏览：
 							${activity.views}人</p>
 
 						#{/list}

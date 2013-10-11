@@ -1,25 +1,9 @@
 package controllers;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.awt.image.CropImageFilter;
-import java.awt.image.FilteredImageSource;
-import java.awt.image.ImageFilter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
-import jj.play.ns.nl.captcha.util.ImageUtil;
-
 import com.mysql.jdbc.log.Log;
-import com.sun.mail.handlers.image_jpeg;
-import com.sun.media.sound.Toolkit;
 
 import notifiers.Notifier;
 import play.Logger;
@@ -32,10 +16,9 @@ import play.data.validation.Required;
 import play.libs.Codec;
 import play.libs.Crypto;
 import play.libs.Files;
-import play.libs.Images;
-import play.libs.Images.Captcha;
 import play.mvc.*;
 import models.activity.Activity;
+import models.activity.ActivityJoiner;
 import models.users.CSSA;
 import models.users.SimpleUser;
 
@@ -289,26 +272,26 @@ public class SimpleUsers extends Application {
 		render(user);
 	}
 
-	public static void doChangeProfile(Long id, File f, int left, int top,
-			int height, int width) {
-
-		String path1 = "public/images/profile/" + Codec.UUID() + ".jpg";
-		Images.crop(f, f, left, top, height, width);
-		Files.copy(f, Play.getFile(path1));
-
-		((SimpleUser) SimpleUser.findById(id)).changeProfile(path1);
+	public static void doChangeProfile(Long id, File profile) {
+		String path = "public/images/profile/" + Codec.UUID() + ".jpg";
+		Files.copy(profile, Play.getFile(path));
+		((SimpleUser) SimpleUser.findById(id)).changeProfile(path);
 		flash.success("头像更改成功");
 		infoCenter(id);
 	}
 
 	public static void infoCenter(long id) {
-		long uid = Long.parseLong(session.get("logged"));
-		if (id != uid) {
-			id = uid;
-		}
+		String usertype=session.get("usertype");
+		long userId = Long.parseLong(session.get("logged"));
+		if(!usertype.equals("simple")){
+			CSSAs.infoCenter(id);
+		}else if(userId!=id){
+			id = userId;
+		}		
+		List<ActivityJoiner> aj = ActivityJoiner.find("select aj from ActivityJoiner aj,Activity a where aj.aid = a.id and a.publisher_id = ?",id).fetch();
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
-		render(user);
+		render(user,aj);
 	}
 
 	public static void myActivity() {
@@ -316,15 +299,21 @@ public class SimpleUsers extends Application {
 		SimpleUser user = SimpleUser.findById(userId);
 		List<Activity> postedActivity = Activity.find(
 				"publisher_id=? and publisher_type=? order by id desc", userId,
-				"simpleuser").fetch();
+				"simple").fetch();
 		List<Activity> JoinedActivity = Activity
 				.find("select a from  ActivityJoiner aj,Activity a where  aj.jid= ? and aj.aid = a.id order by a.id desc ",
 						userId).fetch();
 		List<Activity> LikedActivity = Activity
 				.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ",
-						userId, "simpleuser").fetch();
+						userId,"simple").fetch();
 		notFoundIfNull(user);
-		render(user, postedActivity, JoinedActivity, LikedActivity);
+		render(user, postedActivity, JoinedActivity,LikedActivity);
+	}
+
+	public static void getActivityJoiner(long aid) {
+	
+		List<SimpleUser> s = SimpleUser.find("select s from SimpleUser s,ActivityJoiner aj where s.id = aj.jid and aid=?", aid).fetch();
+		render(s);
 	}
 
 }

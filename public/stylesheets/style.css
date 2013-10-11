@@ -14,7 +14,12 @@
 		width:50px !important;
 	
 	}
-
+ 
+	
+	#title{
+	margin-left:178px;
+	
+	}
 
  	
 	select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
@@ -114,7 +119,8 @@
 			margin-top:8px;
 	 		
 		}
- 
+  
+		 
 		.biaoti{
 		 width:297px;
 	  	padding:14px;
@@ -135,6 +141,7 @@
 		border-bottom-width: 0px !important;
 		border-left-width: 0px !important;
 		}
+  	 
   
 	  .bottom_pic{
 			margin-top:8px;
@@ -174,7 +181,7 @@
 		}
 	 .title-user {
 		float: left;
-	  	margin-left: 17px;
+	  	margin-left: 22px;
 	  	margin-top: 23px;
 		}
 		 
@@ -200,5 +207,29 @@
 		 float:right;
 		 padding-top:20px;
 	}
+	
+	
+	.sh_1{
+	float:left;color:#336699
+	}
+	.sh_2{
+		  margin-top: 26px; margin-left: 25px; 
+	}
+	.sh_2 span{
+	margin-left: 47px;
+color: #C0B9B9;
+	}
+	
+	.sh_3{
+	clear:both;border-top: 1px solid #e2e2e2;padding-top:20px;padding-bottom:20px;color:#336699;
+	}
+	.sh_4{
+		color: #C0B9B9;
+	}
+	.sh_5{width: 720px;}
+	.sh_6{height:110px;float:left;}
+	.sh_7{margin-right:20px;}
+	.sh_8{position:relative;color:#C0B9B9;}
+	.sh_9{width: 145px !important;height: 141px;position:absolute;top:-80px;}
 	
 	

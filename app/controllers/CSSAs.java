@@ -15,12 +15,10 @@ import play.data.validation.URL;
 import play.libs.Codec;
 import play.libs.Crypto;
 import play.libs.Files;
-import play.libs.Images;
 import play.mvc.*;
 import models.activity.Activity;
 import models.users.CSSA;
 import models.users.SimpleUser;
-import models.airport.School;
 
 public class CSSAs extends Application {
 
@@ -39,8 +37,7 @@ public class CSSAs extends Application {
 	}
 
 	public static void signup() {
-		List<School> sch = School.findAll();
-		render(sch);
+		render();
 	}
 
 	public static void login() {
@@ -276,18 +273,10 @@ public class CSSAs extends Application {
 		render(user);
 	}
 
-	public static void doChangeProfile(Long id, File f, int left, int top,
-			int height, int width) {
-		
-		
-		String path1 = "public/images/profile/" + Codec.UUID() + ".jpg";
-		Images.crop(f, f, left, top, height, width);
-		Files.copy(f, Play.getFile(path1));
-		
-		
-		
-		
-		((CSSA) CSSA.findById(id)).changeProfile(path1);
+	public static void doChangeProfile(Long id, @Required File profile) {
+		String path = "public/images/profile/" + Codec.UUID() + ".jpg";
+		Files.copy(profile, Play.getFile(path));
+		((CSSA) CSSA.findById(id)).changeProfile(path);
 		flash.success("头像更改成功");
 		infoCenter(id);
 	}

@@ -26,6 +26,7 @@ public class Activity extends Model {
     public String timeTo;
 	
 	public boolean isWeekend;
+	public boolean isOpen; //是否公开活动
 	@Required 
     public String location;
 	@Required

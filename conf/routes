@@ -100,7 +100,8 @@ GET 	/activity/pagination/{page}				Activities.getMore
 POST 	/activity/pagination/{page}				Activities.getMore
 GET		/activity/userthumb/{id}				Activities.userThumb
 GET		/activity/allJoinner/{aid}				Activities.allJoinner
-
+POST	/activity/join							Activities.join
+GET		/activity/like/{aid}					Activities.like
 #QA
 GET		/qa										QAs.index
 
@@ -128,6 +129,13 @@ GET  /QuestAnsw/fcousOnQuestion/{id}                   QuestAnsw.fcousOnQuestion
 POST /QuestAnsw/addComent                              QuestAnsw.addComent
 GET  /QuestAnsw/SearchAnswNum                          QuestAnsw.SearchAnswNum
 GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool 
+
+
+#Info and Jobs
+
+GET /about											Info.about
+GET /contact										Info.contact
+GET /jobs											Info.jobs
 
 
 # Ignore favicon requests
