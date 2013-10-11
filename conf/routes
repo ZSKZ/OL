@@ -59,13 +59,9 @@ GET		/cssa/myactivity								CSSAs.myActivity
 GET		/airport								    Airports.index
 GET		/airport/stuinfo/{id}						Airports.addStuInfo
 POST	/airport/stuinfo/{schoolId}					Airports.doAddStuInfo
-GET		/airport/volinfo/{id}						Airports.addVolInfo
-POST	/airport/volinfo/{schoolId}					Airports.doAddVolInfo
+GET		/airport/volinfo							Airports.addVolInfo
+POST	/airport/volinfo							Airports.doAddVolInfo
 GET		/airport/export								Airports.exportStu
-
-#GET     /ExportStuinfo/exportStu/{username}                    ExportStuinfo.exportStu
-GET     /Airports/stuInfo/{username}                Airports.stuInfo
-GET     /Airports/volInfoInfo/{username}            Airports.volInfoInfo
 
 
 #Pickup
@@ -99,7 +95,6 @@ POST	/activity/filterLocation				Activities.filterLocation
 GET 	/activity/pagination/{page}				Activities.getMore
 POST 	/activity/pagination/{page}				Activities.getMore
 GET		/activity/userthumb/{id}				Activities.userThumb
-GET		/activity/allJoinner/{aid}				Activities.allJoinner
 
 #QA
 GET		/qa										QAs.index
@@ -128,6 +123,13 @@ GET  /QuestAnsw/fcousOnQuestion/{id}                   QuestAnsw.fcousOnQuestion
 POST /QuestAnsw/addComent                              QuestAnsw.addComent
 GET  /QuestAnsw/SearchAnswNum                          QuestAnsw.SearchAnswNum
 GET  /QuestAnsw/searchSchool                           QuestAnsw.searchSchool 
+
+
+#Info and Jobs
+
+GET /about											Info.about
+GET /contact										Info.contact
+GET /jobs											Info.jobs
 
 
 # Ignore favicon requests
