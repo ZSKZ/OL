@@ -14,7 +14,8 @@ public class Airports extends Application {
 
 	@Before
 	public static void isCSSA() {
-		if (session.get("logged") != null && !session.get("usertype").equals("simple")) {
+		if (session.get("logged") != null
+				&& !session.get("usertype").equals("simple")) {
 			CSSA cssa = CSSA.findById(Long.parseLong(session.get("logged")));
 			if (cssa.name != null == true)
 				renderArgs.put("isCSSA", true);
@@ -23,8 +24,10 @@ public class Airports extends Application {
 
 	@Before
 	public static void isSimpleUser() {
-		if (session.get("logged") != null && session.get("usertype").equals("simple")) {
-			SimpleUser simp = SimpleUser.findById(Long.parseLong(session.get("logged")));
+		if (session.get("logged") != null
+				&& session.get("usertype").equals("simple")) {
+			SimpleUser simp = SimpleUser.findById(Long.parseLong(session
+					.get("logged")));
 			if (simp.name != null == true)
 				renderArgs.put("isSimpleUser", true);
 		}
@@ -59,7 +62,8 @@ public class Airports extends Application {
 
 	public static void doAddStuInfo(StuInfo s, Long schoolId) {
 		Long sid = schoolId;
-		final Validation.ValidationResult validationResult = validation.valid(s);
+		final Validation.ValidationResult validationResult = validation
+				.valid(s);
 		if (!validationResult.ok) {
 			validation.keep();
 			params.flash();
@@ -92,13 +96,15 @@ public class Airports extends Application {
 	}
 
 	public static void stuInfo(String username) {
-		List<StuInfo> stu = StuInfo.find("SELECT a FROM StuInfo a WHERE school LIKE ?", "%" + username + "%").fetch();
+		List<StuInfo> stu = StuInfo.find(
+				"SELECT a FROM StuInfo a WHERE school LIKE ?",
+				"%" + username + "%").fetch();
 		render(stu);
 	}
-
 	public static void volInfoInfo(String username) {
-		List<VolInfo> vol = VolInfo.find("SELECT a FROM VolInfo a WHERE school LIKE ?", "%" + username + "%").fetch();
+		List<VolInfo> vol = VolInfo.find(
+				"SELECT a FROM VolInfo a WHERE school LIKE ?",
+				"%" + username + "%").fetch();
 		render(vol);
 	}
-
 }

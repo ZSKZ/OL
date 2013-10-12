@@ -40,13 +40,13 @@
 							 	<span class="link">${ac.time}更新 </span>
 							 
 							 <span class="goy-6">
-								 	<a class="link hide"> +关注活动 </a>
+								 	<a class="link" href="@{charities.like(ac.id,pageNo)}"> +关注活动(<span style="color:red;font-size:14px;">${ac.likerCount}</span>) </a>
 							 	</span>
-												
-				 
+								 		
+				 	#{if isAdmin }
 				 	  	<a href="@{Charities.edit(ac.id,pageNo)}">编辑</a>
 					 	<a href="@{Charities.del(ac.id,pageNo)}">删除</a>
-				  							
+				  			 #{/if}					
 						 	</div>
 						 
 					 

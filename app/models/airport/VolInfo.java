@@ -15,6 +15,7 @@ import play.data.validation.*;
 import play.libs.Codec;
 import play.libs.Crypto;
 
+
 @Entity
 public class VolInfo extends Model {
 	public String name;
@@ -26,5 +27,5 @@ public class VolInfo extends Model {
 	public String remarks;
 	public String school;
 	public String needConfirmation;
-
+	
 }

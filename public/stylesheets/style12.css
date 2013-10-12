@@ -1,19 +1,15 @@
 		body{
 			margin:0px;
 			border:0px;
-			font-family:微软雅黑;
-			font-size:14px;
-			
+			font-family:微软雅黑  !important;
+			 
 		}
-		
-		
-	
-		
-		
+	 
 		 
 	.item img{
-		width:1366px;
-		height:500px;
+		  
+	 
+		height:450px;
 	}
 	.top{
 		position: relative;
@@ -42,7 +38,7 @@
 		
 		
 		#login{
-			height:400px;
+			height:423px;
 			width:250px;
 			background-color:rgba(0,0,0,0.6);
 			margin-left:60%;
@@ -276,8 +272,7 @@
 			
 		}
 		.pic-5{
-			height:10%;
-			width:48%;
+			 
 			 float:right;
 			 
 			 position:relative;
@@ -321,7 +316,7 @@
 		}
 		.list1{
 			margin:14px 0px;
-		 
+		 list-style-type: none;
 			color:white;
 		 
 		}

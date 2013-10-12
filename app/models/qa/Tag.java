@@ -8,9 +8,8 @@ import play.db.jpa.Model;
 public class Tag extends Model {
 	public String tagName;
 	public Long themeid;
-
-	public Tag(String tagName, Long themeid) {
-		this.tagName = tagName;
+	public Tag(String tagName,Long themeid){
+		this.tagName =tagName;
 		this.themeid = themeid;
 		create();
 	}
