@@ -13,8 +13,7 @@ public class FocusQues extends Model {
 	public String userprofile;
 	public Long quesId;
 
-	public FocusQues(String userType, Long userid, String userprofile,
-			Long quesId) {
+	public FocusQues(String userType, Long userid, String userprofile, Long quesId) {
 		this.userid = userid;
 		this.userprofile = userprofile;
 		this.userType = userType;

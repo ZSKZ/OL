@@ -24,9 +24,7 @@ import models.users.SimpleUser;
 
 public class SimpleUsers extends Application {
 
-	@Before(unless = { "login", "signup", "register", "confirmRegistration",
-			"authenticate", "resendConfirmation", "forgetpassword",
-			"doforgetpassword", "resetPasswordConfirmation", "resetPassword" })
+	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetpassword", "doforgetpassword", "resetPasswordConfirmation", "resetPassword" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
 			login();
@@ -46,13 +44,9 @@ public class SimpleUsers extends Application {
 		render();
 	}
 
-	public static void register(@Required @Email String email,
-			@Required @MinSize(7) @MaxSize(20) String password,
-			@Equals("password") String password2,
-			@Required @MinSize(2) @MaxSize(20) String name) {
+	public static void register(@Required @Email String email, @Required @MinSize(7) @MaxSize(20) String password, @Equals("password") String password2, @Required @MinSize(2) @MaxSize(20) String name) {
 
-		if ((!SimpleUser.isEmailAvailable(email))
-				|| (!CSSA.isEmailAvailable(email))) {
+		if ((!SimpleUser.isEmailAvailable(email)) || (!CSSA.isEmailAvailable(email))) {
 			validation.keep();
 			params.flash();
 			flash.error("邮箱已存在。");
@@ -93,20 +87,41 @@ public class SimpleUsers extends Application {
 	}
 
 	public static void authenticate(String email, String password) {
-		SimpleUser user = (SimpleUser) SimpleUser.findByEmail(email);
-		if (user == null || !user.checkPassword(password)) {
-			flash.error("用户名或密码错误！");
+		CSSA cssa = (CSSA) CSSA.findByEmail(email);
+		if (cssa == null) {
+			SimpleUser user = (SimpleUser) SimpleUser.findByEmail(email);
+			if (user == null) {
+				flash.error("邮箱不存在。");
+				login();
+			} else if (!user.checkPassword(password)) {
+				flash.error("密码错误");
+				flash.put("email", email);
+				login();
+			} else if (user.needConfirmation != null) {
+				flash.error("账户未激活");
+				flash.put("notconfirmed", user.needConfirmation);
+				flash.put("email", email);
+				login();
+			} else {
+				connectSimple(user);
+				flash.success("欢迎回来， %s !", user.name);
+				infoCenter(user.id);
+			}
+		} else if (!cssa.checkPassword(password)) {
+			flash.error("CSSA密码错误！");
 			flash.put("email", email);
-			login();
-		} else if (user.needConfirmation != null) {
+			CSSAs.login();
+		} else if (cssa.needConfirmation != null) {
 			flash.error("账户未激活");
-			flash.put("notconfirmed", user.needConfirmation);
+			flash.put("notconfirmed", cssa.needConfirmation);
 			flash.put("email", email);
-			login();
+			CSSAs.login();
+		} else {
+			CSSAs.connectCSSA(cssa);
+			flash.success("欢迎回来， %s !", cssa.name);
+			CSSAs.infoCenter(cssa.id);
 		}
-		connectSimple(user);
-		flash.success("欢迎回来， %s !", user.name);
-		infoCenter(user.id);
+
 	}
 
 	public static void resendConfirmation(String uuid) {
@@ -145,9 +160,7 @@ public class SimpleUsers extends Application {
 		render(id);
 	}
 
-	public static void doChangePassword(@Required String currentPassword,
-			@Required @MinSize(7) @MaxSize(20) String password,
-			@Required @Equals("password") String password2, Long id) {
+	public static void doChangePassword(@Required String currentPassword, @Required @MinSize(7) @MaxSize(20) String password, @Required @Equals("password") String password2, Long id) {
 		if (id != Long.parseLong(session.get("logged"))) {
 			flash.error("帐户有误，请重新登陆");
 			session.clear();
@@ -157,8 +170,7 @@ public class SimpleUsers extends Application {
 			params.flash();
 			flash.error("请更正错误。");
 			changePassword(id);
-		} else if (!((SimpleUser) SimpleUser.findById(id))
-				.checkPassword(currentPassword)) {
+		} else if (!((SimpleUser) SimpleUser.findById(id)).checkPassword(currentPassword)) {
 			validation.keep();
 			params.flash();
 			flash.error("原密码不正确！");
@@ -251,9 +263,7 @@ public class SimpleUsers extends Application {
 		render(id);
 	}
 
-	public static void doResetPassword(
-			@Required @MinSize(7) @MaxSize(20) String password,
-			@Required @Equals("password") String password2, Long id) {
+	public static void doResetPassword(@Required @MinSize(7) @MaxSize(20) String password, @Required @Equals("password") String password2, Long id) {
 		if (validation.hasErrors()) {
 			validation.keep();
 			params.flash();
@@ -281,37 +291,31 @@ public class SimpleUsers extends Application {
 	}
 
 	public static void infoCenter(long id) {
-		String usertype=session.get("usertype");
+		String usertype = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
-		if(!usertype.equals("simple")){
+		if (!usertype.equals("simple")) {
 			CSSAs.infoCenter(id);
-		}else if(userId!=id){
+		} else if (userId != id) {
 			id = userId;
-		}		
-		List<ActivityJoiner> aj = ActivityJoiner.find("select aj from ActivityJoiner aj,Activity a where aj.aid = a.id and a.publisher_id = ?",id).fetch();
+		}
+		List<ActivityJoiner> aj = ActivityJoiner.find("select aj from ActivityJoiner aj,Activity a where aj.aid = a.id and a.publisher_id = ?", id).fetch();
 		SimpleUser user = SimpleUser.findById(id);
 		notFoundIfNull(user);
-		render(user,aj);
+		render(user, aj);
 	}
 
 	public static void myActivity() {
 		long userId = Long.parseLong(session.get("logged"));
 		SimpleUser user = SimpleUser.findById(userId);
-		List<Activity> postedActivity = Activity.find(
-				"publisher_id=? and publisher_type=? order by id desc", userId,
-				"simple").fetch();
-		List<Activity> JoinedActivity = Activity
-				.find("select a from  ActivityJoiner aj,Activity a where  aj.jid= ? and aj.aid = a.id order by a.id desc ",
-						userId).fetch();
-		List<Activity> LikedActivity = Activity
-				.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ",
-						userId,"simple").fetch();
+		List<Activity> postedActivity = Activity.find("publisher_id=? and publisher_type=? order by id desc", userId, "simple").fetch();
+		List<Activity> JoinedActivity = Activity.find("select a from  ActivityJoiner aj,Activity a where  aj.jid= ? and aj.aid = a.id order by a.id desc ", userId).fetch();
+		List<Activity> LikedActivity = Activity.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ", userId, "simple").fetch();
 		notFoundIfNull(user);
-		render(user, postedActivity, JoinedActivity,LikedActivity);
+		render(user, postedActivity, JoinedActivity, LikedActivity);
 	}
 
 	public static void getActivityJoiner(long aid) {
-	
+
 		List<SimpleUser> s = SimpleUser.find("select s from SimpleUser s,ActivityJoiner aj where s.id = aj.jid and aid=?", aid).fetch();
 		render(s);
 	}

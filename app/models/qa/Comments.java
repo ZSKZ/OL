@@ -17,10 +17,8 @@ public class Comments extends Model {
 	public String userprofile;
 	public String userSelfIntro;
 	public String date;
-	
 
-	public Comments(long quesid, String comment, long praiseNum, long userid,
-			String usertype, String username, String userprofile,String userSelfIntro,String date) {
+	public Comments(long quesid, String comment, long praiseNum, long userid, String usertype, String username, String userprofile, String userSelfIntro, String date) {
 		this.comment = comment;
 		this.praiseNum = praiseNum;
 		this.quesid = quesid;
@@ -28,7 +26,7 @@ public class Comments extends Model {
 		this.usertype = usertype;
 		this.username = username;
 		this.userprofile = userprofile;
-		this.userSelfIntro =userSelfIntro;
+		this.userSelfIntro = userSelfIntro;
 		this.date = date;
 		create();
 	}

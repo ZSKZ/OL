@@ -26,13 +26,11 @@ public class Ques extends Model {
 	public String usertype;
 	public String username;
 	public String userprofile;
-	public long  answerNum;
-	public long  focusNum;
+	public long answerNum;
+	public long focusNum;
 	public String selfIntro;
-	
-	public Ques(String title, String Theme, String school, String content,
-			String date, long userid, String usertype, String username,
-			String userprofile,long  answerNum,long  focusNum,String selfIntro) {
+
+	public Ques(String title, String Theme, String school, String content, String date, long userid, String usertype, String username, String userprofile, long answerNum, long focusNum, String selfIntro) {
 		this.title = title;
 		this.content = content;
 		this.label = Theme;
@@ -44,7 +42,7 @@ public class Ques extends Model {
 		this.userprofile = userprofile;
 		this.answerNum = answerNum;
 		this.focusNum = focusNum;
-		this.selfIntro =selfIntro;
+		this.selfIntro = selfIntro;
 		create();
 	}
 

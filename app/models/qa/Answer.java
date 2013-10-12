@@ -8,5 +8,5 @@ import java.util.*;
 
 @Entity
 public class Answer extends Model {
-    
+
 }

@@ -26,9 +26,7 @@ public class QuestAnsw extends Application {
 		render(t);
 	}
 
-	public static void dispAddQues(String title, String Tag, String content,
-			String school, String date, Long id, long answerNum, long focusNum,
-			String selfIntro) {
+	public static void dispAddQues(String title, String Tag, String content, String school, String date, Long id, long answerNum, long focusNum, String selfIntro) {
 		long userid = Long.parseLong(session.get("logged"));
 		String usertype = session.get("usertype");
 		String username;
@@ -53,8 +51,7 @@ public class QuestAnsw extends Application {
 		 */
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
-		new Ques(title, Tag, school, content, d, userid, usertype, username,
-				userprofile, answerNum, focusNum, userselfIntro);
+		new Ques(title, Tag, school, content, d, userid, usertype, username, userprofile, answerNum, focusNum, userselfIntro);
 		render();
 
 	}
@@ -83,14 +80,11 @@ public class QuestAnsw extends Application {
 		ques.save();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
-		new Comments(quesid, comment, 0, comentUserid, comentUsertype,
-				comentUsername, comentUserprofile, comentUserSelfIntro, d);
+		new Comments(quesid, comment, 0, comentUserid, comentUsertype, comentUsername, comentUserprofile, comentUserSelfIntro, d);
 		renderHtml(comment);
 	}
 
-	public static void addComent(long quesid, String comment, long praiseNum,
-			long userid, String usertype, String username, String userprofile,
-			String userSelfIntro, String date) {
+	public static void addComent(long quesid, String comment, long praiseNum, long userid, String usertype, String username, String userprofile, String userSelfIntro, String date) {
 
 		long comentUserid = Long.parseLong(session.get("logged"));
 		String comentUsertype = session.get("usertype");
@@ -113,27 +107,23 @@ public class QuestAnsw extends Application {
 		ques.save();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
-		new Comments(quesid, comment, 0, comentUserid, comentUsertype,
-				comentUsername, comentUserprofile, comentUserSelfIntro, d);
+		new Comments(quesid, comment, 0, comentUserid, comentUsertype, comentUsername, comentUserprofile, comentUserSelfIntro, d);
 		Ques fQ = Ques.findById(quesid);
 		List<Comments> listCom = Comments.find("quesid = ?", quesid).fetch();
-		renderTemplate("QuestAnsw/showQuesInfo.html", fQ, listCom,
-				comentUsername);
+		renderTemplate("QuestAnsw/showQuesInfo.html", fQ, listCom, comentUsername);
 	}
 
 	public static void searchPage(long id, long question_id) {
 		List<Tag> t = Tag.findAll();
 		List<QuesSchool> q = QuesSchool.findAll();
 		List<Ques> aQues = Ques.find("order by date desc").fetch(5);
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
+		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques.count() / 5 + 1);
 		Iterator iterator = aQues.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
 		while (iterator.hasNext()) {
 			Ques ques = (Ques) iterator.next();
 			List comments = Comments.find("quesid = ?", ques.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
+			Comments comment = comments.isEmpty() ? null : (Comments) comments.get(0);
 			QuestionArticle qa = new QuestionArticle(ques, comment);
 			qArticles.add(qa);
 		}
@@ -142,18 +132,15 @@ public class QuestAnsw extends Application {
 
 	public static void searchQues(String ques) {
 		List<Tag> t = Tag.findAll();
-		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE title LIKE ?",
-				"%" + ques + "%").fetch(5);
+		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE title LIKE ?", "%" + ques + "%").fetch(5);
 
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
+		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques.count() / 5 + 1);
 		Iterator iterator = anq.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
 		while (iterator.hasNext()) {
 			Ques qu = (Ques) iterator.next();
 			List comments = Comments.find("quesid = ?", qu.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
+			Comments comment = comments.isEmpty() ? null : (Comments) comments.get(0);
 			QuestionArticle qa = new QuestionArticle(qu, comment);
 			qArticles.add(qa);
 		}
@@ -164,17 +151,14 @@ public class QuestAnsw extends Application {
 
 		System.out.println(tag);
 
-		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE label LIKE ?",
-				"%" + tag + "%").fetch(5);
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
+		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE label LIKE ?", "%" + tag + "%").fetch(5);
+		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques.count() / 5 + 1);
 		Iterator iterator = anq.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
 		while (iterator.hasNext()) {
 			Ques qu = (Ques) iterator.next();
 			List comments = Comments.find("quesid = ?", qu.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
+			Comments comment = comments.isEmpty() ? null : (Comments) comments.get(0);
 			QuestionArticle qa = new QuestionArticle(qu, comment);
 			qArticles.add(qa);
 		}
@@ -219,15 +203,13 @@ public class QuestAnsw extends Application {
 
 	public static void Quespaging(int pageNum, String data) {
 		List<Tag> t = Tag.findAll();
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
+		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques.count() / 5 + 1);
 		if (pageNum < 1) {
 			pageNum = 1;
 		} else if (pageNum >= pageCount) {
 			pageNum = (int) pageCount;
 		}
-		List<Ques> aQues = Ques.find("order by date desc")
-				.from((pageNum - 1) * 5).fetch(5);
+		List<Ques> aQues = Ques.find("order by date desc").from((pageNum - 1) * 5).fetch(5);
 
 		// if(){
 		// List<Ques> aQues = Ques.find("order by answerNum desc")
@@ -245,13 +227,11 @@ public class QuestAnsw extends Application {
 		while (iterator.hasNext()) {
 			Ques ques = (Ques) iterator.next();
 			List comments = Comments.find("quesid = ?", ques.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
+			Comments comment = comments.isEmpty() ? null : (Comments) comments.get(0);
 			QuestionArticle qa = new QuestionArticle(ques, comment);
 			qArticles.add(qa);
 		}
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				pageNum);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount, pageNum);
 	}
 
 	public static void editQues() {
@@ -262,27 +242,23 @@ public class QuestAnsw extends Application {
 		Ques dques = Ques.findById(id);
 		dques.delete();
 		List<Tag> t = Tag.findAll();
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
+		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques.count() / 5 + 1);
 		if (pageNum < 1) {
 			pageNum = 1;
 		} else if (pageNum >= pageCount) {
 			pageNum = (int) pageCount;
 		}
-		List<Ques> aQues = Ques.find("order by date desc")
-				.from((pageNum - 1) * 5).fetch(5);
+		List<Ques> aQues = Ques.find("order by date desc").from((pageNum - 1) * 5).fetch(5);
 		Iterator iterator = aQues.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
 		while (iterator.hasNext()) {
 			Ques ques = (Ques) iterator.next();
 			List comments = Comments.find("quesid = ?", ques.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
+			Comments comment = comments.isEmpty() ? null : (Comments) comments.get(0);
 			QuestionArticle qa = new QuestionArticle(ques, comment);
 			qArticles.add(qa);
 		}
-		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount,
-				pageNum);
+		renderTemplate("QuestAnsw/searchPage.html", qArticles, t, pageCount, pageNum);
 	}
 
 	public static void editComent() {
@@ -297,9 +273,7 @@ public class QuestAnsw extends Application {
 		String fquserType = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
 
-		List<FocusQues> foc = FocusQues.find(
-				"userid = ? and quesId = ? and userType = ? ", userId ,id,
-				fquserType).fetch();
+		List<FocusQues> foc = FocusQues.find("userid = ? and quesId = ? and userType = ? ", userId, id, fquserType).fetch();
 		if (!foc.isEmpty()) {
 			flash.error("您已经关注");
 			showQuesInfo(id);
@@ -328,15 +302,13 @@ public class QuestAnsw extends Application {
 		List<Tag> t = Tag.findAll();
 		List<QuesSchool> q = QuesSchool.findAll();
 		List<Ques> aQues = Ques.find("order by answerNum DESC").fetch(5);
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
+		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques.count() / 5 + 1);
 		Iterator iterator = aQues.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
 		while (iterator.hasNext()) {
 			Ques ques = (Ques) iterator.next();
 			List comments = Comments.find("quesid = ?", ques.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
+			Comments comment = comments.isEmpty() ? null : (Comments) comments.get(0);
 			QuestionArticle qa = new QuestionArticle(ques, comment);
 			qArticles.add(qa);
 		}
@@ -346,17 +318,14 @@ public class QuestAnsw extends Application {
 	public static void searchSchool(String school) {
 		System.out.println("查找 学校:" + school);
 		List<Tag> t = Tag.findAll();
-		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE school LIKE ?",
-				"%" + school + "%").fetch(5);
-		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques
-				.count() / 5 + 1);
+		List<Ques> anq = Ques.find("SELECT a FROM Ques a WHERE school LIKE ?", "%" + school + "%").fetch(5);
+		long pageCount = Ques.count() % 5 == 0 ? Ques.count() / 5 : (Ques.count() / 5 + 1);
 		Iterator iterator = anq.iterator();
 		List<QuestionArticle> qArticles = new ArrayList<QuestionArticle>();
 		while (iterator.hasNext()) {
 			Ques qu = (Ques) iterator.next();
 			List comments = Comments.find("quesid = ?", qu.id).fetch();
-			Comments comment = comments.isEmpty() ? null : (Comments) comments
-					.get(0);
+			Comments comment = comments.isEmpty() ? null : (Comments) comments.get(0);
 			QuestionArticle qa = new QuestionArticle(qu, comment);
 			qArticles.add(qa);
 		}
@@ -375,9 +344,7 @@ public class QuestAnsw extends Application {
 			userid = cssa.id;
 		}
 
-		List<Ques> userQues = Ques.find(
-				"SELECT a FROM Ques a WHERE userid LIKE ?", "%" + userid + "%")
-				.fetch();
+		List<Ques> userQues = Ques.find("SELECT a FROM Ques a WHERE userid LIKE ?", "%" + userid + "%").fetch();
 
 		renderTemplate("simple/infocenter.html", userQues);
 	}
@@ -394,9 +361,7 @@ public class QuestAnsw extends Application {
 			userid = cssa.id;
 		}
 
-		List<Comments> userComment = Comments.find(
-				"SELECT a FROM Ques a WHERE userid LIKE ?", "%" + userid + "%")
-				.fetch();
+		List<Comments> userComment = Comments.find("SELECT a FROM Ques a WHERE userid LIKE ?", "%" + userid + "%").fetch();
 
 		renderTemplate("simple/infocenter.html", userComment);
 	}

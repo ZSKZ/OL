@@ -12,13 +12,11 @@ public class ExportStuinfo extends Application {
 
 	public static void exportStu(String username) {
 		try {
-			//WritableWorkbook book = Workbook.createWorkbook(new File(
-				//	"..//Desktop/接机学生信息.xls"));
-			
-			WritableWorkbook book = Workbook.createWorkbook(new File(
-					"C://接机学生信息.xls"));		
-					
-			
+			// WritableWorkbook book = Workbook.createWorkbook(new File(
+			// "..//Desktop/接机学生信息.xls"));
+
+			WritableWorkbook book = Workbook.createWorkbook(new File("C://接机学生信息.xls"));
+
 			WritableSheet sheet = book.createSheet("第一页", 0);
 
 			jxl.write.Label label1 = new jxl.write.Label(0, 0, "姓名");
@@ -50,15 +48,14 @@ public class ExportStuinfo extends Application {
 
 			jxl.write.Label label10 = new jxl.write.Label(9, 0, "备忘");
 			sheet.addCell(label10);
-			
+
 			jxl.write.Label label11 = new jxl.write.Label(10, 0, "学校");
 			sheet.addCell(label11);
 
-			 System.out.println("2222222222222222222222222");
-			 System.out.println("看看传过来的:"+username);
-			List<StuInfo> stu = StuInfo.find("SELECT a FROM StuInfo a WHERE school LIKE ?",
-					"%" + username + "%").fetch();
-			
+			System.out.println("2222222222222222222222222");
+			System.out.println("看看传过来的:" + username);
+			List<StuInfo> stu = StuInfo.find("SELECT a FROM StuInfo a WHERE school LIKE ?", "%" + username + "%").fetch();
+
 			Iterator<StuInfo> iter = stu.iterator();
 			StuInfo stuinformation;
 			int k = 1;

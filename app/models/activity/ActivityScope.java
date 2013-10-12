@@ -10,7 +10,7 @@ import java.util.*;
 
 @Entity
 public class ActivityScope extends Model {
-    @Required
-    public String scope;
-    public short sequence;
+	@Required
+	public String scope;
+	public short sequence;
 }
