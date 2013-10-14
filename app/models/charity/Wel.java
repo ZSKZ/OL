@@ -17,14 +17,16 @@ public class Wel extends Model {
 	public String time;
 	public String f;
 	public String generalize;
- 
-	public Wel(String title,String content,String time,String f,String generalize ) {
+    public int likerCount;
+	 
+	public Wel(String title,String content,String time,String f,String generalize, int likerCount) {
 		
 		this.title = title;
 		this.content =content;
 		this.time = time;
 		this.f=f;
 		this.generalize = generalize;
+		this.likerCount = likerCount;
 		 
 	 	create();
 	}

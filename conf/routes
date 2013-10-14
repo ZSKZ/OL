@@ -59,9 +59,13 @@ GET		/cssa/myactivity								CSSAs.myActivity
 GET		/airport								    Airports.index
 GET		/airport/stuinfo/{id}						Airports.addStuInfo
 POST	/airport/stuinfo/{schoolId}					Airports.doAddStuInfo
-GET		/airport/volinfo							Airports.addVolInfo
-POST	/airport/volinfo							Airports.doAddVolInfo
+GET		/airport/volinfo/{id}						Airports.addVolInfo
+POST	/airport/volinfo/{schoolId}					Airports.doAddVolInfo
 GET		/airport/export								Airports.exportStu
+
+GET     /export/exportStu/{username}               ExportStuinfo.exportStu
+GET     /airport/stuInfo/{username}                Airports.stuInfo
+GET     /airport/volInfoInfo/{username}            Airports.volInfoInfo
 
 
 #Pickup
@@ -95,13 +99,9 @@ POST	/activity/filterLocation				Activities.filterLocation
 GET 	/activity/pagination/{page}				Activities.getMore
 POST 	/activity/pagination/{page}				Activities.getMore
 GET		/activity/userthumb/{id}				Activities.userThumb
-<<<<<<< HEAD
 GET		/activity/allJoinner/{aid}				Activities.allJoinner
 POST	/activity/join							Activities.join
 GET		/activity/like/{aid}					Activities.like
-=======
-
->>>>>>> c4cf68abe9cba5d21b8236f9caf27963c32d0e30
 #QA
 GET		/qa										QAs.index
 

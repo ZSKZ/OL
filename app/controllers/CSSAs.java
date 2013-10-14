@@ -22,9 +22,7 @@ import models.users.SimpleUser;
 
 public class CSSAs extends Application {
 
-	@Before(unless = { "login", "signup", "register", "confirmRegistration",
-			"authenticate", "resendConfirmation", "forgetpassword",
-			"doforgetpassword", "resetPasswordConfirmation", "resetPassword" })
+	@Before(unless = { "login", "signup", "register", "confirmRegistration", "authenticate", "resendConfirmation", "forgetpassword", "doforgetpassword", "resetPasswordConfirmation", "resetPassword" })
 	public static void isLogged() {
 		if (session.get("logged") == null) {
 			CSSAs.login();
@@ -44,17 +42,8 @@ public class CSSAs extends Application {
 		render();
 	}
 
-	public static void register(@Email @Required String email,
-			@Required @MinSize(7) @MaxSize(20) String password,
-			@Required @MinSize(1) @MaxSize(40) String name,
-			@Required String contract,
-			@Required @MaxSize(200) String selfIntro,
-			@Required @URL String homepage,
-			@Required @MinSize(7) @MaxSize(40) String applicant,
-			@Required @MinSize(7) @MaxSize(100) String applicantTitle,
-			@Required String peopleNumber, @Equals("password") String password2) {
-		if ((!SimpleUser.isEmailAvailable(email))
-				|| (!CSSA.isEmailAvailable(email))) {
+	public static void register(@Email @Required String email, @Required @MinSize(7) @MaxSize(20) String password, @Required @MinSize(1) @MaxSize(40) String name, @Required String contract, @Required @MaxSize(200) String selfIntro, @Required @URL String homepage, @Required @MinSize(7) @MaxSize(40) String applicant, @Required @MinSize(7) @MaxSize(100) String applicantTitle, @Required String peopleNumber, @Equals("password") String password2) {
+		if ((!SimpleUser.isEmailAvailable(email)) || (!CSSA.isEmailAvailable(email))) {
 			validation.keep();
 			params.flash();
 			flash.error("邮箱已使用。");
@@ -65,8 +54,7 @@ public class CSSAs extends Application {
 			flash.error("请更正错误。");
 			signup();
 		}
-		CSSA user = new CSSA(email, password, name, contract, selfIntro,
-				homepage, applicant, applicantTitle, peopleNumber);
+		CSSA user = new CSSA(email, password, name, contract, selfIntro, homepage, applicant, applicantTitle, peopleNumber);
 		try {
 			if (Notifier.welcomeCSSA(user)) {
 				flash.success("请登录注册邮箱激活帐号。");
@@ -148,9 +136,7 @@ public class CSSAs extends Application {
 		render(id);
 	}
 
-	public static void doChangePassword(@Required String currentPassword,
-			@Required @MinSize(7) @MaxSize(20) String password,
-			@Required @Equals("password") String password2, Long id) {
+	public static void doChangePassword(@Required String currentPassword, @Required @MinSize(7) @MaxSize(20) String password, @Required @Equals("password") String password2, Long id) {
 		if (id != Long.parseLong(session.get("logged"))) {
 			flash.error("帐户有误，请重新登陆");
 			session.clear();
@@ -252,9 +238,7 @@ public class CSSAs extends Application {
 		render(id);
 	}
 
-	public static void doResetPassword(
-			@Required @MinSize(7) @MaxSize(20) String password,
-			@Required @Equals("password") String password2, Long id) {
+	public static void doResetPassword(@Required @MinSize(7) @MaxSize(20) String password, @Required @Equals("password") String password2, Long id) {
 		if (validation.hasErrors()) {
 			validation.keep();
 			params.flash();
@@ -282,11 +266,11 @@ public class CSSAs extends Application {
 	}
 
 	public static void infoCenter(long id) {
-		String usertype=session.get("usertype");
+		String usertype = session.get("usertype");
 		long userId = Long.parseLong(session.get("logged"));
-		if(!usertype.equals("cssa")){
+		if (!usertype.equals("cssa")) {
 			SimpleUsers.infoCenter(id);
-		}else if(userId!=id){
+		} else if (userId != id) {
 			id = userId;
 		}
 		CSSA user = CSSA.findById(id);
@@ -297,13 +281,9 @@ public class CSSAs extends Application {
 	public static void myActivity() {
 		long userId = Long.parseLong(session.get("logged"));
 		CSSA user = CSSA.findById(userId);
-		List<Activity> postedActivity = Activity.find(
-				"publisher_id=? and publisher_type=? order by id desc", userId,
-				"cssa").fetch();
-		List<Activity> LikedActivity = Activity
-				.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ",
-						userId,"cssa").fetch();
+		List<Activity> postedActivity = Activity.find("publisher_id=? and publisher_type=? order by id desc", userId, "cssa").fetch();
+		List<Activity> LikedActivity = Activity.find("select a from  ActivityLiker al,Activity a where  al.lid= ? and ltype=? and al.aid = a.id order by a.id desc ", userId, "cssa").fetch();
 		notFoundIfNull(user);
-		render(user, postedActivity,LikedActivity);
+		render(user, postedActivity, LikedActivity);
 	}
 }

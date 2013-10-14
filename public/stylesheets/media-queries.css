@@ -54,6 +54,15 @@ smaller than 960
 		display:none;
 	
 	}
+	.pic-5,.pic-6{
+	display:none;
+	}
+	.left2{
+		float:right;
+	}
+	.right2{
+	float:left;
+	}
 	#bottom-nav {
 margin-left: 18%;
 }

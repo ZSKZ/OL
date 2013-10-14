@@ -33,10 +33,10 @@ public class Airports extends Application {
 		}
 	}
 
-	@Before(unless = "index")
+	@Before
 	public static void isLogged() {
 		if (session.get("usertype") == null) {
-			Application.index();
+			SimpleUsers.login();
 		}
 	}
 
@@ -74,8 +74,6 @@ public class Airports extends Application {
 		render();
 	}
 
-	
-	
 	public static void addVolInfo(Long id) {
 		School sch = School.findById(id);
 		String explain = sch.synopsis;
@@ -103,12 +101,10 @@ public class Airports extends Application {
 				"%" + username + "%").fetch();
 		render(stu);
 	}
-
 	public static void volInfoInfo(String username) {
 		List<VolInfo> vol = VolInfo.find(
 				"SELECT a FROM VolInfo a WHERE school LIKE ?",
 				"%" + username + "%").fetch();
 		render(vol);
 	}
-	
 }

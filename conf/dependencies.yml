@@ -1,5 +1,2 @@
-# Application dependencies
-
 require:
-    - play
-   - play -> excel
+    - play 

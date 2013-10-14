@@ -64,15 +64,10 @@
 				<li class="use-f-li"><span> <img
 						src="/public/images/Individual_center_answer.png">
 				</span> <a class="use-f-a16"   onClick="ques()">我的问答:</a> <a class="user-f-c"></a></li>
-
-
-
 			</ul>
 		</div>
 	<div class="span7"
 			style="margin-top: 55px; border: 1px solid #e2e2e2; padding: 10px;">
-
-
 			<div class="bs-docs-example" id="activity">
 				<ul id="myTab" class="nav nav-tabs">
 					<li class="active"><a href="#home" data-toggle="tab">发布的活动:</a></li>
@@ -85,11 +80,14 @@
 					
 					
 					#{list items:postedActivity,as:'activity'}
-	<p><img src="${user.profile}" /> 我发布了活动 <a href="@{Activities.detail(activity.id)}">${activity.name}
-	<img alt="" src="${activity.poster}">
-	</a></p>
-	<p>活动日期：${activity.dateFrom}至 ${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo} 参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览： ${activity.views}人</p>
-	
+							<img src="${user.profile}" class="f_l img-polaroid" /> <span class="f_l">我活动</span><br />
+							<a href="@{Activities.detail(activity.id)}">${activity.name}</a><br />
+							<img alt="" style="width: 240px; margin-top: 20px;"
+								src="${activity.poster}"  class="img-polaroid">
+						</p>
+						<p class="ac_p" style="">活动时间： ${activity.timeFrom}至${activity.timeTo}
+							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
+							${activity.views}人</p>
 	#{/list}
 	
 	</div>
@@ -100,14 +98,15 @@
 					<div class="tab-pane fade" id="profile">
 
 						#{list items:JoinedActivity,as:'activity'}
-						<p>
-							<img src="${user.profile}" class="f_l img-polaroid" /> <span class="f_l">我参加了活动</span><br />
+						
+						
+						
+						<img src="${user.profile}" class="f_l img-polaroid" /> <span class="f_l">我参加了活动</span><br />
 							<a href="@{Activities.detail(activity.id)}">${activity.name}</a><br />
 							<img alt="" style="width: 240px; margin-top: 20px;"
 								src="${activity.poster}"  class="img-polaroid">
 						</p>
-						<p class="ac_p" style="">活动日期：${activity.dateFrom}至
-							${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo}
+						<p class="ac_p" style="">活动时间： ${activity.timeFrom}至${activity.timeTo}
 							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
 							${activity.views}人</p>
 						#{/list}
@@ -115,14 +114,12 @@
 					</div>
 					<div class="tab-pane fade" id="profile1">
 						#{list items:LikedActivity,as:'activity'}
-						<p>
-							<img src="${user.profile}" class="img-polaroid" /> 我关注了活动 <a
-								href="@{Activities.detail(activity.id)}">${activity.name}</a><br />
+							<img src="${user.profile}" class="f_l img-polaroid" /> <span class="f_l">我参加了活动</span><br />
+							<a href="@{Activities.detail(activity.id)}">${activity.name}</a><br />
 							<img alt="" style="width: 240px; margin-top: 20px;"
 								src="${activity.poster}"  class="img-polaroid">
 						</p>
-						<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo}
-							时间： ${activity.timeFrom}- ${activity.timeTo}
+						<p class="ac_p" style="">活动时间： ${activity.timeFrom}至${activity.timeTo}
 							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
 							${activity.views}人</p>
 						#{/list}
@@ -137,63 +134,36 @@
 			
 				<div class="bs-docs-example XX hide" id="QuesAnswer">
 				<ul id="myTab" class="nav nav-tabs">
-					<li class="active"><a href="#home" data-toggle="tab">发布的问题:</a></li>
-					<li><a href="#profile" data-toggle="tab">回答的问题:</a></li>
-					<li><a href="#profile1" data-toggle="tab">关注的问题:</a></li>
+					<li class="active"><a href="#home1" data-toggle="tab">发布的问题:</a></li>
+					<li><a href="#profile2" data-toggle="tab">回答的问题:</a></li>
+					<li><a href="#profile3" data-toggle="tab">关注的问题:</a></li>
 					
 				</ul>
 				<div id="myTabContent" class="tab-content">
-					<div class="tab-pane fade in active" id="home">
-
-						#{list items:postedActivity,as:'activity'} <img
-							src="${user.profile}" class="f_l img-polaroid" /> <span class="f_l">
-							我发布了活动 </span> <br /> <a href="@{Activities.detail(activity.id)}">${activity.name}
-
-							<br /> <img alt="" style="width: 240px; margin-top: 20px;"
-							src="${activity.poster}" class="img-polaroid">
-						</a>
-						<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo}
-							时间： ${activity.timeFrom}- ${activity.timeTo}
-							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
-							${activity.views}人</p>
-
+					<div class="tab-pane fade in active" id="home1">
+						#{list items:CQues,as:'userQues'}
+							<li>
+								<a href="@{QuestAnsw.showQuesInfo(userQues.id)}">${userQues.title}</a>
+							</li>
 						#{/list}
-
 					</div>
-					<div class="tab-pane fade" id="profile">
+					<div class="tab-pane fade" id="profile2">
 
-						#{list items:JoinedActivity,as:'activity'}
-						<p>
-							<img src="${user.profile}" class="f_l img-polaroid" /> <span class="f_l">我参加了活动</span><br />
-							<a href="@{Activities.detail(activity.id)}">${activity.name}</a><br />
-							<img alt="" style="width: 240px; margin-top: 20px;"
-								src="${activity.poster}"  class="img-polaroid">
-						</p>
-						<p class="ac_p" style="">活动日期：${activity.dateFrom}至
-							${activity.dateTo} 时间： ${activity.timeFrom}- ${activity.timeTo}
-							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
-							${activity.views}人</p>
+						#{list items:CComment,as:'userQues'}
+							<li>
+								<a href="@{QuestAnsw.showQuesInfo(userQues.quesid)}">${userQues.quesTitle}</a>
+							</li>
 						#{/list}
-
 					</div>
-					<div class="tab-pane fade" id="profile1">
-						#{list items:LikedActivity,as:'activity'}
-						<p>
-							<img src="${user.profile}" class="img-polaroid" /> 我关注了活动 <a
-								href="@{Activities.detail(activity.id)}">${activity.name}</a><br />
-							<img alt="" style="width: 240px; margin-top: 20px;"
-								src="${activity.poster}"  class="img-polaroid">
-						</p>
-						<p class="ac_p">活动日期：${activity.dateFrom}至 ${activity.dateTo}
-							时间： ${activity.timeFrom}- ${activity.timeTo}
-							参加：${activity.joinerCount}人 关注：${activity.likerCount}人 浏览：
-							${activity.views}人</p>
+					<div class="tab-pane fade" id="profile3">
+						#{list items:CFQues,as:'userQues'}
+							<li>
+								<a href="@{QuestAnsw.showQuesInfo(userQues.quesId)}">${userQues.quesTitle}</a>
+							</li>
 						#{/list}
 					</div>
 				</div>
-			</div>
 		 </div>
-		 <div class="span3 offset1">xxxxxxx</div>
 		 
 		 
 		 

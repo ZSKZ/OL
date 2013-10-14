@@ -17,11 +17,8 @@ public class Ques extends Model {
 	public String content;
 	@Required
 	public String label;
-	@Required
-	public String school;
-	@Required
 	public String date;
-	@Required
+	public String school;
 	public long userid;
 	public String usertype;
 	public String username;
@@ -29,7 +26,7 @@ public class Ques extends Model {
 	public long  answerNum;
 	public long  focusNum;
 	public String selfIntro;
-	
+
 	public Ques(String title, String Theme, String school, String content,
 			String date, long userid, String usertype, String username,
 			String userprofile,long  answerNum,long  focusNum,String selfIntro) {
@@ -55,15 +52,6 @@ public class Ques extends Model {
 	public static boolean isTitle(String title) {
 		return findByTitle(title) == null;
 	}
-
-	public static Ques findByLabel(String label) {
-		return find("label", label).first();
-	}
-
-	public static boolean islabel(String label) {
-		return findByLabel(label) == null;
-	}
-
 	public static Ques findByContent(String content) {
 		return find("content", content).first();
 	}
@@ -78,5 +66,13 @@ public class Ques extends Model {
 
 	public static boolean isSchool(String school) {
 		return findBySchool(school) == null;
+	}
+	
+	public static Ques findByLabel(String label) {
+		return find("label", label).first();
+	}
+
+	public static boolean islabel(String label) {
+		return findByLabel(label) == null;
 	}
 }

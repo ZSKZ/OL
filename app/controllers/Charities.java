@@ -17,8 +17,13 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+
 import models.*;
+import models.activity.Activity;
+import models.activity.ActivityLiker;
 import models.charity.Wel;
+import models.charity.welLiker;
 import models.users.SimpleUser;
 
 public class Charities extends Application{
@@ -37,7 +42,7 @@ public class Charities extends Application{
 	 }	
  
 	@SuppressWarnings("unused")
-	public static void WelSave(String title,String content,String time,File f,String  generalize ) {
+	public static void WelSave(String title,String content,String time,File f,String  generalize,int likerCount) {
 		 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss ");
 		String d = (df.format(Calendar.getInstance().getTime()));
@@ -53,7 +58,7 @@ public class Charities extends Application{
 			String path = "/public/images/upload/"+fileName;
 			Files.copy(f,Play.getFile(path));
 			
-			Wel w = new Wel(title,content,d,path, generalize );
+			Wel w = new Wel(title,content,d,path, generalize,likerCount);
 			wel();
  	}else{
 			 
@@ -68,7 +73,7 @@ public class Charities extends Application{
 	 
  
  	public static void wel() {
-		List<Wel> we= Wel.find("order by time desc").fetch(5);
+		List<Wel> we= Wel.find("order by likerCount desc").fetch(5);
 		long pageCount = Wel.count()%5==0? Wel.count()/5:(Wel.count()/5+1);
 		int pageNo = (int) (Wel.count()/5);
 		render(we,pageCount,pageNo );
@@ -102,7 +107,7 @@ public class Charities extends Application{
 	
 	
 	public static void welfare(long id){
-		Wel w = Wel.findById(id);
+	  Wel w = Wel.findById(id);
 		render(w);
  	
 	}
@@ -122,14 +127,38 @@ public class Charities extends Application{
 		long pageCount = Wel.count()%5==0? Wel.count()/5:(Wel.count()/5+1);
 		
 		
-		if(pageNo <= 1) {
+		if(pageNo < 1) {
 			pageNo =  1;
 		} else if(pageNo >= pageCount) {
 			pageNo =  (int) pageCount;
 		}
-		List<Wel> we= Wel.find("order by time desc").from((pageNo-1)*5).fetch(5);
+		List<Wel> we= Wel.find("order by likerCount desc").from((pageNo-1)*5).fetch(5);
 	 renderTemplate("Charities/wel.html",we,pageCount,pageNo);
 	 }
+	
+	
+	public static void like(long aid,int pageNo) {
+		long userId = Long.parseLong(session.get("logged"));
+		String usertype = session.get("usertype");
+		List al_exist = welLiker.find(
+				"aid = ? and lid = ? and ltype = ? ", aid, userId, usertype)
+				.fetch();
 
+		if (!al_exist.isEmpty()) {
+			flash.error("您已关注");
+			pigination(pageNo);
+		}
+		welLiker al = new welLiker();
+		al.aid = aid;
+		al.lid = userId;
+		al.ltype = usertype;
+		al.save();
+		Wel a = Wel.findById(aid);
+	
+		a.likerCount = a.likerCount + 1;
+		a.save();
+		flash.success("关注成功");
+		pigination(pageNo);
+	}
 	 
 }

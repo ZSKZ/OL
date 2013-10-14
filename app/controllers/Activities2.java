@@ -38,8 +38,7 @@ import play.mvc.results.Result;
 
 public class Activities2 extends Application {
 
-	@Before(unless = { "index", "detail", "filterType", "filterPeriod",
-			"filterPeriodWeekend", "filterScope", "filterLocation", "getMore" })
+	@Before(unless = { "index", "detail", "filterType", "filterPeriod", "filterPeriodWeekend", "filterScope", "filterLocation", "getMore" })
 	public static void isLogged() {
 		if (session.get("usertype") == null) {
 			Application.index();
@@ -49,14 +48,12 @@ public class Activities2 extends Application {
 	public static void index() {
 		String type = session.get("type") == null ? "" : session.get("type");
 		String scope = session.get("scope") == null ? "" : session.get("scope");
-		String location = session.get("location") == null ? "" : session
-				.get("location");
+		String location = session.get("location") == null ? "" : session.get("location");
 		int page = 1;
 		int pageSize = 3;
 		int start = (page - 1) * pageSize;
 		System.out.print(start);
-		int days = session.get("days") == null ? -1 : Integer.parseInt(session
-				.get("days"));
+		int days = session.get("days") == null ? -1 : Integer.parseInt(session.get("days"));
 		Calendar cal = Calendar.getInstance();
 
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,23 +62,14 @@ public class Activities2 extends Application {
 
 		if (days == -1) {
 			date = f.format(cal.getTime());
-			a = Activity
-					.find("type like ? and scope like ? and (timeFrom >= ? or timeTo >= ?) order by id desc",
-							"%" + type + "%", scope + "%", date, date)
-					.from(start).fetch(pageSize);
+			a = Activity.find("type like ? and scope like ? and (timeFrom >= ? or timeTo >= ?) order by id desc", "%" + type + "%", scope + "%", date, date).from(start).fetch(pageSize);
 		} else if (days == -2) {
-			a = Activity
-					.find("type like ? and scope like ? and isWeekend=? order by id desc",
-							"%" + type + "%", scope + "%", true).from(start)
-					.fetch(pageSize);
+			a = Activity.find("type like ? and scope like ? and isWeekend=? order by id desc", "%" + type + "%", scope + "%", true).from(start).fetch(pageSize);
 		} else {
 			cal.add(Calendar.DAY_OF_MONTH, +days);
 			date = f.format(cal.getTime());
 			String nowDate = f.format(new Date());
-			a = Activity
-					.find("type like ? and scope like ? and  timeTo>=?  and  timeFrom<=? order by id desc",
-							"%" + type + "%", scope + "%", nowDate, date)
-					.from(start).fetch(pageSize);
+			a = Activity.find("type like ? and scope like ? and  timeTo>=?  and  timeFrom<=? order by id desc", "%" + type + "%", scope + "%", nowDate, date).from(start).fetch(pageSize);
 		}
 		if (a != null) {
 
@@ -93,35 +81,23 @@ public class Activities2 extends Application {
 					aa.distances = "";
 					aa.duration = "";
 				} else {
-					JsonArray myArry1 = WS
-							.url("http://maps.googleapis.com/maps/api/distancematrix/json?origins="
-									+ location
-									+ "&destinations="
-									+ aa.location
-									+ "&sensor=false").get().getJson()
-							.getAsJsonObject().getAsJsonArray("rows");
+					JsonArray myArry1 = WS.url("http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + location + "&destinations=" + aa.location + "&sensor=false").get().getJson().getAsJsonObject().getAsJsonArray("rows");
 					if (myArry1.size() == 0) {
 						flash.error("地点不准确。");
 						aa.distance = -1;
 						aa.distances = "";
 						aa.duration = "";
 					} else {
-						JsonObject myText2 = myArry1.get(0).getAsJsonObject()
-								.get("elements").getAsJsonArray().get(0)
-								.getAsJsonObject();
+						JsonObject myText2 = myArry1.get(0).getAsJsonObject().get("elements").getAsJsonArray().get(0).getAsJsonObject();
 						if (myText2.get("distance") == null) {
 							flash.error("地点不准确。");
 							aa.distance = -1;
 							aa.distances = "";
 							aa.duration = "";
 						} else {
-							String distances = myText2.get("distance")
-									.getAsJsonObject().get("text").toString();
-							long distance = Long.parseLong(myText2
-									.get("distance").getAsJsonObject()
-									.get("value").toString());
-							String duration = myText2.get("duration")
-									.getAsJsonObject().get("text").toString();
+							String distances = myText2.get("distance").getAsJsonObject().get("text").toString();
+							long distance = Long.parseLong(myText2.get("distance").getAsJsonObject().get("value").toString());
+							String duration = myText2.get("duration").getAsJsonObject().get("text").toString();
 							if (distance <= 10000) {
 								aa.distance = -distance;
 								aa.distances = distances;
@@ -135,12 +111,9 @@ public class Activities2 extends Application {
 			}
 		}
 
-		List<ActivityType> t = ActivityType.find("order by sequence asc")
-				.fetch();
-		List<ActivityScope> s = ActivityScope.find("order by sequence asc")
-				.fetch();
-		List<ActivityPeriod> p = ActivityPeriod.find("order by sequence asc")
-				.fetch();
+		List<ActivityType> t = ActivityType.find("order by sequence asc").fetch();
+		List<ActivityScope> s = ActivityScope.find("order by sequence asc").fetch();
+		List<ActivityPeriod> p = ActivityPeriod.find("order by sequence asc").fetch();
 		render(a, t, s, p, type, scope, days, location);
 	}
 
@@ -151,10 +124,9 @@ public class Activities2 extends Application {
 	}
 
 	public static void next(Activity a) {
-		final Validation.ValidationResult validationResult = validation
-				.valid(a);
+		final Validation.ValidationResult validationResult = validation.valid(a);
 		if (!validationResult.ok) {
-			
+
 			params.flash();
 			validation.keep();
 			flash.error("请更正错误。");
@@ -162,30 +134,24 @@ public class Activities2 extends Application {
 		}
 		Calendar date_from = Calendar.getInstance();
 		Calendar date_to = Calendar.getInstance();
-		date_from.set(Integer.parseInt(a.timeFrom.substring(0, 3)), Integer.parseInt(a.timeFrom.substring(5,6 )),Integer.parseInt(a.timeFrom.substring(8, 9)));
-		date_to.set(Integer.parseInt(a.timeTo.substring(0, 3)), Integer.parseInt(a.timeTo.substring(5,6 )),Integer.parseInt(a.timeTo.substring(8, 9)));
-		if (date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
-				|| date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
-				|| date_to.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
-				|| date_to.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+		date_from.set(Integer.parseInt(a.timeFrom.substring(0, 3)), Integer.parseInt(a.timeFrom.substring(5, 6)), Integer.parseInt(a.timeFrom.substring(8, 9)));
+		date_to.set(Integer.parseInt(a.timeTo.substring(0, 3)), Integer.parseInt(a.timeTo.substring(5, 6)), Integer.parseInt(a.timeTo.substring(8, 9)));
+		if (date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || date_from.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || date_to.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || date_to.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
 			a.isWeekend = true;
 		}
 		long publisher_id = Long.parseLong(session.get("logged"));
 		String publisher_type = session.get("usertype");
 		a.publisher_id = publisher_id;
 		a.publisher_type = publisher_type;
-		
-		System.out.println("user type:"+publisher_type);
-		
-		
-		
+
+		System.out.println("user type:" + publisher_type);
+
 		if (publisher_type.equals("simple")) {
 			SimpleUser user = SimpleUser.findById(publisher_id);
 			a.publisher_name = user.name;
 			a.publisher_profile = user.profile;
 
-		} 
-		else {
+		} else {
 			CSSA user = CSSA.findById(publisher_id);
 			a.publisher_name = user.name;
 			a.publisher_profile = user.profile;
@@ -195,10 +161,10 @@ public class Activities2 extends Application {
 		render(id);
 	}
 
-	public static void post(Long id, File poster,int top,int left,int height, int width) {
+	public static void post(Long id, File poster, int top, int left, int height, int width) {
 		String path = "public/images/poster/" + Codec.UUID() + ".jpg";
 		Images.crop(poster, poster, left, top, height, width);
-	 
+
 		Files.copy(poster, Play.getFile(path));
 		((Activity) Activity.findById(id)).savePoster(path);
 		flash.success("活动发布成功，正在进行审查。");
@@ -225,9 +191,7 @@ public class Activities2 extends Application {
 		} else if (a.publisher_type.equals("cssa")) {
 			renderArgs.put("publisher", CSSA.findById(a.publisher_id));
 		}
-		List<SimpleUser> activityJoiner = SimpleUser
-				.find("select user from SimpleUser user,ActivityJoiner aj where aj.jid = user.id and aid=?",
-						id).fetch();
+		List<SimpleUser> activityJoiner = SimpleUser.find("select user from SimpleUser user,ActivityJoiner aj where aj.jid = user.id and aid=?", id).fetch();
 		render(a, publisher_name, publisher_profile, activityJoiner);
 	}
 
@@ -261,13 +225,11 @@ public class Activities2 extends Application {
 
 		String type = session.get("type") == null ? "" : session.get("type");
 		String scope = session.get("scope") == null ? "" : session.get("scope");
-		String location = session.get("location") == null ? "" : session
-				.get("location");
+		String location = session.get("location") == null ? "" : session.get("location");
 
 		int pageSize = 3;
 		int start = (page - 1) * pageSize;
-		int days = session.get("days") == null ? -1 : Integer.parseInt(session
-				.get("days"));
+		int days = session.get("days") == null ? -1 : Integer.parseInt(session.get("days"));
 		Calendar cal = Calendar.getInstance();
 
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
@@ -276,23 +238,14 @@ public class Activities2 extends Application {
 
 		if (days == -1) {
 			date = f.format(cal.getTime());
-			a = Activity
-					.find("type like ? and scope like ? and (timeFrom >= ? or timeTo >= ?) order by id desc",
-							"%" + type + "%", scope + "%", date, date)
-					.from(start).fetch(pageSize);
+			a = Activity.find("type like ? and scope like ? and (timeFrom >= ? or timeTo >= ?) order by id desc", "%" + type + "%", scope + "%", date, date).from(start).fetch(pageSize);
 		} else if (days == -2) {
-			a = Activity
-					.find("type like ? and scope like ? and isWeekend=? order by id desc",
-							"%" + type + "%", scope + "%", true).from(start)
-					.fetch(pageSize);
+			a = Activity.find("type like ? and scope like ? and isWeekend=? order by id desc", "%" + type + "%", scope + "%", true).from(start).fetch(pageSize);
 		} else {
 			cal.add(Calendar.DAY_OF_MONTH, +days);
 			date = f.format(cal.getTime());
 			String nowDate = f.format(new Date());
-			a = Activity
-					.find("type like ? and scope like ? and  timeTo>=?  and  timeFrom<=? order by id desc",
-							"%" + type + "%", scope + "%", nowDate, date)
-					.from(start).fetch(pageSize);
+			a = Activity.find("type like ? and scope like ? and  timeTo>=?  and  timeFrom<=? order by id desc", "%" + type + "%", scope + "%", nowDate, date).from(start).fetch(pageSize);
 		}
 		if (a != null) {
 
@@ -304,35 +257,23 @@ public class Activities2 extends Application {
 					aa.distances = "";
 					aa.duration = "";
 				} else {
-					JsonArray myArry1 = WS
-							.url("http://maps.googleapis.com/maps/api/distancematrix/json?origins="
-									+ location
-									+ "&destinations="
-									+ aa.location
-									+ "&sensor=false").get().getJson()
-							.getAsJsonObject().getAsJsonArray("rows");
+					JsonArray myArry1 = WS.url("http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + location + "&destinations=" + aa.location + "&sensor=false").get().getJson().getAsJsonObject().getAsJsonArray("rows");
 					if (myArry1.size() == 0) {
 						flash.error("地点不准确。");
 						aa.distance = -1;
 						aa.distances = "";
 						aa.duration = "";
 					} else {
-						JsonObject myText2 = myArry1.get(0).getAsJsonObject()
-								.get("elements").getAsJsonArray().get(0)
-								.getAsJsonObject();
+						JsonObject myText2 = myArry1.get(0).getAsJsonObject().get("elements").getAsJsonArray().get(0).getAsJsonObject();
 						if (myText2.get("distance") == null) {
 							flash.error("地点不准确。");
 							aa.distance = -1;
 							aa.distances = "";
 							aa.duration = "";
 						} else {
-							String distances = myText2.get("distance")
-									.getAsJsonObject().get("text").toString();
-							long distance = Long.parseLong(myText2
-									.get("distance").getAsJsonObject()
-									.get("value").toString());
-							String duration = myText2.get("duration")
-									.getAsJsonObject().get("text").toString();
+							String distances = myText2.get("distance").getAsJsonObject().get("text").toString();
+							long distance = Long.parseLong(myText2.get("distance").getAsJsonObject().get("value").toString());
+							String duration = myText2.get("duration").getAsJsonObject().get("text").toString();
 							if (distance <= 10000) {
 								aa.distance = -distance;
 								aa.distances = distances;
@@ -349,35 +290,9 @@ public class Activities2 extends Application {
 		Iterator iter = a.iterator();
 		while (iter.hasNext()) {
 			Activity aa = (Activity) iter.next();
-			html = html
-					+ "<div class=\"second1\">"
-					+ "<div class=\"position-pic1\"><img src=\"/public/img/active_detailed_tag1.png\"></div>"
-					+ "<div class=\"third\">"
-					+ "<div class=\"post\">"
-					+ "<a href=\"/activity/detail/"
-					+ aa.id
-					+ "\"><img src=\""
-					+ aa.poster
-					+ "\"></a>"
-					+ "</div>"
-					+ "<div><a class=\"activity-title2\">"
-					+ aa.name
-					+ "</a></div><div>"
-					+ "<span></span> <span></span>"
-					+ "<span  style=\"font-size:12px;\">"
-					+ aa.timeFrom +" 至    "+aa.timeTo
-					+ "</span> <span class=\"canjiaNO\"> </span>"
-					+ "</div>"
-					+ "<a class=\"detailed\">"
-					+ aa.intro
-					+ "</a>"
-					+
+			html = html + "<div class=\"second1\">" + "<div class=\"position-pic1\"><img src=\"/public/img/active_detailed_tag1.png\"></div>" + "<div class=\"third\">" + "<div class=\"post\">" + "<a href=\"/activity/detail/" + aa.id + "\"><img src=\"" + aa.poster + "\"></a>" + "</div>" + "<div><a class=\"activity-title2\">" + aa.name + "</a></div><div>" + "<span></span> <span></span>" + "<span  style=\"font-size:12px;\">" + aa.timeFrom + " 至    " + aa.timeTo + "</span> <span class=\"canjiaNO\"> </span>" + "</div>" + "<a class=\"detailed\">" + aa.intro + "</a>" +
 
-					"<div class=\"look-btn\" style=\"z-index: 99; top: 308px; right:10px;\">"
-					+ "<a href=\"/activity/detail/"
-					+ aa.id
-					+ "\" class=\"btn btn-info\" type=\"button\"><span class=\"btn-font\">看看</span></a>"
-					+ "</div></div></div>";
+			"<div class=\"look-btn\" style=\"z-index: 99; top: 308px; right:10px;\">" + "<a href=\"/activity/detail/" + aa.id + "\" class=\"btn btn-info\" type=\"button\"><span class=\"btn-font\">看看</span></a>" + "</div></div></div>";
 		}
 
 		renderHtml(html);
@@ -385,8 +300,7 @@ public class Activities2 extends Application {
 
 	public static void join(long aid) {
 		long userId = Long.parseLong(session.get("logged"));
-		List aj_exist = ActivityJoiner.find("aid = ? and jid = ?", aid, userId)
-				.fetch();
+		List aj_exist = ActivityJoiner.find("aid = ? and jid = ?", aid, userId).fetch();
 		if (session.get("usertype").equals("cssa")) {
 			flash.error("抱歉，CSSA用户不可参加。");
 			detail(aid);
@@ -409,9 +323,7 @@ public class Activities2 extends Application {
 	public static void like(long aid) {
 		long userId = Long.parseLong(session.get("logged"));
 		String usertype = session.get("usertype");
-		List al_exist = ActivityLiker.find(
-				"aid = ? and lid = ? and ltype = ? ", aid, userId, usertype)
-				.fetch();
+		List al_exist = ActivityLiker.find("aid = ? and lid = ? and ltype = ? ", aid, userId, usertype).fetch();
 
 		if (!al_exist.isEmpty()) {
 			flash.error("您已关注");

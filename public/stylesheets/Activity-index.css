@@ -2,7 +2,7 @@
 	background: #5883a3;
 	color: #FFF;
 	border-radius: 5px;
-	padding: 10px;
+	 
 }
 
 .selected {
@@ -86,7 +86,7 @@ checkboxnan {
 }
 
 .list-fy {
-	margin-left: 20px;
+	 
 	white-space: nowrap;
 	padding: 0 6px;
 	float: left;
@@ -295,7 +295,7 @@ a:hover {
 }
 
 .third .post {
-	height: 250px;
+	height: 323px;
 	overflow: hidden;
 }
 

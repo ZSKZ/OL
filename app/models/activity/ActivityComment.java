@@ -8,6 +8,6 @@ import java.util.*;
 
 @Entity
 public class ActivityComment extends Model {
-    public long pid; //poster id
-    public String content;
+public long pid; // poster id
+public String content;
 }
