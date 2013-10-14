@@ -24,6 +24,7 @@ public class Notifier extends Mailer {
 		setFrom("Account@opporlink.com");
 		return sendAndWait(user);
 	}
+<<<<<<< HEAD
 
 	public static boolean resetPasswordSimpleUser(SimpleUser user) throws Exception {
 		setSubject("重置密码");
@@ -40,3 +41,21 @@ public class Notifier extends Mailer {
 	}
 
 }
+=======
+
+	public static boolean resetPasswordSimpleUser(SimpleUser user) throws Exception {
+		setSubject("重置密码");
+		addRecipient(user.email);
+		setFrom("Account@opporlink.com");
+		return sendAndWait(user);
+	}
+
+	public static boolean resetPasswordCSSA(CSSA user) throws Exception {
+		setSubject("重置密码");
+		addRecipient(user.email);
+		setFrom("Account@opporlink.com");
+		return sendAndWait(user);
+	}
+
+}
+>>>>>>> f96bcab57ecec46f3a0fae768bdcd75f3bad6050

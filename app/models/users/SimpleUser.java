@@ -17,13 +17,13 @@ public class SimpleUser extends Model {
 	public String needConfirmation;
 	public String passwordConfirmation;
 	public String profile;
-	
+
 	// User Detail
 
 	public String name;
 	public String contract;
 	public String selfIntro;
-	
+
 	// User Detail
 
 	public String school;
@@ -33,7 +33,6 @@ public class SimpleUser extends Model {
 	public String ralationship;
 	public boolean isAdmin;
 
-
 	public SimpleUser(String email, String password, String name) {
 		this.email = email;
 		this.name = name;
@@ -42,13 +41,15 @@ public class SimpleUser extends Model {
 		this.profile = "/public/images/user_default.jpg";
 		create();
 	}
-	
+
 	public boolean isAdmin() {
-        return  email.equals(Play.configuration.getProperty("forum.adminEmail", ""));
-    }
+		return email.equals(Play.configuration.getProperty("forum.adminEmail", ""));
+	}
+
 	public static SimpleUser findByRegistrationUUID(String uuid) {
 		return find("needConfirmation", uuid).first();
 	}
+
 	public static SimpleUser findByResetPasswordUUID(String uuid) {
 		return find("passwordConfirmation", uuid).first();
 	}
@@ -56,14 +57,17 @@ public class SimpleUser extends Model {
 	public boolean checkPassword(String password) {
 		return passwordHash.equals(Codec.hexMD5(password));
 	}
-	public void  changePassword(String password){
+
+	public void changePassword(String password) {
 		this.passwordHash = Codec.hexMD5(password);
 		save();
 	}
-	public void changeProfile(String path){
+
+	public void changeProfile(String path) {
 		this.profile = path;
 		save();
 	}
+
 	public static SimpleUser findByEmail(String email) {
 		return find("email", email).first();
 	}
@@ -71,10 +75,10 @@ public class SimpleUser extends Model {
 	public static boolean isEmailAvailable(String email) {
 		return findByEmail(email) == null;
 	}
-	public  void changeEmail(String email){
+
+	public void changeEmail(String email) {
 		this.email = email;
 		save();
 	}
-
 
 }

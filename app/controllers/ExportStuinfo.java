@@ -9,7 +9,19 @@ import play.mvc.Controller;
 import play.mvc.With;
 
 
+<<<<<<< HEAD
 public class ExportStuinfo  extends Controller {
+=======
+	public static void exportStu(String username) {
+		try {
+			//WritableWorkbook book = Workbook.createWorkbook(new File(
+				//	"..//Desktop/接机学生信息.xls"));
+			
+			WritableWorkbook book = Workbook.createWorkbook(new File(
+					"../接机学生信息.xls"));		
+			
+			WritableSheet sheet = book.createSheet("第一页", 0);
+>>>>>>> f96bcab57ecec46f3a0fae768bdcd75f3bad6050
 
     public static void index() {
     	List<StuInfo> contacts = StuInfo.findAll();

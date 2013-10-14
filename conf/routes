@@ -63,9 +63,15 @@ GET		/airport/volinfo/{id}						Airports.addVolInfo
 POST	/airport/volinfo/{schoolId}					Airports.doAddVolInfo
 GET		/airport/export								Airports.exportStu
 
+<<<<<<< HEAD
 GET     /export/exportStu/{username}               ExportStuinfo.exportStu
 GET     /airport/stuInfo/{username}                Airports.stuInfo
 GET     /airport/volInfoInfo/{username}            Airports.volInfoInfo
+=======
+#GET     /ExportStuinfo/exportStu/{username}                    ExportStuinfo.exportStu
+GET     /Airports/stuInfo/{username}                Airports.stuInfo
+GET     /Airports/volInfoInfo/{username}            Airports.volInfoInfo
+>>>>>>> f96bcab57ecec46f3a0fae768bdcd75f3bad6050
 
 
 #Pickup

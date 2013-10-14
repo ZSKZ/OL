@@ -10,9 +10,9 @@ import java.util.*;
 
 @Entity
 public class ActivityPeriod extends Model {
-	 @Required
-	 public String period;
-	 public short days;
-	 public short sequence;
-    
+	@Required
+	public String period;
+	public short days;
+	public short sequence;
+
 }

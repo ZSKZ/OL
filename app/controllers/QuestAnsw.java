@@ -471,5 +471,8 @@ public class QuestAnsw extends Application {
 		renderTemplate("CSSAs/infoCenter.html", user, CQues, CComment,
 				CFQues);
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> f96bcab57ecec46f3a0fae768bdcd75f3bad6050
 }

@@ -9,5 +9,5 @@ import java.util.*;
 @Entity
 public class ActivityType extends Model {
 	public String name;
-    public short sequence;
+	public short sequence;
 }
